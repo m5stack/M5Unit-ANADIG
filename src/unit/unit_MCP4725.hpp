@@ -193,14 +193,14 @@ public:
     /*!
       @brief Read the DAC register
       @param[out] pd Power down mode
-      @paran[out] raw Output voltage raw value
+      @param[out] raw Output voltage raw value
       @return True if successful
      */
     bool readDACRegister(mcp4725::PowerDown& pd, uint16_t& raw);
     /*!
       @brief Read the EEPROM settings
       @param[out] pd Power down mode
-      @paran[out] raw Output voltage raw value
+      @param[out] raw Output voltage raw value
       @return True if successful
      */
     bool readEEPROM(mcp4725::PowerDown& pd, uint16_t& raw);
