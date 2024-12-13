@@ -51,7 +51,7 @@ public:
         float val = std::fmin(std::fmax(mv, 0.0f), MAXIMUM_VOLTAGE);
         return static_cast<uint16_t>((val / supply_voltage) * RESOLUTION);
     }
-    
+
     /*!
       @struct config_t
       @brief Settings for begin
