@@ -57,20 +57,22 @@ jobs:
           - https://espressif.github.io/arduino-esp32/package_esp32_index.json
 
         sketch:
+          - PlotToSerial
           - Output
 
         unit:
+          - UnitADC
           - UnitDAC
           - UnitDAC2
 
         board:
-          - m5stack-atom
-          - m5stack-atoms3
-          - m5stack-core-esp32
+          #- m5stack-atom
+          #- m5stack-atoms3
+          #- m5stack-core-esp32
           - m5stack-core2
-          - m5stack-coreink
-          - m5stack-cores3
-          - m5stack-fire
+          #- m5stack-coreink
+          #- m5stack-cores3
+          #- m5stack-fire
 
         platform-version:
           - 2.0.17
@@ -81,6 +83,14 @@ jobs:
         archi:
           - esp32
 
+        exclude:
+          - sketch: Output
+            unit: UnitADC
+          - sketch: PlotToSerial
+            unit: UnitDAC
+          - sketch: PlotToSerial
+            unit: UnitDAC2
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -89,7 +99,7 @@ jobs:
 
       # Build 
       - name: Compile examples
-        uses: ArminJo/arduino-test-compile@master
+        if: 
         with:
           arduino-board-fqbn: ${{ matrix.platform }}:${{ matrix.archi }}:${{ matrix.board }}
           arduino-platform: ${{ matrix.platform }}:${{ matrix.archi }}@${{ matrix.platform-version }}

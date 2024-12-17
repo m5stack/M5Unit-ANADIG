@@ -7,8 +7,8 @@
   @file unit_MCP4725.hpp
   @brief MCP4725 Unit for M5UnitUnified
 */
-#ifndef M5_UNIT_ENV_UNIT_MCP4725_HPP
-#define M5_UNIT_ENV_UNIT_MCP4725_HPP
+#ifndef M5_UNIT_ANADIG_UNIT_MCP4725_HPP
+#define M5_UNIT_ANADIG_UNIT_MCP4725_HPP
 #include <M5UnitComponent.hpp>
 
 namespace m5 {

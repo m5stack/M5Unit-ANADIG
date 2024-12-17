@@ -7,8 +7,8 @@
   @file unit_GP8413.hpp
   @brief GP8413 Unit for M5UnitUnified
 */
-#ifndef M5_UNIT_ENV_UNIT_GP8413_HPP
-#define M5_UNIT_ENV_UNIT_GP8413_HPP
+#ifndef M5_UNIT_ANADIG_UNIT_GP8413_HPP
+#define M5_UNIT_ANADIG_UNIT_GP8413_HPP
 #include <M5UnitComponent.hpp>
 
 namespace m5 {
