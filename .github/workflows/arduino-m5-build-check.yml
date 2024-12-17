@@ -99,6 +99,14 @@ jobs:
         archi:
           - esp32
 
+        exclude:
+          - sketch: Output
+            unit: UnitADC
+          - sketch: PlotToSerial
+            unit: UnitDAC
+          - sketch: PlotToSerial
+            unit: UnitDAC2
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4

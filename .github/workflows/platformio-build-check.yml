@@ -113,6 +113,15 @@ jobs:
 #          - board: Paper
 #            espressif32: '4_4_0'
 
+
+        exclude:
+          - sketch: Output
+            unit: UnitADC
+          - sketch: PlotToSerial
+            unit: UnitDAC
+          - sketch: PlotToSerial
+            unit: UnitDAC2
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
