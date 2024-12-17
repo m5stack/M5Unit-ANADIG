@@ -99,6 +99,7 @@ jobs:
 
       # Build 
       - name: Compile examples
+        uses: ArminJo/arduino-test-compile@master
         with:
           arduino-board-fqbn: ${{ matrix.platform }}:${{ matrix.archi }}:${{ matrix.board }}
           arduino-platform: ${{ matrix.platform }}:${{ matrix.archi }}@${{ matrix.platform-version }}
