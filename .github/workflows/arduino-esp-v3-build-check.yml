@@ -57,8 +57,10 @@ jobs:
 
         sketch:
           - Output
+          - PlotToSerial
 
         unit:
+          - UnitADC
           - UnitDAC
           - UnitDAC2
 
