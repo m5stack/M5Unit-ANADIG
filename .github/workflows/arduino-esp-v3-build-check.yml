@@ -57,8 +57,10 @@ jobs:
 
         sketch:
           - Output
+          - PlotToSerial
 
         unit:
+          - UnitADC
           - UnitDAC
           - UnitDAC2
 
@@ -96,6 +98,14 @@ jobs:
 
         archi:
           - esp32
+
+        exclude:
+          - sketch: Output
+            unit: UnitADC
+          - sketch: PlotToSerial
+            unit: UnitDAC
+          - sketch: PlotToSerial
+            unit: UnitDAC2
 
     steps:
       - name: Checkout

@@ -11,11 +11,16 @@ DAC, is a unit with the ability to convert digital signal to analog signal (volt
 ### SKU:U012-B
 DAC2 Unit is an I2C digital-to-analog signal conversion unit. It utilizes the GP8413 solution, which provides high precision and accuracy in its performance. This chip can linearly convert a 15-bit digital value into two independent analog voltages of 0-5V or 0-10V. The output voltage error is only 0.2%, and it achieves linearity of up to 0.01%.
 
+### SKU:U013-V11
+ADC V1.1 Unit is an A/D conversion module that utilizes the ADS1110 chip, a 16-bit self-calibrating analog-to-digital converter. It is designed with an I2C interface, offering convenient connectivity. The module offers conversion speeds of 8, 16, 32, and 128 samples per second (SPS), providing varying levels of accuracy at 16, 15, 14, and 12 bits of resolution respectively.
+
+
 ## Related Link
 See also examples using conventional methods here.
 
 - [Unit DAC & Datasheet](https://docs.m5stack.com/en/unit/dac)
 - [Unit DAC2 & Datasheet](https://docs.m5stack.com/en/unit/Unit-DAC2)
+- [Unit ADC v1.1 & Datasheet](https://docs.m5stack.com/en/unit/Unit-ADC_V1.1)
 
 
 ### Required Libraries:
