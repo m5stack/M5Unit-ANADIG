@@ -57,9 +57,11 @@ jobs:
           - https://espressif.github.io/arduino-esp32/package_esp32_index.json
 
         sketch:
+          - PlotToSerial
           - Output
 
         unit:
+          - UnitADC
           - UnitDAC
           - UnitDAC2
 
@@ -80,6 +82,14 @@ jobs:
 
         archi:
           - esp32
+
+        exclude:
+          - sketch: Output
+            unit: UnitADC
+          - sketch: PlotToSerial
+            unit: UnitDAC
+          - sketch: PlotToSerial
+            unit: UnitDAC2
 
     steps:
       - name: Checkout

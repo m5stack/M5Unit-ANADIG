@@ -7,8 +7,8 @@
   @file unit_MCP4725.hpp
   @brief MCP4725 Unit for M5UnitUnified
 */
-#ifndef M5_UNIT_ENV_UNIT_MCP4725_HPP
-#define M5_UNIT_ENV_UNIT_MCP4725_HPP
+#ifndef M5_UNIT_ANADIG_UNIT_MCP4725_HPP
+#define M5_UNIT_ANADIG_UNIT_MCP4725_HPP
 #include <M5UnitComponent.hpp>
 
 namespace m5 {
@@ -193,14 +193,14 @@ public:
     /*!
       @brief Read the DAC register
       @param[out] pd Power down mode
-      @paran[out] raw Output voltage raw value
+      @param[out] raw Output voltage raw value
       @return True if successful
      */
     bool readDACRegister(mcp4725::PowerDown& pd, uint16_t& raw);
     /*!
       @brief Read the EEPROM settings
       @param[out] pd Power down mode
-      @paran[out] raw Output voltage raw value
+      @param[out] raw Output voltage raw value
       @return True if successful
      */
     bool readEEPROM(mcp4725::PowerDown& pd, uint16_t& raw);

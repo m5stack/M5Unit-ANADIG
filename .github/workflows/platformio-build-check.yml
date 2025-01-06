@@ -54,8 +54,10 @@ jobs:
       matrix:
         example:
           - Output
+          - PlotToSerial
 
         unit:
+          - UnitADC
           - UnitDAC
           - UnitDAC2
 
@@ -112,6 +114,14 @@ jobs:
 #            espressif32: '5_4_0'
 #          - board: Paper
 #            espressif32: '4_4_0'
+
+        exclude:
+          - example: Output
+            unit: UnitADC
+          - example: PlotToSerial
+            unit: UnitDAC
+          - example: PlotToSerial
+            unit: UnitDAC2
 
     steps:
       - name: Checkout
