@@ -14,7 +14,7 @@
 namespace {
 auto& lcd = M5.Display;
 m5::unit::UnitUnified Units;
-m5::unit::UnitADC unit;
+m5::unit::UnitADC11 unit;
 }  // namespace
 
 using namespace m5::unit::ads1110;

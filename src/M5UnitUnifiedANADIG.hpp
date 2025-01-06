@@ -29,9 +29,9 @@ namespace m5 {
  */
 namespace unit {
 
-using UnitADC  = m5::unit::UnitADS1110;
-using UnitDAC  = m5::unit::UnitMCP4725;
-using UnitDAC2 = m5::unit::UnitGP8413;
+using UnitADC11 = m5::unit::UnitADS1110;
+using UnitDAC   = m5::unit::UnitMCP4725;
+using UnitDAC2  = m5::unit::UnitGP8413;
 
 }  // namespace unit
 }  // namespace m5
