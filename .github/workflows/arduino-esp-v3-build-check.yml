@@ -43,10 +43,19 @@ on:
       - '**arduino-esp-v3-build-check.yml'
   workflow_dispatch:
 
+defaults:
+  run:
+    shell: bash
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   build:
     name: ${{ matrix.unit }}:${{ matrix.sketch }}:${{matrix.board}}@${{matrix.platform-version}}
     runs-on: ubuntu-latest
+    timeout-minutes: 5
 
     strategy:
       fail-fast: false
