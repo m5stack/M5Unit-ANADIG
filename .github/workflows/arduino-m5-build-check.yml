@@ -105,6 +105,11 @@ jobs:
         archi:
           - esp32
 
+        build-properties:
+          - "-DUSING_UNIT_ADC11"
+          - "-DUSING_UNIT_DAC"
+          - "-DUSING_UNIT_DAC2"
+
         exclude:
           - sketch: ADCInput
             build-properties: "-DUSING_UNIT_DAC"
