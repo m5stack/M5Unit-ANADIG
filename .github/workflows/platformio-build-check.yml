@@ -17,7 +17,7 @@ on:
       - 'examples/UnitUnified/**.hpp'
       - 'examples/UnitUnified/**.h'
       - 'examples/UnitUnified/**.c'
-      - '/platformio-build-check.yml'
+      - '**/platformio-build-check.yml'
       - '**platformio.ini'
   pull_request:
     paths:
