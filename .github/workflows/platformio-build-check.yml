@@ -54,13 +54,16 @@ jobs:
       
       matrix:
         example:
-          - Output
-          - PlotToSerial
+          - ADCInput
+          - DACOutput
 
         unit:
-          - UnitADC
+          - UnitADC11
           - UnitDAC
           - UnitDAC2
+#          - HatADC
+#          - HatADC11
+#          - HatDAC2
 
         board:
           - Core
@@ -117,12 +120,45 @@ jobs:
 #            espressif32: '4_4_0'
 
         exclude:
-          - example: Output
-            unit: UnitADC
-          - example: PlotToSerial
+          - example: ADCInput
             unit: UnitDAC
-          - example: PlotToSerial
+          - example: ADCInput
             unit: UnitDAC2
+          - example: DACOutput
+            unit: UnitADC11
+
+        include:
+          # Specific sketches
+          - sketch: ADCInput
+            framework: Arduino
+            espressif32: latest
+            unit: HatADC
+            board: StickCPlus
+          - sketch: ADCInput
+            framework: Arduino
+            espressif32: latest
+            unit: HatADC11
+            board: StickCPlus
+          - sketch: DACOutput
+            framework: Arduino
+            espressif32: latest
+            unit: HatDAC2
+            board: StickCPlus
+          - sketch: ADCInput
+            framework: Arduino
+            espressif32: latest
+            unit: HatADC
+            board: StickCPlus2
+          - sketch: ADCInput
+            framework: Arduino
+            espressif32: latest
+            unit: HatADC11
+            board: StickCPlus2
+          - sketch: DACOutput
+            framework: Arduino
+            espressif32: latest
+            unit: HatDAC2
+            board: StickCPlus2
 
     steps:
       - name: Checkout

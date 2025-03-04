@@ -13,6 +13,7 @@
 #ifndef M5_UNIT_UNIFIED_ANADIG_HPP
 #define M5_UNIT_UNIFIED_ANADIG_HPP
 
+#include "unit/unit_ADS1100.hpp"
 #include "unit/unit_ADS1110.hpp"
 #include "unit/unit_MCP4725.hpp"
 #include "unit/unit_GP8413.hpp"
@@ -32,6 +33,10 @@ namespace unit {
 using UnitADC11 = m5::unit::UnitADS1110;
 using UnitDAC   = m5::unit::UnitMCP4725;
 using UnitDAC2  = m5::unit::UnitGP8413;
+
+using HatADC   = m5::unit::UnitADS1100;
+using HatADC11 = m5::unit::UnitADS1110;
+using HatDAC2  = m5::unit::UnitGP8413;
 
 }  // namespace unit
 }  // namespace m5

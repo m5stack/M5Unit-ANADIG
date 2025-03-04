@@ -58,13 +58,16 @@ jobs:
           - https://m5stack.oss-cn-shenzhen.aliyuncs.com/resource/arduino/package_m5stack_index.json
 
         sketch:
-          - Output
-          - PlotToSerial
+          - ADCInput
+          - DACOutput
 
-        unit:
-          - UnitADC
-          - UnitDAC
-          - UnitDAC2
+#        unit:
+#          - UnitADC11
+#          - UnitDAC
+#          - UnitDAC2
+#          - HatADC
+#          - HatADC11
+#          - HatDAC2
 
         board:
           - m5stack_atom
@@ -103,12 +106,57 @@ jobs:
           - esp32
 
         exclude:
-          - sketch: Output
-            unit: UnitADC
-          - sketch: PlotToSerial
-            unit: UnitDAC
-          - sketch: PlotToSerial
-            unit: UnitDAC2
+          - sketch: ADCInput
+            build-properties: "-DUSING_UNIT_DAC"
+          - sketch: ADCInput
+            build-properties: "-DUSING_UNIT_DAC2"
+          - sketch: DACOutput
+            build-properties: "-DUSING_UNIT_ADC11"
+
+        include:
+          # Specific sketches
+          - sketch: ADCInput
+            platform-url: https://m5stack.oss-cn-shenzhen.aliyuncs.com/resource/arduino/package_m5stack_index.json
+            platform-version: 2.1.2
+            platform: m5stack
+            archi: esp32
+            board: m5stack_stickc_plus
+            build-properties: "-DUSING_HAT_ADC"
+          - sketch: ADCInput
+            platform-url: https://m5stack.oss-cn-shenzhen.aliyuncs.com/resource/arduino/package_m5stack_index.json
+            platform-version: 2.1.2
+            platform: m5stack
+            archi: esp32
+            board: m5stack_stickc_plus
+            build-properties: "-DUSING_HAT_ADC11"
+          - sketch: DACOutput
+            platform-url: https://m5stack.oss-cn-shenzhen.aliyuncs.com/resource/arduino/package_m5stack_index.json
+            platform-version: 2.1.2
+            platform: m5stack
+            archi: esp32
+            board: m5stack_stickc_plus
+            build-properties: "-DUSING_HAT_DAC2"
+          - sketch: ADCInput
+            platform-url: https://m5stack.oss-cn-shenzhen.aliyuncs.com/resource/arduino/package_m5stack_index.json
+            platform-version: 2.1.2
+            platform: m5stack
+            archi: esp32
+            board: m5stack_stickc_plus2
+            build-properties: "-DUSING_HAT_ADC"
+          - sketch: ADCInput
+            platform-url: https://m5stack.oss-cn-shenzhen.aliyuncs.com/resource/arduino/package_m5stack_index.json
+            platform-version: 2.1.2
+            platform: m5stack
+            archi: esp32
+            board: m5stack_stickc_plus2
+            build-properties: "-DUSING_HAT_ADC11"
+          - sketch: DACOutput
+            platform-url: https://m5stack.oss-cn-shenzhen.aliyuncs.com/resource/arduino/package_m5stack_index.json
+            platform-version: 2.1.2
+            platform: m5stack
+            archi: esp32
+            board: m5stack_stickc_plus2
+            build-properties: "-DUSING_HAT_DAC2"
 
     steps:
       - name: Checkout
@@ -125,7 +173,7 @@ jobs:
           platform-url: ${{ matrix.platform-url }}
           required-libraries: ${{ env.REQUIRED_LIBRARIES }}
           extra-arduino-cli-args: ${{ matrix.cli-args }}
-          #build-properties: ${{ toJson(matrix.build-properties) }}
+          build-properties: ${{ matrix.build-properties }}
           sketch-names: ${{ matrix.sketch }}.ino
           sketch-names-find-start: ${{ env.SKETCH_NAMES_FIND_START }}/${{ matrix.unit }}
           #sketches-exclude: ${{ matrix.sketches-exclude }}

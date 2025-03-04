@@ -14,6 +14,15 @@ DAC2 Unit is an I2C digital-to-analog signal conversion unit. It utilizes the GP
 ### SKU:U013-V11
 ADC V1.1 Unit is an A/D conversion module that utilizes the ADS1110 chip, a 16-bit self-calibrating analog-to-digital converter. It is designed with an I2C interface, offering convenient connectivity. The module offers conversion speeds of 8, 16, 32, and 128 samples per second (SPS), providing varying levels of accuracy at 16, 15, 14, and 12 bits of resolution respectively.
 
+### SKU:U068-B
+DAC2 Hat is an I2C digital-to-analog signal conversion unit designed to be compatible with the StickC series controllers. It offers high precision and accuracy in its performance by using the GP8413 solution
+
+### SKU:U069
+ADC HAT is another type of C-HAT specifically design for M5StickC controller. Same as ADC unit, this is an ADC converter component for stickc. Packed with an ADC converter chip ADS1100, 
+
+### SKU:U069-V11
+ADC HAT V1.1 is another type of C-HAT specifically design for M5StickC controller. Same as ADC unit, this is an ADC converter component for stickc. Packed with an ADC converter chip ADS1110, 
+
 
 ## Related Link
 See also examples using conventional methods here.
@@ -21,7 +30,9 @@ See also examples using conventional methods here.
 - [Unit DAC & Datasheet](https://docs.m5stack.com/en/unit/dac)
 - [Unit DAC2 & Datasheet](https://docs.m5stack.com/en/unit/Unit-DAC2)
 - [Unit ADC v1.1 & Datasheet](https://docs.m5stack.com/en/unit/Unit-ADC_V1.1)
-
+- [Hat DAC2 & Datasheet](https://docs.m5stack.com/en/hat/Hat-DAC2)
+- [Hat ADC & Datasheet](https://docs.m5stack.com/en/hat/hat-adc)
+- [Hat ADC v1.1 & Datasheet](https://docs.m5stack.com/en/hat/HAT-ADC-V11)
 
 ### Required Libraries:
 - [M5UnitUnified](https://github.com/m5stack/M5UnitUnified)
