@@ -128,33 +128,33 @@ jobs:
             unit: UnitADC11
 
         include:
-          # Specific sketches
-          - sketch: ADCInput
+          # Specific examples
+          - example: ADCInput
             framework: Arduino
             espressif32: latest
             unit: HatADC
             board: StickCPlus
-          - sketch: ADCInput
+          - example: ADCInput
             framework: Arduino
             espressif32: latest
             unit: HatADC11
             board: StickCPlus
-          - sketch: DACOutput
+          - example: DACOutput
             framework: Arduino
             espressif32: latest
             unit: HatDAC2
             board: StickCPlus
-          - sketch: ADCInput
+          - example: ADCInput
             framework: Arduino
             espressif32: latest
             unit: HatADC
             board: StickCPlus2
-          - sketch: ADCInput
+          - example: ADCInput
             framework: Arduino
             espressif32: latest
             unit: HatADC11
             board: StickCPlus2
-          - sketch: DACOutput
+          - example: DACOutput
             framework: Arduino
             espressif32: latest
             unit: HatDAC2
