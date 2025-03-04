@@ -1,14 +1,9 @@
 var searchData=
 [
-  ['unit_0',['unit',['../namespaceunit.html',1,'']]],
-  ['unit_5fads1110_2ecpp_1',['unit_ADS1110.cpp',['../unit___a_d_s1110_8cpp.html',1,'']]],
-  ['unit_5fads1110_2ehpp_2',['unit_ADS1110.hpp',['../unit___a_d_s1110_8hpp.html',1,'']]],
-  ['unit_5fgp8413_2ecpp_3',['unit_GP8413.cpp',['../unit___g_p8413_8cpp.html',1,'']]],
-  ['unit_5fgp8413_2ehpp_4',['unit_GP8413.hpp',['../unit___g_p8413_8hpp.html',1,'']]],
-  ['unit_5fmcp4725_2ecpp_5',['unit_MCP4725.cpp',['../unit___m_c_p4725_8cpp.html',1,'']]],
-  ['unit_5fmcp4725_2ehpp_6',['unit_MCP4725.hpp',['../unit___m_c_p4725_8hpp.html',1,'']]],
-  ['unitads1110_7',['UnitADS1110',['../classm5_1_1unit_1_1_unit_a_d_s1110.html',1,'m5::unit']]],
-  ['unitgp8413_8',['UnitGP8413',['../classm5_1_1unit_1_1_unit_g_p8413.html',1,'m5::unit']]],
-  ['unitmcp4725_9',['UnitMCP4725',['../classm5_1_1unit_1_1_unit_m_c_p4725.html',1,'m5::unit']]],
-  ['using_5feeprom_5fsettings_10',['using_eeprom_settings',['../structm5_1_1unit_1_1_unit_m_c_p4725_1_1config__t.html#a19037d1dab18b76d3fd5b98416149e60',1,'m5::unit::UnitMCP4725::config_t']]]
+  ['sampling_0',['Sampling',['../unit___a_d_s1100_8hpp.html#a6589394932daf2bde5266d2dbcb5c0f3',1,'m5::unit::ads1100::Sampling'],['../unit___a_d_s1110_8hpp.html#aaf34b838327572d223ee440c9877dd56',1,'m5::unit::ads1110::Sampling']]],
+  ['sampling_5frate_1',['sampling_rate',['../structm5_1_1unit_1_1_unit_a_d_s1100_1_1config__t.html#afb1ece8875b9c5d0ea3bb08ab883dc97',1,'m5::unit::UnitADS1100::config_t::sampling_rate'],['../structm5_1_1unit_1_1_unit_a_d_s1110_1_1config__t.html#a9d43ab03efe823058f00f6ca48b8d71c',1,'m5::unit::UnitADS1110::config_t::sampling_rate']]],
+  ['start_5fperiodic_2',['start_periodic',['../structm5_1_1unit_1_1_unit_a_d_s1100_1_1config__t.html#af11c312ea9ce4db46ed4bff7e832515d',1,'m5::unit::UnitADS1100::config_t::start_periodic'],['../structm5_1_1unit_1_1_unit_a_d_s1110_1_1config__t.html#ad4526bd9c8dc18700f5ac33374d85d1b',1,'m5::unit::UnitADS1110::config_t::start_periodic']]],
+  ['startperiodicmeasurement_3',['startPeriodicMeasurement',['../classm5_1_1unit_1_1_unit_a_d_s1100.html#a1910e3468133e307919e4aa0a6a3ac1b',1,'m5::unit::UnitADS1100::startPeriodicMeasurement(const ads1100::Sampling rate, const ads1100::PGA pga)'],['../classm5_1_1unit_1_1_unit_a_d_s1100.html#ae02c0cb7a22f0eefdbaf666d88d04e06',1,'m5::unit::UnitADS1100::startPeriodicMeasurement()'],['../classm5_1_1unit_1_1_unit_a_d_s1110.html#a37842a45e1f1fd86c771178aa0c4246a',1,'m5::unit::UnitADS1110::startPeriodicMeasurement(const ads1110::Sampling rate, const ads1110::PGA pga)'],['../classm5_1_1unit_1_1_unit_a_d_s1110.html#a34de1a9369d245be8a34445e81f8f86b',1,'m5::unit::UnitADS1110::startPeriodicMeasurement()']]],
+  ['stopperiodicmeasurement_4',['stopPeriodicMeasurement',['../classm5_1_1unit_1_1_unit_a_d_s1100.html#ab750de3755c5382438d6363481a466e5',1,'m5::unit::UnitADS1100::stopPeriodicMeasurement()'],['../classm5_1_1unit_1_1_unit_a_d_s1110.html#a4efa98da66075c6d984524dfda7d367b',1,'m5::unit::UnitADS1110::stopPeriodicMeasurement()']]],
+  ['supply_5fvoltage_5',['supply_voltage',['../structm5_1_1unit_1_1_unit_m_c_p4725_1_1config__t.html#adee3ff4694ee997b44f24174a2aa4654',1,'m5::unit::UnitMCP4725::config_t']]]
 ];

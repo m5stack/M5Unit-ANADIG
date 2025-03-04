@@ -27,7 +27,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">M5Unit-ANADIG<span id="projectnumber">&#160;0.0.1 git rev:4011769</span>
+   <div id="projectname">M5Unit-ANADIG<span id="projectnumber">&#160;0.1.0 git rev:3fbd370</span>
    </div>
   </td>
  </tr>
@@ -113,8 +113,11 @@ $(function(){initNavTree('classm5_1_1unit_1_1_unit_a_d_s1110.html',''); initResi
 Inheritance diagram for m5::unit::UnitADS1110:</div>
 <div class="dyncontent">
  <div class="center">
-  <img src="classm5_1_1unit_1_1_unit_a_d_s1110.png" alt=""/>
- </div></div>
+  <img src="classm5_1_1unit_1_1_unit_a_d_s1110.png" usemap="#m5::unit::UnitADS1110_map" alt=""/>
+  <map id="m5::unit::UnitADS1110_map" name="m5::unit::UnitADS1110_map">
+<area href="classm5_1_1unit_1_1_unit_a_d_s11_x_x.html" title="Base class of ADS1100,ADS1110." alt="m5::unit::UnitADS11XX" shape="rect" coords="190,56,560,80"/>
+  </map>
+</div></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
@@ -124,18 +127,14 @@ Classes</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a225d04ae8c26a2d920db91200e486622" id="r_a225d04ae8c26a2d920db91200e486622"><td class="memItemLeft" align="right" valign="top"><a id="a225d04ae8c26a2d920db91200e486622" name="a225d04ae8c26a2d920db91200e486622"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>UnitADS1110</b> (const uint8_t addr=DEFAULT_ADDRESS)</td></tr>
-<tr class="separator:a225d04ae8c26a2d920db91200e486622"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae67e3da7b94fd4d05c1770a8acebbc4e" id="r_ae67e3da7b94fd4d05c1770a8acebbc4e"><td class="memItemLeft" align="right" valign="top"><a id="ae67e3da7b94fd4d05c1770a8acebbc4e" name="ae67e3da7b94fd4d05c1770a8acebbc4e"></a>
-virtual bool&#160;</td><td class="memItemRight" valign="bottom"><b>begin</b> () override</td></tr>
+<tr class="memitem:aba3f93efcc2a9fc6bd3836290716d0fe" id="r_aba3f93efcc2a9fc6bd3836290716d0fe"><td class="memItemLeft" align="right" valign="top"><a id="aba3f93efcc2a9fc6bd3836290716d0fe" name="aba3f93efcc2a9fc6bd3836290716d0fe"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>UnitADS1110</b> (const float factor=100.f/610.f, const uint8_t addr=DEFAULT_ADDRESS)</td></tr>
+<tr class="separator:aba3f93efcc2a9fc6bd3836290716d0fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae67e3da7b94fd4d05c1770a8acebbc4e" id="r_ae67e3da7b94fd4d05c1770a8acebbc4e"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae67e3da7b94fd4d05c1770a8acebbc4e">begin</a> () override</td></tr>
 <tr class="separator:ae67e3da7b94fd4d05c1770a8acebbc4e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab9604e508af9573f431d652084b6b567" id="r_ab9604e508af9573f431d652084b6b567"><td class="memItemLeft" align="right" valign="top"><a id="ab9604e508af9573f431d652084b6b567" name="ab9604e508af9573f431d652084b6b567"></a>
-virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>update</b> (const bool force=false) override</td></tr>
-<tr class="separator:ab9604e508af9573f431d652084b6b567"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aafb7b0e79f9f23827d4e307e4da01d21" id="r_aafb7b0e79f9f23827d4e307e4da01d21"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aafb7b0e79f9f23827d4e307e4da01d21">generalReset</a> ()</td></tr>
-<tr class="memdesc:aafb7b0e79f9f23827d4e307e4da01d21"><td class="mdescLeft">&#160;</td><td class="mdescRight">General reset.  <br /></td></tr>
-<tr class="separator:aafb7b0e79f9f23827d4e307e4da01d21"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae30f7cba44f5e2539a7037680acecc83" id="r_ae30f7cba44f5e2539a7037680acecc83"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae30f7cba44f5e2539a7037680acecc83">generalReset</a> () override</td></tr>
+<tr class="memdesc:ae30f7cba44f5e2539a7037680acecc83"><td class="mdescLeft">&#160;</td><td class="mdescRight">General reset.  <br /></td></tr>
+<tr class="separator:ae30f7cba44f5e2539a7037680acecc83"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">Settings for begin</div></td></tr>
 <tr class="memitem:a78a724a01c9decba8bd156dd29affbfd" id="r_a78a724a01c9decba8bd156dd29affbfd"><td class="memItemLeft" align="right" valign="top"><a id="a78a724a01c9decba8bd156dd29affbfd" name="a78a724a01c9decba8bd156dd29affbfd"></a>
 <a class="el" href="structm5_1_1unit_1_1_unit_a_d_s1110_1_1config__t.html">config_t</a>&#160;</td><td class="memItemRight" valign="bottom"><b>config</b> ()</td></tr>
@@ -145,15 +144,6 @@ virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>update</b> (c
 void&#160;</td><td class="memItemRight" valign="bottom"><b>config</b> (const <a class="el" href="structm5_1_1unit_1_1_unit_a_d_s1110_1_1config__t.html">config_t</a> &amp;cfg)</td></tr>
 <tr class="memdesc:abb3126cd483113516b5a87fca4ba4e39"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the configration. <br /></td></tr>
 <tr class="separator:abb3126cd483113516b5a87fca4ba4e39"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr><td colspan="2"><div class="groupHeader">Measurement data by periodic</div></td></tr>
-<tr class="memitem:ac841407d4a0c9a54de337190556bda99" id="r_ac841407d4a0c9a54de337190556bda99"><td class="memItemLeft" align="right" valign="top"><a id="ac841407d4a0c9a54de337190556bda99" name="ac841407d4a0c9a54de337190556bda99"></a>
-int16_t&#160;</td><td class="memItemRight" valign="bottom"><b>differentialValue</b> () const</td></tr>
-<tr class="memdesc:ac841407d4a0c9a54de337190556bda99"><td class="mdescLeft">&#160;</td><td class="mdescRight">Oldest measured differential value. <br /></td></tr>
-<tr class="separator:ac841407d4a0c9a54de337190556bda99"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad90e173e3ebf106905f75a52561615d6" id="r_ad90e173e3ebf106905f75a52561615d6"><td class="memItemLeft" align="right" valign="top"><a id="ad90e173e3ebf106905f75a52561615d6" name="ad90e173e3ebf106905f75a52561615d6"></a>
-float&#160;</td><td class="memItemRight" valign="bottom"><b>differentialVoltage</b> () const</td></tr>
-<tr class="memdesc:ad90e173e3ebf106905f75a52561615d6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Oldest measured differential voltage(mV) <br /></td></tr>
-<tr class="separator:ad90e173e3ebf106905f75a52561615d6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">Settings</div></td></tr>
 <tr class="memitem:afec2fb796b6efa1826caa903706c9a2a" id="r_afec2fb796b6efa1826caa903706c9a2a"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#afec2fb796b6efa1826caa903706c9a2a">readSamplingRate</a> (<a class="el" href="unit___a_d_s1110_8hpp.html#aaf34b838327572d223ee440c9877dd56">ads1110::Sampling</a> &amp;rate)</td></tr>
 <tr class="memdesc:afec2fb796b6efa1826caa903706c9a2a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read the Sampling rate.  <br /></td></tr>
@@ -161,14 +151,8 @@ float&#160;</td><td class="memItemRight" valign="bottom"><b>differentialVoltage<
 <tr class="memitem:a842b2513f92db85d43be3a518fc9b5da" id="r_a842b2513f92db85d43be3a518fc9b5da"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a842b2513f92db85d43be3a518fc9b5da">writeSamplingRate</a> (const <a class="el" href="unit___a_d_s1110_8hpp.html#aaf34b838327572d223ee440c9877dd56">ads1110::Sampling</a> rate)</td></tr>
 <tr class="memdesc:a842b2513f92db85d43be3a518fc9b5da"><td class="mdescLeft">&#160;</td><td class="mdescRight">Write the Sampling rate.  <br /></td></tr>
 <tr class="separator:a842b2513f92db85d43be3a518fc9b5da"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a41f51ce9bf0c2ab55a877acbd6b62ff4" id="r_a41f51ce9bf0c2ab55a877acbd6b62ff4"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a41f51ce9bf0c2ab55a877acbd6b62ff4">readPGA</a> (<a class="el" href="unit___a_d_s1110_8hpp.html#a1dd4990bab238167aa2964514f26e272">ads1110::PGA</a> &amp;pga)</td></tr>
-<tr class="memdesc:a41f51ce9bf0c2ab55a877acbd6b62ff4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read the PGA.  <br /></td></tr>
-<tr class="separator:a41f51ce9bf0c2ab55a877acbd6b62ff4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae953689610e5c02ab96d3b0d21f3054b" id="r_ae953689610e5c02ab96d3b0d21f3054b"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae953689610e5c02ab96d3b0d21f3054b">writePGA</a> (const <a class="el" href="unit___a_d_s1110_8hpp.html#a1dd4990bab238167aa2964514f26e272">ads1110::PGA</a> pga)</td></tr>
-<tr class="memdesc:ae953689610e5c02ab96d3b0d21f3054b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Write the PGA.  <br /></td></tr>
-<tr class="separator:ae953689610e5c02ab96d3b0d21f3054b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">Periodic measurement</div></td></tr>
-<tr class="memitem:a37842a45e1f1fd86c771178aa0c4246a" id="r_a37842a45e1f1fd86c771178aa0c4246a"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a37842a45e1f1fd86c771178aa0c4246a">startPeriodicMeasurement</a> (const <a class="el" href="unit___a_d_s1110_8hpp.html#aaf34b838327572d223ee440c9877dd56">ads1110::Sampling</a> rate, const <a class="el" href="unit___a_d_s1110_8hpp.html#a1dd4990bab238167aa2964514f26e272">ads1110::PGA</a> pga)</td></tr>
+<tr class="memitem:a37842a45e1f1fd86c771178aa0c4246a" id="r_a37842a45e1f1fd86c771178aa0c4246a"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a37842a45e1f1fd86c771178aa0c4246a">startPeriodicMeasurement</a> (const <a class="el" href="unit___a_d_s1110_8hpp.html#aaf34b838327572d223ee440c9877dd56">ads1110::Sampling</a> rate, const <a class="el" href="unit___a_d_s11xx_8hpp.html#a95f6d2d54a1e5af2f353ec7117fd69ee">ads1110::PGA</a> pga)</td></tr>
 <tr class="memdesc:a37842a45e1f1fd86c771178aa0c4246a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Start periodic measurement.  <br /></td></tr>
 <tr class="separator:a37842a45e1f1fd86c771178aa0c4246a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a34de1a9369d245be8a34445e81f8f86b" id="r_a34de1a9369d245be8a34445e81f8f86b"><td class="memItemLeft" align="right" valign="top"><a id="a34de1a9369d245be8a34445e81f8f86b" name="a34de1a9369d245be8a34445e81f8f86b"></a>
@@ -179,49 +163,134 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>startPeriodicMeasurem
 <tr class="memdesc:a4efa98da66075c6d984524dfda7d367b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stop periodic measurement.  <br /></td></tr>
 <tr class="separator:a4efa98da66075c6d984524dfda7d367b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">Single shot measurement</div></td></tr>
-<tr class="memitem:a9109b082b770a9df24a3578930f56f4c" id="r_a9109b082b770a9df24a3578930f56f4c"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9109b082b770a9df24a3578930f56f4c">measureSingleshot</a> (<a class="el" href="structm5_1_1unit_1_1ads1110_1_1_data.html">ads1110::Data</a> &amp;data, const <a class="el" href="unit___a_d_s1110_8hpp.html#aaf34b838327572d223ee440c9877dd56">ads1110::Sampling</a> rate, const <a class="el" href="unit___a_d_s1110_8hpp.html#a1dd4990bab238167aa2964514f26e272">ads1110::PGA</a> pga)</td></tr>
+<tr class="memitem:a9109b082b770a9df24a3578930f56f4c" id="r_a9109b082b770a9df24a3578930f56f4c"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9109b082b770a9df24a3578930f56f4c">measureSingleshot</a> (<a class="el" href="structm5_1_1unit_1_1ads11xx_1_1_data.html">ads1110::Data</a> &amp;data, const <a class="el" href="unit___a_d_s1110_8hpp.html#aaf34b838327572d223ee440c9877dd56">ads1110::Sampling</a> rate, const <a class="el" href="unit___a_d_s11xx_8hpp.html#a95f6d2d54a1e5af2f353ec7117fd69ee">ads1110::PGA</a> pga)</td></tr>
 <tr class="memdesc:a9109b082b770a9df24a3578930f56f4c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Measurement single shot.  <br /></td></tr>
 <tr class="separator:a9109b082b770a9df24a3578930f56f4c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a14d8e2af4306a39d6d0cbe51059bd1c9" id="r_a14d8e2af4306a39d6d0cbe51059bd1c9"><td class="memItemLeft" align="right" valign="top"><a id="a14d8e2af4306a39d6d0cbe51059bd1c9" name="a14d8e2af4306a39d6d0cbe51059bd1c9"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>measureSingleshot</b> (<a class="el" href="structm5_1_1unit_1_1ads1110_1_1_data.html">ads1110::Data</a> &amp;data)</td></tr>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>measureSingleshot</b> (<a class="el" href="structm5_1_1unit_1_1ads11xx_1_1_data.html">ads1110::Data</a> &amp;data)</td></tr>
 <tr class="memdesc:a14d8e2af4306a39d6d0cbe51059bd1c9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Measurement single shot using current settings. <br /></td></tr>
 <tr class="separator:a14d8e2af4306a39d6d0cbe51059bd1c9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pub_methods_classm5_1_1unit_1_1_unit_a_d_s11_x_x"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pub_methods_classm5_1_1unit_1_1_unit_a_d_s11_x_x')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classm5_1_1unit_1_1_unit_a_d_s11_x_x.html">m5::unit::UnitADS11XX</a></td></tr>
+<tr class="memitem:a6088bce30cef0a0dc5f7246d44dcc6b7 inherit pub_methods_classm5_1_1unit_1_1_unit_a_d_s11_x_x" id="r_a6088bce30cef0a0dc5f7246d44dcc6b7"><td class="memItemLeft" align="right" valign="top">
+&#160;</td><td class="memItemRight" valign="bottom"><b>UnitADS11XX</b> (const uint8_t addr=DEFAULT_ADDRESS)</td></tr>
+<tr class="separator:a6088bce30cef0a0dc5f7246d44dcc6b7 inherit pub_methods_classm5_1_1unit_1_1_unit_a_d_s11_x_x"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7efa3e525dddb83a51f2b78ea7284bea inherit pub_methods_classm5_1_1unit_1_1_unit_a_d_s11_x_x" id="r_a7efa3e525dddb83a51f2b78ea7284bea"><td class="memItemLeft" align="right" valign="top">
+virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>update</b> (const bool force=false) override</td></tr>
+<tr class="separator:a7efa3e525dddb83a51f2b78ea7284bea inherit pub_methods_classm5_1_1unit_1_1_unit_a_d_s11_x_x"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9b4861abd3061b4bfb0791d803b32a17 inherit pub_methods_classm5_1_1unit_1_1_unit_a_d_s11_x_x" id="r_a9b4861abd3061b4bfb0791d803b32a17"><td class="memItemLeft" align="right" valign="top">
+int16_t&#160;</td><td class="memItemRight" valign="bottom"><b>differentialValue</b> () const</td></tr>
+<tr class="memdesc:a9b4861abd3061b4bfb0791d803b32a17 inherit pub_methods_classm5_1_1unit_1_1_unit_a_d_s11_x_x"><td class="mdescLeft">&#160;</td><td class="mdescRight">Oldest measured differential value. <br /></td></tr>
+<tr class="separator:a9b4861abd3061b4bfb0791d803b32a17 inherit pub_methods_classm5_1_1unit_1_1_unit_a_d_s11_x_x"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3cdb73dc36d1e7d487db11f1a536647c inherit pub_methods_classm5_1_1unit_1_1_unit_a_d_s11_x_x" id="r_a3cdb73dc36d1e7d487db11f1a536647c"><td class="memItemLeft" align="right" valign="top">
+float&#160;</td><td class="memItemRight" valign="bottom"><b>differentialVoltage</b> () const</td></tr>
+<tr class="memdesc:a3cdb73dc36d1e7d487db11f1a536647c inherit pub_methods_classm5_1_1unit_1_1_unit_a_d_s11_x_x"><td class="mdescLeft">&#160;</td><td class="mdescRight">Oldest measured differential voltage(mV) <br /></td></tr>
+<tr class="separator:a3cdb73dc36d1e7d487db11f1a536647c inherit pub_methods_classm5_1_1unit_1_1_unit_a_d_s11_x_x"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad206d7b394d0ea24375fc30907751b3e inherit pub_methods_classm5_1_1unit_1_1_unit_a_d_s11_x_x" id="r_ad206d7b394d0ea24375fc30907751b3e"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classm5_1_1unit_1_1_unit_a_d_s11_x_x.html#ad206d7b394d0ea24375fc30907751b3e">readPGA</a> (<a class="el" href="unit___a_d_s11xx_8hpp.html#a95f6d2d54a1e5af2f353ec7117fd69ee">ads11xx::PGA</a> &amp;pga)</td></tr>
+<tr class="memdesc:ad206d7b394d0ea24375fc30907751b3e inherit pub_methods_classm5_1_1unit_1_1_unit_a_d_s11_x_x"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read the PGA.  <br /></td></tr>
+<tr class="separator:ad206d7b394d0ea24375fc30907751b3e inherit pub_methods_classm5_1_1unit_1_1_unit_a_d_s11_x_x"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2b2836409e05ae42d75a6684cb3de4ef inherit pub_methods_classm5_1_1unit_1_1_unit_a_d_s11_x_x" id="r_a2b2836409e05ae42d75a6684cb3de4ef"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classm5_1_1unit_1_1_unit_a_d_s11_x_x.html#a2b2836409e05ae42d75a6684cb3de4ef">writePGA</a> (const <a class="el" href="unit___a_d_s11xx_8hpp.html#a95f6d2d54a1e5af2f353ec7117fd69ee">ads11xx::PGA</a> pga)</td></tr>
+<tr class="memdesc:a2b2836409e05ae42d75a6684cb3de4ef inherit pub_methods_classm5_1_1unit_1_1_unit_a_d_s11_x_x"><td class="mdescLeft">&#160;</td><td class="mdescRight">Write the PGA.  <br /></td></tr>
+<tr class="separator:a2b2836409e05ae42d75a6684cb3de4ef inherit pub_methods_classm5_1_1unit_1_1_unit_a_d_s11_x_x"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-methods" name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
-<tr class="memitem:a859e9274323f201cfa0beae380c28613" id="r_a859e9274323f201cfa0beae380c28613"><td class="memItemLeft" align="right" valign="top"><a id="a859e9274323f201cfa0beae380c28613" name="a859e9274323f201cfa0beae380c28613"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>read_config</b> (uint8_t &amp;v)</td></tr>
-<tr class="separator:a859e9274323f201cfa0beae380c28613"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2ccb4dff6be4161748f0c7b238cd6509" id="r_a2ccb4dff6be4161748f0c7b238cd6509"><td class="memItemLeft" align="right" valign="top"><a id="a2ccb4dff6be4161748f0c7b238cd6509" name="a2ccb4dff6be4161748f0c7b238cd6509"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>write_config</b> (const uint8_t v)</td></tr>
-<tr class="separator:a2ccb4dff6be4161748f0c7b238cd6509"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9d137e58809a44af6be843eb3d32a9fb" id="r_a9d137e58809a44af6be843eb3d32a9fb"><td class="memItemLeft" align="right" valign="top"><a id="a9d137e58809a44af6be843eb3d32a9fb" name="a9d137e58809a44af6be843eb3d32a9fb"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>read_measurement</b> (uint8_t *v)</td></tr>
-<tr class="separator:a9d137e58809a44af6be843eb3d32a9fb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3c988a5f8f06440879ae9e7a16279842" id="r_a3c988a5f8f06440879ae9e7a16279842"><td class="memItemLeft" align="right" valign="top"><a id="a3c988a5f8f06440879ae9e7a16279842" name="a3c988a5f8f06440879ae9e7a16279842"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>is_data_ready</b> ()</td></tr>
-<tr class="separator:a3c988a5f8f06440879ae9e7a16279842"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7cead811e4fb9499f865d0f76a57e185" id="r_a7cead811e4fb9499f865d0f76a57e185"><td class="memItemLeft" align="right" valign="top"><a id="a7cead811e4fb9499f865d0f76a57e185" name="a7cead811e4fb9499f865d0f76a57e185"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>start_periodic_measurement</b> (const <a class="el" href="unit___a_d_s1110_8hpp.html#aaf34b838327572d223ee440c9877dd56">ads1110::Sampling</a> rate, const <a class="el" href="unit___a_d_s1110_8hpp.html#a1dd4990bab238167aa2964514f26e272">ads1110::PGA</a> pga)</td></tr>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>start_periodic_measurement</b> (const <a class="el" href="unit___a_d_s1110_8hpp.html#aaf34b838327572d223ee440c9877dd56">ads1110::Sampling</a> rate, const <a class="el" href="unit___a_d_s11xx_8hpp.html#a95f6d2d54a1e5af2f353ec7117fd69ee">ads1110::PGA</a> pga)</td></tr>
 <tr class="separator:a7cead811e4fb9499f865d0f76a57e185"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0cae7696fec02e9dc382e3bad6203802" id="r_a0cae7696fec02e9dc382e3bad6203802"><td class="memItemLeft" align="right" valign="top"><a id="a0cae7696fec02e9dc382e3bad6203802" name="a0cae7696fec02e9dc382e3bad6203802"></a>
+<tr class="memitem:a13df588b6e17fa16c4ff79511d20895b" id="r_a13df588b6e17fa16c4ff79511d20895b"><td class="memItemLeft" align="right" valign="top">virtual uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a13df588b6e17fa16c4ff79511d20895b">get_interval</a> (const uint8_t rate) override</td></tr>
+<tr class="separator:a13df588b6e17fa16c4ff79511d20895b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pro_methods_classm5_1_1unit_1_1_unit_a_d_s11_x_x"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pro_methods_classm5_1_1unit_1_1_unit_a_d_s11_x_x')"><img src="closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="classm5_1_1unit_1_1_unit_a_d_s11_x_x.html">m5::unit::UnitADS11XX</a></td></tr>
+<tr class="memitem:a6746029553fc6f57c7d4997aa3526bad inherit pro_methods_classm5_1_1unit_1_1_unit_a_d_s11_x_x" id="r_a6746029553fc6f57c7d4997aa3526bad"><td class="memItemLeft" align="right" valign="top">
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>start_periodic_measurement</b> (const uint8_t cfg_value)</td></tr>
+<tr class="separator:a6746029553fc6f57c7d4997aa3526bad inherit pro_methods_classm5_1_1unit_1_1_unit_a_d_s11_x_x"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8310fda9e847d4e4a2a3cbccdf50c72f inherit pro_methods_classm5_1_1unit_1_1_unit_a_d_s11_x_x" id="r_a8310fda9e847d4e4a2a3cbccdf50c72f"><td class="memItemLeft" align="right" valign="top">
 bool&#160;</td><td class="memItemRight" valign="bottom"><b>start_periodic_measurement</b> ()</td></tr>
-<tr class="separator:a0cae7696fec02e9dc382e3bad6203802"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa00ac587f35bd3773162ebc2471d131b" id="r_aa00ac587f35bd3773162ebc2471d131b"><td class="memItemLeft" align="right" valign="top"><a id="aa00ac587f35bd3773162ebc2471d131b" name="aa00ac587f35bd3773162ebc2471d131b"></a>
+<tr class="separator:a8310fda9e847d4e4a2a3cbccdf50c72f inherit pro_methods_classm5_1_1unit_1_1_unit_a_d_s11_x_x"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9b0ec27627d2a09359449e4775b16ab7 inherit pro_methods_classm5_1_1unit_1_1_unit_a_d_s11_x_x" id="r_a9b0ec27627d2a09359449e4775b16ab7"><td class="memItemLeft" align="right" valign="top">
 bool&#160;</td><td class="memItemRight" valign="bottom"><b>stop_periodic_measurement</b> ()</td></tr>
-<tr class="separator:aa00ac587f35bd3773162ebc2471d131b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0f2bc4bf08dfcc0dd437fc2d8ca46298" id="r_a0f2bc4bf08dfcc0dd437fc2d8ca46298"><td class="memItemLeft" align="right" valign="top"><a id="a0f2bc4bf08dfcc0dd437fc2d8ca46298" name="a0f2bc4bf08dfcc0dd437fc2d8ca46298"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>M5_UNIT_COMPONENT_PERIODIC_MEASUREMENT_ADAPTER_HPP_BUILDER</b> (<a class="el" href="classm5_1_1unit_1_1_unit_a_d_s1110.html">UnitADS1110</a>, <a class="el" href="structm5_1_1unit_1_1ads1110_1_1_data.html">ads1110::Data</a>)</td></tr>
-<tr class="separator:a0f2bc4bf08dfcc0dd437fc2d8ca46298"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="separator:a9b0ec27627d2a09359449e4775b16ab7 inherit pro_methods_classm5_1_1unit_1_1_unit_a_d_s11_x_x"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8b1ed694f33b39a4f1045aa19ea0a914 inherit pro_methods_classm5_1_1unit_1_1_unit_a_d_s11_x_x" id="r_a8b1ed694f33b39a4f1045aa19ea0a914"><td class="memItemLeft" align="right" valign="top">
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>measure_singleshot</b> (<a class="el" href="structm5_1_1unit_1_1ads11xx_1_1_data.html">ads11xx::Data</a> &amp;data, const uint8_t cfg_value)</td></tr>
+<tr class="separator:a8b1ed694f33b39a4f1045aa19ea0a914 inherit pro_methods_classm5_1_1unit_1_1_unit_a_d_s11_x_x"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1422a23cd8c6e8094b1bf57408f44f22 inherit pro_methods_classm5_1_1unit_1_1_unit_a_d_s11_x_x" id="r_a1422a23cd8c6e8094b1bf57408f44f22"><td class="memItemLeft" align="right" valign="top">
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>measure_singleshot</b> (<a class="el" href="structm5_1_1unit_1_1ads11xx_1_1_data.html">ads11xx::Data</a> &amp;data)</td></tr>
+<tr class="separator:a1422a23cd8c6e8094b1bf57408f44f22 inherit pro_methods_classm5_1_1unit_1_1_unit_a_d_s11_x_x"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a462ae157552db9a8d51eff603ac6e4ab inherit pro_methods_classm5_1_1unit_1_1_unit_a_d_s11_x_x" id="r_a462ae157552db9a8d51eff603ac6e4ab"><td class="memItemLeft" align="right" valign="top">
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>read_config</b> (uint8_t &amp;v)</td></tr>
+<tr class="separator:a462ae157552db9a8d51eff603ac6e4ab inherit pro_methods_classm5_1_1unit_1_1_unit_a_d_s11_x_x"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a19d39b675441f6956ab09fdf9d34954a inherit pro_methods_classm5_1_1unit_1_1_unit_a_d_s11_x_x" id="r_a19d39b675441f6956ab09fdf9d34954a"><td class="memItemLeft" align="right" valign="top">
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>write_config</b> (const uint8_t v)</td></tr>
+<tr class="separator:a19d39b675441f6956ab09fdf9d34954a inherit pro_methods_classm5_1_1unit_1_1_unit_a_d_s11_x_x"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af87114c62dccdd9647eca49d56b1bbe2 inherit pro_methods_classm5_1_1unit_1_1_unit_a_d_s11_x_x" id="r_af87114c62dccdd9647eca49d56b1bbe2"><td class="memItemLeft" align="right" valign="top">
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>read_measurement</b> (uint8_t v[2])</td></tr>
+<tr class="separator:af87114c62dccdd9647eca49d56b1bbe2 inherit pro_methods_classm5_1_1unit_1_1_unit_a_d_s11_x_x"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab87d3bd4d992612c9d10ef9abe41924a inherit pro_methods_classm5_1_1unit_1_1_unit_a_d_s11_x_x" id="r_ab87d3bd4d992612c9d10ef9abe41924a"><td class="memItemLeft" align="right" valign="top">
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>is_data_ready</b> ()</td></tr>
+<tr class="separator:ab87d3bd4d992612c9d10ef9abe41924a inherit pro_methods_classm5_1_1unit_1_1_unit_a_d_s11_x_x"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af4e9e24b4dc580d835d2df4169d0d133 inherit pro_methods_classm5_1_1unit_1_1_unit_a_d_s11_x_x" id="r_af4e9e24b4dc580d835d2df4169d0d133"><td class="memItemLeft" align="right" valign="top">
+virtual bool&#160;</td><td class="memItemRight" valign="bottom"><b>read_if_ready_in_periodic</b> (uint8_t v[2])</td></tr>
+<tr class="separator:af4e9e24b4dc580d835d2df4169d0d133 inherit pro_methods_classm5_1_1unit_1_1_unit_a_d_s11_x_x"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4b6d4edbac3e2cc399aa04756366fcea inherit pro_methods_classm5_1_1unit_1_1_unit_a_d_s11_x_x" id="r_a4b6d4edbac3e2cc399aa04756366fcea"><td class="memItemLeft" align="right" valign="top">
+&#160;</td><td class="memItemRight" valign="bottom"><b>M5_UNIT_COMPONENT_PERIODIC_MEASUREMENT_ADAPTER_HPP_BUILDER</b> (<a class="el" href="classm5_1_1unit_1_1_unit_a_d_s11_x_x.html">UnitADS11XX</a>, <a class="el" href="structm5_1_1unit_1_1ads11xx_1_1_data.html">ads11xx::Data</a>)</td></tr>
+<tr class="separator:a4b6d4edbac3e2cc399aa04756366fcea inherit pro_methods_classm5_1_1unit_1_1_unit_a_d_s11_x_x"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="inherited" name="inherited"></a>
+Additional Inherited Members</h2></td></tr>
+<tr class="inherit_header pro_attribs_classm5_1_1unit_1_1_unit_a_d_s11_x_x"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pro_attribs_classm5_1_1unit_1_1_unit_a_d_s11_x_x')"><img src="closed.png" alt="-"/>&#160;Protected Attributes inherited from <a class="el" href="classm5_1_1unit_1_1_unit_a_d_s11_x_x.html">m5::unit::UnitADS11XX</a></td></tr>
+<tr class="memitem:a8e5f897e6d6ad511510f8419264bf141 inherit pro_attribs_classm5_1_1unit_1_1_unit_a_d_s11_x_x" id="r_a8e5f897e6d6ad511510f8419264bf141"><td class="memItemLeft" align="right" valign="top">
+std::unique_ptr&lt; m5::container::CircularBuffer&lt; <a class="el" href="structm5_1_1unit_1_1ads11xx_1_1_data.html">ads11xx::Data</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>_data</b> {}</td></tr>
+<tr class="separator:a8e5f897e6d6ad511510f8419264bf141 inherit pro_attribs_classm5_1_1unit_1_1_unit_a_d_s11_x_x"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6e92d1e22255534839c2e205879bb547 inherit pro_attribs_classm5_1_1unit_1_1_unit_a_d_s11_x_x" id="r_a6e92d1e22255534839c2e205879bb547"><td class="memItemLeft" align="right" valign="top">
+<a class="el" href="unit___a_d_s11xx_8hpp.html#a95f6d2d54a1e5af2f353ec7117fd69ee">ads11xx::PGA</a>&#160;</td><td class="memItemRight" valign="bottom"><b>_pga</b> {}</td></tr>
+<tr class="separator:a6e92d1e22255534839c2e205879bb547 inherit pro_attribs_classm5_1_1unit_1_1_unit_a_d_s11_x_x"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7a85a1f83ef0ba7935ea5ddcc3532955 inherit pro_attribs_classm5_1_1unit_1_1_unit_a_d_s11_x_x" id="r_a7a85a1f83ef0ba7935ea5ddcc3532955"><td class="memItemLeft" align="right" valign="top">
+uint8_t&#160;</td><td class="memItemRight" valign="bottom"><b>_rate</b> {}</td></tr>
+<tr class="separator:a7a85a1f83ef0ba7935ea5ddcc3532955 inherit pro_attribs_classm5_1_1unit_1_1_unit_a_d_s11_x_x"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3cd4ae4f0d3e1582b801ddcb41e3cf7c inherit pro_attribs_classm5_1_1unit_1_1_unit_a_d_s11_x_x" id="r_a3cd4ae4f0d3e1582b801ddcb41e3cf7c"><td class="memItemLeft" align="right" valign="top">
+float&#160;</td><td class="memItemRight" valign="bottom"><b>_vdd</b> {2.048f}</td></tr>
+<tr class="separator:a3cd4ae4f0d3e1582b801ddcb41e3cf7c inherit pro_attribs_classm5_1_1unit_1_1_unit_a_d_s11_x_x"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6e457b8236eb48a29a882fe29d035682 inherit pro_attribs_classm5_1_1unit_1_1_unit_a_d_s11_x_x" id="r_a6e457b8236eb48a29a882fe29d035682"><td class="memItemLeft" align="right" valign="top">
+float&#160;</td><td class="memItemRight" valign="bottom"><b>_factor</b> {1.0f}</td></tr>
+<tr class="separator:a6e457b8236eb48a29a882fe29d035682 inherit pro_attribs_classm5_1_1unit_1_1_unit_a_d_s11_x_x"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>16-bit, self-calibrating, delta-sigma A/D converter </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="aafb7b0e79f9f23827d4e307e4da01d21" name="aafb7b0e79f9f23827d4e307e4da01d21"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aafb7b0e79f9f23827d4e307e4da01d21">&#9670;&#160;</a></span>generalReset()</h2>
+<a id="ae67e3da7b94fd4d05c1770a8acebbc4e" name="ae67e3da7b94fd4d05c1770a8acebbc4e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae67e3da7b94fd4d05c1770a8acebbc4e">&#9670;&#160;</a></span>begin()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool m5::unit::UnitADS1110::begin </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Reimplemented from <a class="el" href="classm5_1_1unit_1_1_unit_a_d_s11_x_x.html">m5::unit::UnitADS11XX</a>.</p>
+
+</div>
+</div>
+<a id="ae30f7cba44f5e2539a7037680acecc83" name="ae30f7cba44f5e2539a7037680acecc83"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae30f7cba44f5e2539a7037680acecc83">&#9670;&#160;</a></span>generalReset()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">bool m5::unit::UnitADS1110::generalReset </td>
@@ -230,11 +299,45 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>stop_periodic_measure
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>General reset. </p>
 <p>Reset using I2C general call </p><dl class="section return"><dt>Returns</dt><dd>True if successful </dd></dl>
 <dl class="section warning"><dt>Warning</dt><dd>This is a reset by General command, the command is also sent to all devices with I2C connections </dd></dl>
+
+<p>Reimplemented from <a class="el" href="classm5_1_1unit_1_1_unit_a_d_s11_x_x.html#a576528bb41e30975444d952affa440ce">m5::unit::UnitADS11XX</a>.</p>
+
+</div>
+</div>
+<a id="a13df588b6e17fa16c4ff79511d20895b" name="a13df588b6e17fa16c4ff79511d20895b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a13df588b6e17fa16c4ff79511d20895b">&#9670;&#160;</a></span>get_interval()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t m5::unit::UnitADS1110::get_interval </td>
+          <td>(</td>
+          <td class="paramtype">const uint8_t</td>          <td class="paramname"><span class="paramname"><em>rate</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Reimplemented from <a class="el" href="classm5_1_1unit_1_1_unit_a_d_s11_x_x.html">m5::unit::UnitADS11XX</a>.</p>
 
 </div>
 </div>
@@ -247,7 +350,7 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>stop_periodic_measure
         <tr>
           <td class="memname">bool m5::unit::UnitADS1110::measureSingleshot </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="structm5_1_1unit_1_1ads1110_1_1_data.html">ads1110::Data</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>data</em></span>, </td>
+          <td class="paramtype"><a class="el" href="structm5_1_1unit_1_1ads11xx_1_1_data.html">ads1110::Data</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>data</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -257,7 +360,7 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>stop_periodic_measure
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="unit___a_d_s1110_8hpp.html#a1dd4990bab238167aa2964514f26e272">ads1110::PGA</a></td>          <td class="paramname"><span class="paramname"><em>pga</em></span>&#160;)</td>
+          <td class="paramtype">const <a class="el" href="unit___a_d_s11xx_8hpp.html#a95f6d2d54a1e5af2f353ec7117fd69ee">ads1110::PGA</a></td>          <td class="paramname"><span class="paramname"><em>pga</em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -278,32 +381,6 @@ Blocking time depends on rate value </dd></dl>
 <dl class="section warning"><dt>Warning</dt><dd>During periodic detection runs, an error is returned </dd>
 <dd>
 Each setting is overwritten </dd></dl>
-
-</div>
-</div>
-<a id="a41f51ce9bf0c2ab55a877acbd6b62ff4" name="a41f51ce9bf0c2ab55a877acbd6b62ff4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a41f51ce9bf0c2ab55a877acbd6b62ff4">&#9670;&#160;</a></span>readPGA()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool m5::unit::UnitADS1110::readPGA </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="unit___a_d_s1110_8hpp.html#a1dd4990bab238167aa2964514f26e272">ads1110::PGA</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>pga</em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Read the PGA. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramdir">[out]</td><td class="paramname">pga</td><td>PGA </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>True if successful </dd></dl>
 
 </div>
 </div>
@@ -350,7 +427,7 @@ Each setting is overwritten </dd></dl>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="unit___a_d_s1110_8hpp.html#a1dd4990bab238167aa2964514f26e272">ads1110::PGA</a></td>          <td class="paramname"><span class="paramname"><em>pga</em></span>&#160;)</td>
+          <td class="paramtype">const <a class="el" href="unit___a_d_s11xx_8hpp.html#a95f6d2d54a1e5af2f353ec7117fd69ee">ads1110::PGA</a></td>          <td class="paramname"><span class="paramname"><em>pga</em></span>&#160;)</td>
         </tr>
       </table>
   </td>
@@ -397,33 +474,6 @@ Each setting is overwritten </dd></dl>
 
 <p>Stop periodic measurement. </p>
 <dl class="section return"><dt>Returns</dt><dd>True if successful </dd></dl>
-
-</div>
-</div>
-<a id="ae953689610e5c02ab96d3b0d21f3054b" name="ae953689610e5c02ab96d3b0d21f3054b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae953689610e5c02ab96d3b0d21f3054b">&#9670;&#160;</a></span>writePGA()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool m5::unit::UnitADS1110::writePGA </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="unit___a_d_s1110_8hpp.html#a1dd4990bab238167aa2964514f26e272">ads1110::PGA</a></td>          <td class="paramname"><span class="paramname"><em>pga</em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Write the PGA. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">pga</td><td>PGA </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>True if successful </dd></dl>
-<dl class="section warning"><dt>Warning</dt><dd>During periodic detection runs, an error is returned </dd></dl>
 
 </div>
 </div>

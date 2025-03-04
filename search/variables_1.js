@@ -1,6 +1,4 @@
 var searchData=
 [
-  ['range0_0',['range0',['../structm5_1_1unit_1_1_unit_g_p8413_1_1config__t.html#a49a54032db9553be7a5371f99e5029e8',1,'m5::unit::UnitGP8413::config_t']]],
-  ['range1_1',['range1',['../structm5_1_1unit_1_1_unit_g_p8413_1_1config__t.html#a61e564d5728a7df0f56f31802a44e519',1,'m5::unit::UnitGP8413::config_t']]],
-  ['raw_2',['raw',['../structm5_1_1unit_1_1ads1110_1_1_data.html#a2a3cb5c1cf56dfa0da0976fca66602bd',1,'m5::unit::ads1110::Data']]]
+  ['pga_0',['pga',['../structm5_1_1unit_1_1_unit_a_d_s1100_1_1config__t.html#a06b5dcc5384c19bb4f3b24920ce4dad4',1,'m5::unit::UnitADS1100::config_t::pga'],['../structm5_1_1unit_1_1_unit_a_d_s1110_1_1config__t.html#a99545d207b0aa125c4ff1330f3ff24b6',1,'m5::unit::UnitADS1110::config_t::pga'],['../structm5_1_1unit_1_1ads11xx_1_1_data.html#a38735f8976ed78aef2c7a22877b10f86',1,'m5::unit::ads11xx::Data::pga']]]
 ];

@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['differentialvalue_0',['differentialValue',['../structm5_1_1unit_1_1ads1110_1_1_data.html#a4c99f1f97cca4c9fb509078b4da35f6a',1,'m5::unit::ads1110::Data::differentialValue()'],['../classm5_1_1unit_1_1_unit_a_d_s1110.html#ac841407d4a0c9a54de337190556bda99',1,'m5::unit::UnitADS1110::differentialValue()']]],
-  ['differentialvoltage_1',['differentialVoltage',['../structm5_1_1unit_1_1ads1110_1_1_data.html#a73ea08d31061b703b39ba5f25cb34598',1,'m5::unit::ads1110::Data::differentialVoltage()'],['../classm5_1_1unit_1_1_unit_a_d_s1110.html#ad90e173e3ebf106905f75a52561615d6',1,'m5::unit::UnitADS1110::differentialVoltage()']]]
+  ['differentialvalue_0',['differentialValue',['../structm5_1_1unit_1_1ads11xx_1_1_data.html#ab8f25920cb844ec40b0d88d391dfc896',1,'m5::unit::ads11xx::Data::differentialValue()'],['../classm5_1_1unit_1_1_unit_a_d_s11_x_x.html#a9b4861abd3061b4bfb0791d803b32a17',1,'m5::unit::UnitADS11XX::differentialValue()']]],
+  ['differentialvoltage_1',['differentialVoltage',['../structm5_1_1unit_1_1ads11xx_1_1_data.html#a13006db7337c498c8e9982e8ec111557',1,'m5::unit::ads11xx::Data::differentialVoltage()'],['../classm5_1_1unit_1_1_unit_a_d_s11_x_x.html#a3cdb73dc36d1e7d487db11f1a536647c',1,'m5::unit::UnitADS11XX::differentialVoltage()']]]
 ];
