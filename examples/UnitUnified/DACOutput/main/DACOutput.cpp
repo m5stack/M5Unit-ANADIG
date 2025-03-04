@@ -146,7 +146,6 @@ void loop()
     static float pv0{}, pv1{};
 #if defined(USING_UNIT_DAC)
     static float max_0{m5::unit::UnitDAC::MAXIMUM_VOLTAGE};
-    static float max_1{};
 #else
     static float max_0{unit.maximumVoltage(Channel::Zero)};
     static float max_1{unit.maximumVoltage(Channel::One)};
