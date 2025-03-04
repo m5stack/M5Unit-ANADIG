@@ -12,16 +12,12 @@ on:
       - 'src/unit/**.hpp'
       - 'src/unit/**.h'
       - 'src/unit/**.c'
-      - 'test/**.cpp'
-      - 'test/**.hpp'
-      - 'test/**.h'
-      - 'test/**.c'
       - 'examples/UnitUnified/**.ino'
       - 'examples/UnitUnified/**.cpp'
       - 'examples/UnitUnified/**.hpp'
       - 'examples/UnitUnified/**.h'
       - 'examples/UnitUnified/**.c'
-      - '/platformio-build-check.yml'
+      - '**/platformio-build-check.yml'
       - '**platformio.ini'
   pull_request:
     paths:
@@ -29,10 +25,6 @@ on:
       - 'src/unit/**.hpp'
       - 'src/unit/**.h'
       - 'src/unit/**.c'
-      - 'test/**.cpp'
-      - 'test/**.hpp'
-      - 'test/**.h'
-      - 'test/**.c'
       - 'examples/UnitUnified/**.ino'
       - 'examples/UnitUnified/**.cpp'
       - 'examples/UnitUnified/**.hpp'
@@ -42,10 +34,19 @@ on:
       - '**platformio.ini'
   workflow_dispatch:
 
+defaults:
+  run:
+    shell: bash
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   build:
     name: ${{ matrix.unit }}:${{ matrix.example }}@${{ matrix.board }}:${{ matrix.framework }}:${{ matrix.espressif32 }}
     runs-on: ubuntu-latest
+    timeout-minutes: 5
 
     strategy:
       fail-fast: false
@@ -53,13 +54,16 @@ jobs:
       
       matrix:
         example:
-          - Output
-          - PlotToSerial
+          - ADCInput
+          - DACOutput
 
         unit:
-          - UnitADC
+          - UnitADC11
           - UnitDAC
           - UnitDAC2
+#          - HatADC
+#          - HatADC11
+#          - HatDAC2
 
         board:
           - Core
@@ -116,12 +120,45 @@ jobs:
 #            espressif32: '4_4_0'
 
         exclude:
-          - example: Output
-            unit: UnitADC
-          - example: PlotToSerial
+          - example: ADCInput
             unit: UnitDAC
-          - example: PlotToSerial
+          - example: ADCInput
             unit: UnitDAC2
+          - example: DACOutput
+            unit: UnitADC11
+
+        include:
+          # Specific examples
+          - example: ADCInput
+            framework: Arduino
+            espressif32: latest
+            unit: HatADC
+            board: StickCPlus
+          - example: ADCInput
+            framework: Arduino
+            espressif32: latest
+            unit: HatADC11
+            board: StickCPlus
+          - example: DACOutput
+            framework: Arduino
+            espressif32: latest
+            unit: HatDAC2
+            board: StickCPlus
+          - example: ADCInput
+            framework: Arduino
+            espressif32: latest
+            unit: HatADC
+            board: StickCPlus2
+          - example: ADCInput
+            framework: Arduino
+            espressif32: latest
+            unit: HatADC11
+            board: StickCPlus2
+          - example: DACOutput
+            framework: Arduino
+            espressif32: latest
+            unit: HatDAC2
+            board: StickCPlus2
 
     steps:
       - name: Checkout

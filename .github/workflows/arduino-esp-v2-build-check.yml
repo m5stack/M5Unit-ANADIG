@@ -16,10 +16,6 @@ on:
       - 'src/unit/**.hpp'
       - 'src/unit/**.h'
       - 'src/unit/**.c'
-      - 'test/**.cpp'
-      - 'test/**.hpp'
-      - 'test/**.h'
-      - 'test/**.c'
       - 'examples/UnitUnified/**.ino'
       - 'examples/UnitUnified/**.cpp'
       - 'examples/UnitUnified/**.hpp'
@@ -32,10 +28,6 @@ on:
       - 'src/unit/**.hpp'
       - 'src/unit/**.h'
       - 'src/unit/**.c'
-      - 'test/**.cpp'
-      - 'test/**.hpp'
-      - 'test/**.h'
-      - 'test/**.c'
       - 'examples/UnitUnified/**.ino'
       - 'examples/UnitUnified/**.cpp'
       - 'examples/UnitUnified/**.hpp'
@@ -44,10 +36,19 @@ on:
       - '**arduino-esp-v2-build-check.yml'
   workflow_dispatch:
 
+defaults:
+  run:
+    shell: bash
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   build:
-    name: ${{ matrix.unit }}:${{ matrix.sketch }}:${{matrix.board}}@${{matrix.platform-version}}
+    name: ${{ matrix.build-properties }}:${{ matrix.sketch }}:${{matrix.board}}@${{matrix.platform-version}}
     runs-on: ubuntu-latest
+    timeout-minutes: 5
 
     strategy:
       fail-fast: false
@@ -57,13 +58,16 @@ jobs:
           - https://espressif.github.io/arduino-esp32/package_esp32_index.json
 
         sketch:
-          - PlotToSerial
-          - Output
+          - ADCInput
+          - DACOutput
 
-        unit:
-          - UnitADC
-          - UnitDAC
-          - UnitDAC2
+#        unit:
+#          - UnitADC11
+#          - UnitDAC
+#          - UnitDAC2
+#          - HatADC
+#          - HatADC11
+#          - HatDAC2
 
         board:
           - m5stack-atom
@@ -83,13 +87,18 @@ jobs:
         archi:
           - esp32
 
+        build-properties:
+          - "-DUSING_UNIT_ADC11"
+          - "-DUSING_UNIT_DAC"
+          - "-DUSING_UNIT_DAC2"
+
         exclude:
-          - sketch: Output
-            unit: UnitADC
-          - sketch: PlotToSerial
-            unit: UnitDAC
-          - sketch: PlotToSerial
-            unit: UnitDAC2
+          - sketch: ADCInput
+            build-properties: "-DUSING_UNIT_DAC"
+          - sketch: ADCInput
+            build-properties: "-DUSING_UNIT_DAC2"
+          - sketch: DACOutput
+            build-properties: "-DUSING_UNIT_ADC11"
 
     steps:
       - name: Checkout
@@ -106,7 +115,7 @@ jobs:
           platform-url: ${{ matrix.platform-url }}
           required-libraries: ${{ env.REQUIRED_LIBRARIES }}
           extra-arduino-cli-args: ${{ matrix.cli-args }}
-          #build-properties: ${{ toJson(matrix.build-properties) }}
+          build-properties: ${{ matrix.build-properties }}
           sketch-names: ${{ matrix.sketch }}.ino
           sketch-names-find-start: ${{ env.SKETCH_NAMES_FIND_START }}/${{ matrix.unit }}
           #sketches-exclude: ${{ matrix.sketches-exclude }}

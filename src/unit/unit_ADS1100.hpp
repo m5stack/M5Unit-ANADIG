@@ -1,45 +1,45 @@
 /*
- * SPDX-FileCopyrightText: 2024 M5Stack Technology CO LTD
+ * SPDX-FileCopyrightText: 2025 M5Stack Technology CO LTD
  *
  * SPDX-License-Identifier: MIT
  */
 /*!
-  @file unit_ADS1110.hpp
-  @brief ADS1110 Unit for M5UnitUnified
+  @file unit_ADS1100.hpp
+  @brief ADS1100 Unit for M5UnitUnified
 */
-#ifndef M5_UNIT_ANADIG_UNIT_ADS1110_HPP
-#define M5_UNIT_ANADIG_UNIT_ADS1110_HPP
+#ifndef M5_UNIT_ANADIG_UNIT_ADS1100_HPP
+#define M5_UNIT_ANADIG_UNIT_ADS1100_HPP
 #include "unit_ADS11xx.hpp"
 
 namespace m5 {
 namespace unit {
 /*!
-  @namespace ads1110
-  @brief For ADS1110
+  @namespace ads1100
+  @brief For ADS1100
 */
-namespace ads1110 {
+namespace ads1100 {
 /*!
   @enum Sampling
   @brief Data sampling rate for periodic
  */
 enum class Sampling : uint8_t {
-    Rate240,  //!< 240 SPS
-    Rate60,   //!< 60 SPS
-    Rate30,   //!< 30 SPS
-    Rate15,   //!< 15 SPS as default
+    Rate128,  //!< 128 SPS
+    Rate32,   //!< 32 SPS
+    Rate16,   //!< 16 SPS
+    Rate8     //!< 8 SPS (as default)
 };
 
 using PGA  = m5::unit::ads11xx::PGA;
 using Data = m5::unit::ads11xx::Data;
 
-}  // namespace ads1110
+}  // namespace ads1100
 
 /*!
-  @class UnitADS1110
+  @class UnitADS1100
   @brief 16-bit, self-calibrating, delta-sigma A/D converter
 */
-class UnitADS1110 : public UnitADS11XX {
-    M5_UNIT_COMPONENT_HPP_BUILDER(UnitADS1110, 0x48);
+class UnitADS1100 : public UnitADS11XX {
+    M5_UNIT_COMPONENT_HPP_BUILDER(UnitADS1100, 0x48);
 
 public:
     /*!
@@ -50,19 +50,23 @@ public:
         //! Start periodic measurement on begin?
         bool start_periodic{true};
         //! Data sampling rate if start on begin
-        ads1110::Sampling sampling_rate{ads1110::Sampling::Rate15};
+        //        ads1100::Sampling sampling_rate{ads1100::Sampling::Rate8};
+        ads1100::Sampling sampling_rate{ads1100::Sampling::Rate32};
         //! PGA if start on begin
-        ads1110::PGA pga{ads1110::PGA::Gain1};
+        ads1100::PGA pga{ads1100::PGA::Gain1};
+        //! VDD (mV) Unit/HatADC is 3.3V
+        float vdd{3300.f};
         //! Correction factor (Normalization factor of input due to voltage divider resistors, etc)
-        float factor{100.f / 610.f};
+        float factor{0.25f};
     };
 
-    explicit UnitADS1110(const float factor = 100.f / 610.f, const uint8_t addr = DEFAULT_ADDRESS) : UnitADS11XX(addr)
+    explicit UnitADS1100(const float vdd = 3.3f, const float factor = 0.25f, const uint8_t addr = DEFAULT_ADDRESS)
+        : UnitADS11XX(addr)
     {
-        _vdd        = 2048.f;  // Fixed (internal VDD)
+        _vdd        = vdd;
         _cfg.factor = _factor = factor;
     }
-    virtual ~UnitADS1110()
+    virtual ~UnitADS1100()
     {
     }
 
@@ -89,14 +93,14 @@ public:
       @param[out] rate Sampling rate
       @return True if successful
      */
-    bool readSamplingRate(ads1110::Sampling& rate);
+    bool readSamplingRate(ads1100::Sampling& rate);
     /*!
       @brief Write the Sampling rate
       @param rate Sampling rate
       @return True if successful
       @warning During periodic detection runs, an error is returned
     */
-    bool writeSamplingRate(const ads1110::Sampling rate);
+    bool writeSamplingRate(const ads1100::Sampling rate);
     ///@}
 
     ///@name Periodic measurement
@@ -107,7 +111,7 @@ public:
       @param pga Programmable Gain Amplifier
       @return True if successful
     */
-    inline bool startPeriodicMeasurement(const ads1110::Sampling rate, const ads1110::PGA pga)
+    inline bool startPeriodicMeasurement(const ads1100::Sampling rate, const ads1100::PGA pga)
     {
         return start_periodic_measurement(rate, pga);
     }
@@ -139,9 +143,9 @@ public:
       @warning During periodic detection runs, an error is returned
       @warning Each setting is overwritten
     */
-    bool measureSingleshot(ads1110::Data& data, const ads1110::Sampling rate, const ads1110::PGA pga);
+    bool measureSingleshot(ads1100::Data& data, const ads1100::Sampling rate, const ads1100::PGA pga);
     //! @brief Measurement single shot using current settings
-    inline bool measureSingleshot(ads1110::Data& data)
+    inline bool measureSingleshot(ads1100::Data& data)
     {
         return UnitADS11XX::measure_singleshot(data);
     }
@@ -156,7 +160,8 @@ public:
     virtual bool generalReset() override;
 
 protected:
-    bool start_periodic_measurement(const ads1110::Sampling rate, const ads1110::PGA pga);
+    bool start_periodic_measurement(const ads1100::Sampling rate, const ads1100::PGA pga);
+    virtual bool read_if_ready_in_periodic(uint8_t v[2]) override;
     virtual uint32_t get_interval(const uint8_t rate) override;
 
 private:
