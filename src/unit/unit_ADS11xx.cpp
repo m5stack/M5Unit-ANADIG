@@ -27,7 +27,7 @@ const int32_t Data::min_code_table[4] = {-2048, -8192, -16384, -32768};
 
 const char UnitADS11XX::name[] = "UnitADS11XX";
 const types::uid_t UnitADS11XX::uid{"UnitADS11XX"_mmh3};
-const types::uid_t UnitADS11XX::attr{0};
+const types::attr_t UnitADS11XX::attr{0};
 
 bool UnitADS11XX::begin()
 {

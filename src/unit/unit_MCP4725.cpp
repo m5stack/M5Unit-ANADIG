@@ -22,7 +22,7 @@ namespace unit {
 
 const char UnitMCP4725::name[] = "UnitMCP4725";
 const types::uid_t UnitMCP4725::uid{"UnitMCP4725"_mmh3};
-const types::uid_t UnitMCP4725::attr{0};
+const types::attr_t UnitMCP4725::attr{0};
 
 bool UnitMCP4725::begin()
 {

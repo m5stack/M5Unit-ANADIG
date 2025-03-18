@@ -29,7 +29,7 @@ namespace unit {
 
 const char UnitADS1100::name[] = "UnitADS1100";
 const types::uid_t UnitADS1100::uid{"UnitADS1100"_mmh3};
-const types::uid_t UnitADS1100::attr{0};
+const types::attr_t UnitADS1100::attr{0};
 
 bool UnitADS1100::begin()
 {
