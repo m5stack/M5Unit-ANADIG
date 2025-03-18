@@ -217,19 +217,16 @@ private:
     config_t _cfg{};
 };
 
-///@cond
 namespace gp8413 {
+///@cond
 namespace command {
-
-constexpr uint8_t OUTPUT_RANGE{0x01};
-constexpr uint8_t OUTPUT_CHANNEL_0{0x02};
-constexpr uint8_t OUTPUT_CHANNEL_1{0x04};
-
+constexpr uint8_t OUTPUT_RANGE_REG{0x01};
+constexpr uint8_t OUTPUT_CHANNEL0_REG{0x02};
+constexpr uint8_t OUTPUT_CHANNEL1_REG{0x04};
 }  // namespace command
-}  // namespace gp8413
 ///@endcond
+}  // namespace gp8413
 
 }  // namespace unit
 }  // namespace m5
-
 #endif

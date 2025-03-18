@@ -17,13 +17,17 @@ using namespace m5::unit::gp8413::command;
 
 namespace {
 constexpr uint8_t channel_reg_table[] = {
-    OUTPUT_CHANNEL_0,
-    OUTPUT_CHANNEL_1,
+    OUTPUT_CHANNEL0_REG,
+    OUTPUT_CHANNEL1_REG,
 };
 constexpr float max_mv_table[] = {
     5000.f,
     10000.f,
 };
+
+constexpr uint8_t mode_nibble_table[] = {0x05, 0x07};
+// constexpr uint8_t mode_nibble_table[] = {0x00, 0x01}; // old
+
 }  // namespace
 
 namespace m5 {
@@ -45,8 +49,9 @@ bool UnitGP8413::begin()
 
 bool UnitGP8413::writeOutputRange(const gp8413::Output range0, const gp8413::Output range1)
 {
-    uint8_t v = m5::stl::to_underlying(range0) | (m5::stl::to_underlying(range1) << 4);
-    if (writeRegister8(OUTPUT_RANGE, v)) {
+    uint8_t v =
+        mode_nibble_table[m5::stl::to_underlying(range0)] | (mode_nibble_table[m5::stl::to_underlying(range1)] << 4);
+    if (writeRegister8(OUTPUT_RANGE_REG, v)) {
         _range[0] = range0;
         _range[1] = range1;
         return true;
@@ -70,7 +75,8 @@ uint16_t UnitGP8413::voltage_to_raw(const Channel channel, const float mv)
 {
     float maxMv = maximumVoltage(channel);
     float val   = std::fmin(std::fmax(mv, 0.0f), maxMv);
-    return static_cast<uint16_t>((val / maxMv) * RESOLUTION) << 1;
+    return static_cast<uint16_t>((val / maxMv) * RESOLUTION);
+    //    return static_cast<uint16_t>((val / maxMv) * RESOLUTION) << 1; // old
 }
 
 bool UnitGP8413::write_voltage(const uint8_t reg, const uint8_t* buf, const uint32_t len)
