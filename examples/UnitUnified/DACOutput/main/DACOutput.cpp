@@ -123,8 +123,7 @@ void setup()
     }
 
 #if !defined(USING_UNIT_DAC)
-    // channel0: 0-5V channel1:0-10V
-    unit.writeOutputRange(Output::Range5V, Output::Range10V);
+    unit.writeOutputRange(Output::Range5V, Output::Range5V);
     unit.writeBothVoltage(0U, 0U);
 #endif
 
@@ -167,7 +166,7 @@ void loop()
     unit.writeBothVoltage(v0, v1);
     M5.Log.printf("Voltage:%.2f / %.2f\n", v0, v1);
 #endif
-    counter += 4;
+    counter += 6;
 
     auto bwid = lcd.width() >> 3;
 
@@ -207,7 +206,23 @@ void loop()
         lcd.setTextDatum(top_center);
         lcd.drawString(func_name_table[fidx], lcd.width() >> 1, lcd.height() >> 1);
         lcd.setTextDatum(top_left);
-        M5.Log.printf("Output:%s\n", func_name_table[fidx]);
+        M5.Log.printf("==== Output:%s\n", func_name_table[fidx]);
     }
-    m5::utility::delay(8);
+
+#if !defined(USING_UNIT_DAC)
+    // Change output range
+    if (M5.BtnA.wasHold() || touch.wasHold()) {
+        static uint32_t range_mode{};
+        M5.Speaker.tone(4000, 50);
+
+        range_mode = (range_mode + 1) & 0x03;  // 0-3
+        unit.writeOutputRange((range_mode & 0x01) ? Output::Range10V : Output::Range5V,
+                              (range_mode & 0x02) ? Output::Range10V : Output::Range5V);
+        max_0 = unit.maximumVoltage(Channel::Zero);
+        max_1 = unit.maximumVoltage(Channel::One);
+
+        M5.Log.printf("---- Range V0:%uV V1:%uV\n", (int)(max_0 / 1000), (int)(max_1 / 1000));
+    }
+#endif
+    m5::utility::delay(1);
 }

@@ -25,9 +25,16 @@ constexpr float max_mv_table[] = {
     10000.f,
 };
 
+/*
+  **** NOTICE *******************************************************************************************
+  The datasheet says that when changing the output voltage range, use 0x00 for 5V and 0x01 for 10V.
+  However, using these values requires a bit shift of the output value, and causes oscillation
+  (especially channel 1 at 5V).
+  With 0x5 (5V) and 0x7 (10V), no bit shift is required, and there is no oscillation.
+  This is undocumented behavior.
+  *******************************************************************************************************
+*/
 constexpr uint8_t mode_nibble_table[] = {0x05, 0x07};
-// constexpr uint8_t mode_nibble_table[] = {0x00, 0x01}; // old
-
 }  // namespace
 
 namespace m5 {
@@ -76,7 +83,6 @@ uint16_t UnitGP8413::voltage_to_raw(const Channel channel, const float mv)
     float maxMv = maximumVoltage(channel);
     float val   = std::fmin(std::fmax(mv, 0.0f), maxMv);
     return static_cast<uint16_t>((val / maxMv) * RESOLUTION);
-    //    return static_cast<uint16_t>((val / maxMv) * RESOLUTION) << 1; // old
 }
 
 bool UnitGP8413::write_voltage(const uint8_t reg, const uint8_t* buf, const uint32_t len)
