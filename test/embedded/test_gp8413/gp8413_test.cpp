@@ -80,3 +80,12 @@ TEST_P(TestGP8413, Output)
     EXPECT_TRUE(unit->writeChannel0Voltage(5000.f));
     EXPECT_TRUE(unit->writeChannel1Voltage(5000.f));
 }
+
+TEST_P(TestGP8413, Store)
+{
+    SCOPED_TRACE(ustr);
+    auto start_at = m5::utility::millis();
+    EXPECT_TRUE(unit->storeBothVoltage());
+    auto duration = m5::utility::millis() - start_at;
+    EXPECT_GE(duration, 7);  // Need wait at least 7ms for store
+}

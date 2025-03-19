@@ -90,8 +90,8 @@ public:
     float maximumVoltage(const gp8413::Channel channel) const;
     /*!
       @brief Write the output range
-      @param  range0 Output range for channel 0
-      @param  range1 Output range for channel 1
+      @param  range0 Output range to channel 0
+      @param  range1 Output range to channel 1
       @return True if successful
      */
     bool writeOutputRange(const gp8413::Output range0, const gp8413::Output range1);
@@ -125,8 +125,8 @@ public:
     }
     /*!
       @brief Output the voltage to both channel
-      @param mv0 Output voltage(mV) for channel 0
-      @param mv1 Output voltage(mV) for channel 1
+      @param mv0 Output voltage(mV) to channel 0
+      @param mv1 Output voltage(mV) to channel 1
       @return True if successful
     */
     template <typename T, typename std::enable_if<std::is_floating_point<T>::value, std::nullptr_t>::type = nullptr>
@@ -137,9 +137,8 @@ public:
     }
     /*!
       @brief Output the voltage to both channel
-      @param mv Output voltage(mV)
+      @param mv Output voltage(mV) to both channel
       @return True if successful
-      @note Write the same value to both channels
     */
     template <typename T, typename std::enable_if<std::is_floating_point<T>::value, std::nullptr_t>::type = nullptr>
     inline bool writeBothVoltage(const T mv)
@@ -158,54 +157,45 @@ public:
       @return True if successful
      */
     bool writeVoltage(const gp8413::Channel channel, const uint16_t raw);
-
-    //! @brief Output the raw value
-    template <typename T, typename std::enable_if<!std::is_same<uint16_t, T>::value && std::is_unsigned<T>::value,
-                                                  std::nullptr_t>::type = nullptr>
-    inline bool writeVoltage(const gp8413::Channel channel, const T raw)
-    {
-        return writeVoltage(channel, static_cast<uint16_t>(raw & RESOLUTION));
-    }
     //! @brief Output the raw value to channel 0
-    template <typename T, typename std::enable_if<!std::is_same<uint16_t, T>::value && std::is_unsigned<T>::value,
-                                                  std::nullptr_t>::type = nullptr>
-    inline bool writeChannel0Voltage(const T raw)
+    inline bool writeChannel0Voltage(const uint16_t raw)
     {
         return writeVoltage(gp8413::Channel::Zero, static_cast<uint16_t>(raw & RESOLUTION));
     }
     //! @brief Output the raw value to channel 1
-    template <typename T, typename std::enable_if<!std::is_same<uint16_t, T>::value && std::is_unsigned<T>::value,
-                                                  std::nullptr_t>::type = nullptr>
-    inline bool writeChannel1Voltage(const T raw)
+    inline bool writeChannel1Voltage(const uint16_t raw)
     {
         return writeVoltage(gp8413::Channel::One, static_cast<uint16_t>(raw & RESOLUTION));
     }
     /*!
       @brief Output the raw value to both channel
-      @param raw0 Output raw value for channel 0
-      @param raw1 Output raw value for channel 1
+      @param raw0 Output raw value to channel 0
+      @param raw1 Output raw value to channel 1
       @return True if successful
     */
     bool writeBothVoltage(const uint16_t raw0, const uint16_t raw1);
-    //! @brief Output the raw value to both channel
-    template <typename T, typename std::enable_if<!std::is_same<uint16_t, T>::value && std::is_unsigned<T>::value,
-                                                  std::nullptr_t>::type = nullptr>
-    inline bool writeBothVoltage(const T raw0, const T raw1)
-    {
-        return writeBothVoltage(static_cast<uint16_t>(raw0 & RESOLUTION), static_cast<uint16_t>(raw1 & RESOLUTION));
-    }
     /*!
       @brief Output the raw value to both channel
-      @param raw Output raw value
+      @param raw Output raw value to both channel
       @return True if successful
-      @note Write the same value to both channels
     */
-    template <typename T, typename std::enable_if<!std::is_same<uint16_t, T>::value && std::is_unsigned<T>::value,
-                                                  std::nullptr_t>::type = nullptr>
-    inline bool writeBothVoltage(const T raw)
+    inline bool writeBothVoltage(const uint16_t raw)
     {
         return writeBothVoltage(static_cast<uint16_t>(raw & RESOLUTION), static_cast<uint16_t>(raw & RESOLUTION));
     }
+    ///@}
+
+    ///@note The GP8413 supports storing voltage data in the chip to ensure that the voltage output state remains
+    ///@note in the corresponding state after power-down or start-up.
+    ///@name Store output voltage
+    ///@{
+    /*!
+      @brief Store the current output voltage to the chip
+      @return True if successful
+      @warning It is necessary to wait at least 7 ms for the store process to complete. Blocked until wait is complete
+      @warning Note that the output range is not stored
+     */
+    bool storeBothVoltage();
     ///@}
 
 protected:
@@ -220,9 +210,9 @@ private:
 namespace gp8413 {
 ///@cond
 namespace command {
-constexpr uint8_t OUTPUT_RANGE_REG{0x01};
-constexpr uint8_t OUTPUT_CHANNEL0_REG{0x02};
-constexpr uint8_t OUTPUT_CHANNEL1_REG{0x04};
+constexpr uint8_t OUTPUT_RANGE_REG{0x01};     // W
+constexpr uint8_t OUTPUT_CHANNEL0_REG{0x02};  // W
+constexpr uint8_t OUTPUT_CHANNEL1_REG{0x04};  // W
 }  // namespace command
 ///@endcond
 }  // namespace gp8413

@@ -24,7 +24,6 @@ constexpr float max_mv_table[] = {
     5000.f,
     10000.f,
 };
-
 /*
   **** NOTICE *******************************************************************************************
   The datasheet says that when changing the output voltage range, use 0x00 for 5V and 0x01 for 10V.
@@ -32,9 +31,14 @@ constexpr float max_mv_table[] = {
   (especially channel 1 at 5V).
   With 0x5 (5V) and 0x7 (10V), no bit shift is required, and there is no oscillation.
   This is undocumented behavior.
+
+  (It appears to be working exactly as described in the GP8211S datasheet ???)
   *******************************************************************************************************
 */
 constexpr uint8_t mode_nibble_table[] = {0x05, 0x07};
+
+constexpr uint8_t store_commad[] = {0x02, 0x10, 0x03, 0x00};
+constexpr uint32_t store_wait_ms{10};  // At least 7 ms
 }  // namespace
 
 namespace m5 {
@@ -58,6 +62,7 @@ bool UnitGP8413::writeOutputRange(const gp8413::Output range0, const gp8413::Out
 {
     uint8_t v =
         mode_nibble_table[m5::stl::to_underlying(range0)] | (mode_nibble_table[m5::stl::to_underlying(range1)] << 4);
+
     if (writeRegister8(OUTPUT_RANGE_REG, v)) {
         _range[0] = range0;
         _range[1] = range1;
@@ -88,6 +93,15 @@ uint16_t UnitGP8413::voltage_to_raw(const Channel channel, const float mv)
 bool UnitGP8413::write_voltage(const uint8_t reg, const uint8_t* buf, const uint32_t len)
 {
     return buf && writeRegister(reg, buf, len);
+}
+
+bool UnitGP8413::storeBothVoltage()
+{
+    if (writeWithTransaction(store_commad, m5::stl::size(store_commad)) == m5::hal::error::error_t::OK) {
+        m5::utility::delay(store_wait_ms);
+        return true;
+    }
+    return false;
 }
 
 }  // namespace unit
