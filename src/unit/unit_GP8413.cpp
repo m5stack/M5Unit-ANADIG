@@ -46,7 +46,7 @@ namespace unit {
 
 const char UnitGP8413::name[] = "UnitGP8413";
 const types::uid_t UnitGP8413::uid{"UnitGP8413"_mmh3};
-const types::uid_t UnitGP8413::attr{0};
+const types::attr_t UnitGP8413::attr{attribute::AccessI2C};
 
 float UnitGP8413::maximumVoltage(const gp8413::Channel channel) const
 {
