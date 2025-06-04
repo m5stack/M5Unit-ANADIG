@@ -17,13 +17,28 @@ using namespace m5::unit::gp8413::command;
 
 namespace {
 constexpr uint8_t channel_reg_table[] = {
-    OUTPUT_CHANNEL_0,
-    OUTPUT_CHANNEL_1,
+    OUTPUT_CHANNEL0_REG,
+    OUTPUT_CHANNEL1_REG,
 };
 constexpr float max_mv_table[] = {
     5000.f,
     10000.f,
 };
+/*
+  **** NOTICE *******************************************************************************************
+  The datasheet says that when changing the output voltage range, use 0x00 for 5V and 0x01 for 10V.
+  However, using these values requires a bit shift of the output value, and causes oscillation
+  (especially channel 1 at 5V).
+  With 0x5 (5V) and 0x7 (10V), no bit shift is required, and there is no oscillation.
+  This is undocumented behavior.
+
+  (It appears to be working exactly as described in the GP8211S datasheet ???)
+  *******************************************************************************************************
+*/
+constexpr uint8_t mode_nibble_table[] = {0x05, 0x07};
+
+constexpr uint8_t store_commad[] = {0x02, 0x10, 0x03, 0x00};
+constexpr uint32_t store_wait_ms{10};  // At least 7 ms
 }  // namespace
 
 namespace m5 {
@@ -31,7 +46,7 @@ namespace unit {
 
 const char UnitGP8413::name[] = "UnitGP8413";
 const types::uid_t UnitGP8413::uid{"UnitGP8413"_mmh3};
-const types::uid_t UnitGP8413::attr{0};
+const types::attr_t UnitGP8413::attr{attribute::AccessI2C};
 
 float UnitGP8413::maximumVoltage(const gp8413::Channel channel) const
 {
@@ -45,8 +60,10 @@ bool UnitGP8413::begin()
 
 bool UnitGP8413::writeOutputRange(const gp8413::Output range0, const gp8413::Output range1)
 {
-    uint8_t v = m5::stl::to_underlying(range0) | (m5::stl::to_underlying(range1) << 4);
-    if (writeRegister8(OUTPUT_RANGE, v)) {
+    uint8_t v =
+        mode_nibble_table[m5::stl::to_underlying(range0)] | (mode_nibble_table[m5::stl::to_underlying(range1)] << 4);
+
+    if (writeRegister8(OUTPUT_RANGE_REG, v)) {
         _range[0] = range0;
         _range[1] = range1;
         return true;
@@ -70,12 +87,21 @@ uint16_t UnitGP8413::voltage_to_raw(const Channel channel, const float mv)
 {
     float maxMv = maximumVoltage(channel);
     float val   = std::fmin(std::fmax(mv, 0.0f), maxMv);
-    return static_cast<uint16_t>((val / maxMv) * RESOLUTION) << 1;
+    return static_cast<uint16_t>((val / maxMv) * RESOLUTION);
 }
 
 bool UnitGP8413::write_voltage(const uint8_t reg, const uint8_t* buf, const uint32_t len)
 {
     return buf && writeRegister(reg, buf, len);
+}
+
+bool UnitGP8413::storeBothVoltage()
+{
+    if (writeWithTransaction(store_commad, m5::stl::size(store_commad)) == m5::hal::error::error_t::OK) {
+        m5::utility::delay(store_wait_ms);
+        return true;
+    }
+    return false;
 }
 
 }  // namespace unit

@@ -29,7 +29,7 @@ namespace unit {
 
 const char UnitADS1110::name[] = "UnitADS1110";
 const types::uid_t UnitADS1110::uid{"UnitADS1110"_mmh3};
-const types::attr_t UnitADS1110::attr{0};
+const types::attr_t UnitADS1110::attr{attribute::AccessI2C};
 
 bool UnitADS1110::begin()
 {
