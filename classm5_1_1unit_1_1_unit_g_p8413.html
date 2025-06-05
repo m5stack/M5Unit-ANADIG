@@ -27,7 +27,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">M5Unit-ANADIG<span id="projectnumber">&#160;0.1.0 git rev:3fbd370</span>
+   <div id="projectname">M5Unit-ANADIG<span id="projectnumber">&#160;0.2.0 git rev:e984a40</span>
    </div>
   </td>
  </tr>
@@ -179,33 +179,28 @@ template&lt;typename T , typename std::enable_if&lt; std::is_floating_point&lt; 
 <tr class="memitem:a0a25dbb2c0ddfa8ccd2ffffadcfef2d7" id="r_a0a25dbb2c0ddfa8ccd2ffffadcfef2d7"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0a25dbb2c0ddfa8ccd2ffffadcfef2d7">writeVoltage</a> (const <a class="el" href="unit___g_p8413_8hpp.html#a9998dc431436f7e0b5e70a6301290fd0">gp8413::Channel</a> channel, const uint16_t raw)</td></tr>
 <tr class="memdesc:a0a25dbb2c0ddfa8ccd2ffffadcfef2d7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Output the raw value.  <br /></td></tr>
 <tr class="separator:a0a25dbb2c0ddfa8ccd2ffffadcfef2d7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa0d00a49e42028888d6ed1c1e166b56f" id="r_aa0d00a49e42028888d6ed1c1e166b56f"><td class="memTemplParams" colspan="2"><a id="aa0d00a49e42028888d6ed1c1e166b56f" name="aa0d00a49e42028888d6ed1c1e166b56f"></a>
-template&lt;typename T , typename std::enable_if&lt;!std::is_same&lt; uint16_t, T &gt;::value &amp;&amp;std::is_unsigned&lt; T &gt;::value, std::nullptr_t &gt;::type  = nullptr&gt; </td></tr>
-<tr class="memitem:aa0d00a49e42028888d6ed1c1e166b56f"><td class="memTemplItemLeft" align="right" valign="top">bool&#160;</td><td class="memTemplItemRight" valign="bottom"><b>writeVoltage</b> (const <a class="el" href="unit___g_p8413_8hpp.html#a9998dc431436f7e0b5e70a6301290fd0">gp8413::Channel</a> channel, const T raw)</td></tr>
-<tr class="memdesc:aa0d00a49e42028888d6ed1c1e166b56f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Output the raw value. <br /></td></tr>
-<tr class="separator:aa0d00a49e42028888d6ed1c1e166b56f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad86809594b41106a69a0a09cab7d54a1" id="r_ad86809594b41106a69a0a09cab7d54a1"><td class="memTemplParams" colspan="2"><a id="ad86809594b41106a69a0a09cab7d54a1" name="ad86809594b41106a69a0a09cab7d54a1"></a>
-template&lt;typename T , typename std::enable_if&lt;!std::is_same&lt; uint16_t, T &gt;::value &amp;&amp;std::is_unsigned&lt; T &gt;::value, std::nullptr_t &gt;::type  = nullptr&gt; </td></tr>
-<tr class="memitem:ad86809594b41106a69a0a09cab7d54a1"><td class="memTemplItemLeft" align="right" valign="top">bool&#160;</td><td class="memTemplItemRight" valign="bottom"><b>writeChannel0Voltage</b> (const T raw)</td></tr>
-<tr class="memdesc:ad86809594b41106a69a0a09cab7d54a1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Output the raw value to channel 0. <br /></td></tr>
-<tr class="separator:ad86809594b41106a69a0a09cab7d54a1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aea7ad91d9a59a9de2c847d8582cd21ef" id="r_aea7ad91d9a59a9de2c847d8582cd21ef"><td class="memTemplParams" colspan="2"><a id="aea7ad91d9a59a9de2c847d8582cd21ef" name="aea7ad91d9a59a9de2c847d8582cd21ef"></a>
-template&lt;typename T , typename std::enable_if&lt;!std::is_same&lt; uint16_t, T &gt;::value &amp;&amp;std::is_unsigned&lt; T &gt;::value, std::nullptr_t &gt;::type  = nullptr&gt; </td></tr>
-<tr class="memitem:aea7ad91d9a59a9de2c847d8582cd21ef"><td class="memTemplItemLeft" align="right" valign="top">bool&#160;</td><td class="memTemplItemRight" valign="bottom"><b>writeChannel1Voltage</b> (const T raw)</td></tr>
-<tr class="memdesc:aea7ad91d9a59a9de2c847d8582cd21ef"><td class="mdescLeft">&#160;</td><td class="mdescRight">Output the raw value to channel 1. <br /></td></tr>
-<tr class="separator:aea7ad91d9a59a9de2c847d8582cd21ef"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa1fed6e60b39f0e0c2fd044eaea324ce" id="r_aa1fed6e60b39f0e0c2fd044eaea324ce"><td class="memItemLeft" align="right" valign="top"><a id="aa1fed6e60b39f0e0c2fd044eaea324ce" name="aa1fed6e60b39f0e0c2fd044eaea324ce"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>writeChannel0Voltage</b> (const uint16_t raw)</td></tr>
+<tr class="memdesc:aa1fed6e60b39f0e0c2fd044eaea324ce"><td class="mdescLeft">&#160;</td><td class="mdescRight">Output the raw value to channel 0. <br /></td></tr>
+<tr class="separator:aa1fed6e60b39f0e0c2fd044eaea324ce"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a023d94b61f968a27cae58db78eeca75e" id="r_a023d94b61f968a27cae58db78eeca75e"><td class="memItemLeft" align="right" valign="top"><a id="a023d94b61f968a27cae58db78eeca75e" name="a023d94b61f968a27cae58db78eeca75e"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>writeChannel1Voltage</b> (const uint16_t raw)</td></tr>
+<tr class="memdesc:a023d94b61f968a27cae58db78eeca75e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Output the raw value to channel 1. <br /></td></tr>
+<tr class="separator:a023d94b61f968a27cae58db78eeca75e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab2101f7dd410274087d288eddeaaa066" id="r_ab2101f7dd410274087d288eddeaaa066"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab2101f7dd410274087d288eddeaaa066">writeBothVoltage</a> (const uint16_t raw0, const uint16_t raw1)</td></tr>
 <tr class="memdesc:ab2101f7dd410274087d288eddeaaa066"><td class="mdescLeft">&#160;</td><td class="mdescRight">Output the raw value to both channel.  <br /></td></tr>
 <tr class="separator:ab2101f7dd410274087d288eddeaaa066"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa191a1babababdb6e790b92eb9e50966" id="r_aa191a1babababdb6e790b92eb9e50966"><td class="memTemplParams" colspan="2"><a id="aa191a1babababdb6e790b92eb9e50966" name="aa191a1babababdb6e790b92eb9e50966"></a>
-template&lt;typename T , typename std::enable_if&lt;!std::is_same&lt; uint16_t, T &gt;::value &amp;&amp;std::is_unsigned&lt; T &gt;::value, std::nullptr_t &gt;::type  = nullptr&gt; </td></tr>
-<tr class="memitem:aa191a1babababdb6e790b92eb9e50966"><td class="memTemplItemLeft" align="right" valign="top">bool&#160;</td><td class="memTemplItemRight" valign="bottom"><b>writeBothVoltage</b> (const T raw0, const T raw1)</td></tr>
-<tr class="memdesc:aa191a1babababdb6e790b92eb9e50966"><td class="mdescLeft">&#160;</td><td class="mdescRight">Output the raw value to both channel. <br /></td></tr>
-<tr class="separator:aa191a1babababdb6e790b92eb9e50966"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa8f62fdb80bd442bb26e510f8d3e8d4d" id="r_aa8f62fdb80bd442bb26e510f8d3e8d4d"><td class="memTemplParams" colspan="2">template&lt;typename T , typename std::enable_if&lt;!std::is_same&lt; uint16_t, T &gt;::value &amp;&amp;std::is_unsigned&lt; T &gt;::value, std::nullptr_t &gt;::type  = nullptr&gt; </td></tr>
-<tr class="memitem:aa8f62fdb80bd442bb26e510f8d3e8d4d"><td class="memTemplItemLeft" align="right" valign="top">bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#aa8f62fdb80bd442bb26e510f8d3e8d4d">writeBothVoltage</a> (const T raw)</td></tr>
-<tr class="memdesc:aa8f62fdb80bd442bb26e510f8d3e8d4d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Output the raw value to both channel.  <br /></td></tr>
-<tr class="separator:aa8f62fdb80bd442bb26e510f8d3e8d4d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5db6d79346c67d1bb01da24ea4075f5d" id="r_a5db6d79346c67d1bb01da24ea4075f5d"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5db6d79346c67d1bb01da24ea4075f5d">writeBothVoltage</a> (const uint16_t raw)</td></tr>
+<tr class="memdesc:a5db6d79346c67d1bb01da24ea4075f5d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Output the raw value to both channel.  <br /></td></tr>
+<tr class="separator:a5db6d79346c67d1bb01da24ea4075f5d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr><td colspan="2"><div class="groupHeader">Store output voltage</div></td></tr>
+<tr><td colspan="2"><div class="groupText"><dl class="section note"><dt>Note</dt><dd>The GP8413 supports storing voltage data in the chip to ensure that the voltage output state remains </dd>
+<dd>
+in the corresponding state after power-down or start-up. </dd></dl>
+</div></td></tr>
+<tr class="memitem:a1595fe38b74e000743ba07ee1bd202ee" id="r_a1595fe38b74e000743ba07ee1bd202ee"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1595fe38b74e000743ba07ee1bd202ee">storeBothVoltage</a> ()</td></tr>
+<tr class="memdesc:a1595fe38b74e000743ba07ee1bd202ee"><td class="mdescLeft">&#160;</td><td class="mdescRight">Store the current output voltage to the chip.  <br /></td></tr>
+<tr class="separator:a1595fe38b74e000743ba07ee1bd202ee"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-attribs" name="pub-static-attribs"></a>
 Static Public Attributes</h2></td></tr>
@@ -225,6 +220,29 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>write_voltage</b> (co
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Digital-to-analog signal conversion unit. </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
+<a id="a1595fe38b74e000743ba07ee1bd202ee" name="a1595fe38b74e000743ba07ee1bd202ee"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1595fe38b74e000743ba07ee1bd202ee">&#9670;&#160;</a></span>storeBothVoltage()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool m5::unit::UnitGP8413::storeBothVoltage </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Store the current output voltage to the chip. </p>
+<dl class="section return"><dt>Returns</dt><dd>True if successful </dd></dl>
+<dl class="section warning"><dt>Warning</dt><dd>It is necessary to wait at least 7 ms for the store process to complete. Blocked until wait is complete </dd>
+<dd>
+Note that the output range is not stored </dd></dl>
+
+</div>
+</div>
 <a id="a7688ed04ec42a3dfe02d0e3581490c2c" name="a7688ed04ec42a3dfe02d0e3581490c2c"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a7688ed04ec42a3dfe02d0e3581490c2c">&#9670;&#160;</a></span>writeBothVoltage() <span class="overload">[1/4]</span></h2>
 
@@ -253,12 +271,11 @@ template&lt;typename T , typename std::enable_if&lt; std::is_floating_point&lt; 
 <p>Output the voltage to both channel. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">mv</td><td>Output voltage(mV) </td></tr>
+    <tr><td class="paramname">mv</td><td>Output voltage(mV) to both channel </td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>True if successful </dd></dl>
-<dl class="section note"><dt>Note</dt><dd>Write the same value to both channels </dd></dl>
 
 </div>
 </div>
@@ -294,8 +311,8 @@ template&lt;typename T , typename std::enable_if&lt; std::is_floating_point&lt; 
 <p>Output the voltage to both channel. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">mv0</td><td>Output voltage(mV) for channel 0 </td></tr>
-    <tr><td class="paramname">mv1</td><td>Output voltage(mV) for channel 1 </td></tr>
+    <tr><td class="paramname">mv0</td><td>Output voltage(mV) to channel 0 </td></tr>
+    <tr><td class="paramname">mv1</td><td>Output voltage(mV) to channel 1 </td></tr>
   </table>
   </dd>
 </dl>
@@ -303,13 +320,11 @@ template&lt;typename T , typename std::enable_if&lt; std::is_floating_point&lt; 
 
 </div>
 </div>
-<a id="aa8f62fdb80bd442bb26e510f8d3e8d4d" name="aa8f62fdb80bd442bb26e510f8d3e8d4d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa8f62fdb80bd442bb26e510f8d3e8d4d">&#9670;&#160;</a></span>writeBothVoltage() <span class="overload">[3/4]</span></h2>
+<a id="a5db6d79346c67d1bb01da24ea4075f5d" name="a5db6d79346c67d1bb01da24ea4075f5d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5db6d79346c67d1bb01da24ea4075f5d">&#9670;&#160;</a></span>writeBothVoltage() <span class="overload">[3/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
-<div class="memtemplate">
-template&lt;typename T , typename std::enable_if&lt;!std::is_same&lt; uint16_t, T &gt;::value &amp;&amp;std::is_unsigned&lt; T &gt;::value, std::nullptr_t &gt;::type  = nullptr&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -317,7 +332,7 @@ template&lt;typename T , typename std::enable_if&lt;!std::is_same&lt; uint16_t, 
         <tr>
           <td class="memname">bool m5::unit::UnitGP8413::writeBothVoltage </td>
           <td>(</td>
-          <td class="paramtype">const T</td>          <td class="paramname"><span class="paramname"><em>raw</em></span></td><td>)</td>
+          <td class="paramtype">const uint16_t</td>          <td class="paramname"><span class="paramname"><em>raw</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -331,12 +346,11 @@ template&lt;typename T , typename std::enable_if&lt;!std::is_same&lt; uint16_t, 
 <p>Output the raw value to both channel. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">raw</td><td>Output raw value </td></tr>
+    <tr><td class="paramname">raw</td><td>Output raw value to both channel </td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>True if successful </dd></dl>
-<dl class="section note"><dt>Note</dt><dd>Write the same value to both channels </dd></dl>
 
 </div>
 </div>
@@ -362,8 +376,8 @@ template&lt;typename T , typename std::enable_if&lt;!std::is_same&lt; uint16_t, 
 <p>Output the raw value to both channel. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">raw0</td><td>Output raw value for channel 0 </td></tr>
-    <tr><td class="paramname">raw1</td><td>Output raw value for channel 1 </td></tr>
+    <tr><td class="paramname">raw0</td><td>Output raw value to channel 0 </td></tr>
+    <tr><td class="paramname">raw1</td><td>Output raw value to channel 1 </td></tr>
   </table>
   </dd>
 </dl>
@@ -393,8 +407,8 @@ template&lt;typename T , typename std::enable_if&lt;!std::is_same&lt; uint16_t, 
 <p>Write the output range. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">range0</td><td>Output range for channel 0 </td></tr>
-    <tr><td class="paramname">range1</td><td>Output range for channel 1 </td></tr>
+    <tr><td class="paramname">range0</td><td>Output range to channel 0 </td></tr>
+    <tr><td class="paramname">range1</td><td>Output range to channel 1 </td></tr>
   </table>
   </dd>
 </dl>
