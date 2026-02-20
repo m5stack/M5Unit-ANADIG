@@ -37,7 +37,7 @@ constexpr float max_mv_table[] = {
 */
 constexpr uint8_t mode_nibble_table[] = {0x05, 0x07};
 
-constexpr uint8_t store_commad[] = {0x02, 0x10, 0x03, 0x00};
+constexpr uint8_t store_command[] = {0x02, 0x10, 0x03, 0x00};
 constexpr uint32_t store_wait_ms{10};  // At least 7 ms
 }  // namespace
 
@@ -86,7 +86,7 @@ bool UnitGP8413::writeBothVoltage(const uint16_t raw0, const uint16_t raw1)
 uint16_t UnitGP8413::voltage_to_raw(const Channel channel, const float mv)
 {
     float maxMv = maximumVoltage(channel);
-    float val   = std::fmin(std::fmax(mv, 0.0f), maxMv);
+    float val   = m5::stl::clamp(mv, 0.0f, maxMv);
     return static_cast<uint16_t>((val / maxMv) * RESOLUTION);
 }
 
@@ -97,7 +97,7 @@ bool UnitGP8413::write_voltage(const uint8_t reg, const uint8_t* buf, const uint
 
 bool UnitGP8413::storeBothVoltage()
 {
-    if (writeWithTransaction(store_commad, m5::stl::size(store_commad)) == m5::hal::error::error_t::OK) {
+    if (writeWithTransaction(store_command, m5::stl::size(store_command)) == m5::hal::error::error_t::OK) {
         m5::utility::delay(store_wait_ms);
         return true;
     }

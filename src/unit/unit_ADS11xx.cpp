@@ -190,9 +190,8 @@ bool UnitADS11XX::generalReset()
 
 bool UnitADS11XX::read_config(uint8_t& v)
 {
-    uint8_t rbuf[3]{};  // [0,]:data [2]:config
-    if ((writeWithTransaction(nullptr, 0U) == m5::hal::error::error_t::OK) &&
-        (readWithTransaction(rbuf, 3) == m5::hal::error::error_t::OK)) {
+    uint8_t rbuf[3]{};  // [0,1]:data [2]:config
+    if (readWithTransaction(rbuf, 3) == m5::hal::error::error_t::OK) {
         v = rbuf[2];
         return true;
     }
@@ -213,8 +212,7 @@ bool UnitADS11XX::write_config(const uint8_t v)
 
 bool UnitADS11XX::read_measurement(uint8_t v[2])
 {
-    return (writeWithTransaction(nullptr, 0U) == m5::hal::error::error_t::OK) &&
-           (readWithTransaction(v, 2) == m5::hal::error::error_t::OK);
+    return readWithTransaction(v, 2) == m5::hal::error::error_t::OK;
 }
 
 bool UnitADS11XX::is_data_ready()

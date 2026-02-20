@@ -161,7 +161,7 @@ protected:
         }
         inline bool continuous() const
         {
-            return value & (1U << 4);
+            return !(value & (1U << 4));
         }
         inline bool single() const
         {
@@ -169,7 +169,7 @@ protected:
         }
         inline bool st() const
         {
-            // ADS1100 ST/BSY   Continuous: Always true, Single: False if data raedy
+            // ADS1100 ST/BSY   Continuous: Always true, Single: False if data ready
             // ADS1110 ST/DRDY  Continuous/Single: False if data ready
             return (value & 0x80);
         }
@@ -188,7 +188,7 @@ protected:
         }
         inline void single(bool enable)
         {
-            continuous(false);
+            continuous(!enable);
         }
         inline void st(const bool b)
         {

@@ -16,7 +16,7 @@ using namespace m5::unit::ads1110;
 
 namespace {
 constexpr uint32_t interval_table[] = {
-    1000 / 250,
+    1000 / 240 + 1,
     1000 / 60 + 1,
     1000 / 30 + 1,
     1000 / 15 + 1,

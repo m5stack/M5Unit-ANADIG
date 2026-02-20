@@ -60,10 +60,10 @@ public:
         float factor{0.25f};
     };
 
-    explicit UnitADS1100(const float vdd = 3.3f, const float factor = 0.25f, const uint8_t addr = DEFAULT_ADDRESS)
+    explicit UnitADS1100(const float vdd = 3300.f, const float factor = 0.25f, const uint8_t addr = DEFAULT_ADDRESS)
         : UnitADS11XX(addr)
     {
-        _vdd        = vdd;
+        _cfg.vdd    = vdd;
         _cfg.factor = _factor = factor;
     }
     virtual ~UnitADS1100()
@@ -74,12 +74,12 @@ public:
 
     ///@name Settings for begin
     ///@{
-    /*! @brief Gets the configration */
+    /*! @brief Gets the configuration */
     inline config_t config()
     {
         return _cfg;
     }
-    //! @brief Set the configration
+    //! @brief Set the configuration
     inline void config(const config_t& cfg)
     {
         _cfg = cfg;
@@ -134,7 +134,7 @@ public:
     ///@{
     /*!
       @brief Measurement single shot
-      @param[out] data Measuerd data
+      @param[out] data Measured data
       @param rate Data sampling rate
       @param pga Programmable Gain Amplifier
       @return True if successful

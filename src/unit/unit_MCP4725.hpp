@@ -20,6 +20,10 @@ namespace unit {
 */
 namespace mcp4725 {
 
+/*!
+  @enum PowerDown
+  @brief Power-down mode
+ */
 enum class PowerDown : uint8_t {
     Normal,    //!< Normal mode
     OHM_1K,    //!< 1k ohm  resistor to ground
@@ -48,7 +52,7 @@ public:
     //! @brief Voltage(mV) to raw value
     static inline uint16_t voltage_to_raw(const float mv, const float supply_voltage = 5000.f)
     {
-        float val = std::fmin(std::fmax(mv, 0.0f), MAXIMUM_VOLTAGE);
+        float val = m5::stl::clamp(mv, 0.0f, MAXIMUM_VOLTAGE);
         return static_cast<uint16_t>((val / supply_voltage) * RESOLUTION);
     }
 
@@ -77,12 +81,12 @@ public:
 
     ///@name Settings for begin
     ///@{
-    /*! @brief Gets the configration */
+    /*! @brief Gets the configuration */
     inline config_t config()
     {
         return _cfg;
     }
-    //! @brief Set the configration
+    //! @brief Set the configuration
     inline void config(const config_t& cfg)
     {
         _cfg = cfg;
@@ -91,7 +95,7 @@ public:
 
     ///@name Properties
     ///@{
-    //! @brief Gets the iner power down mode
+    //! @brief Gets the inner power down mode
     inline mcp4725::PowerDown powerDown() const
     {
         return _powerDown;
@@ -185,7 +189,7 @@ public:
       @brief General reset
       @details Reset using I2C general call
       @return True if successful
-      @note Immediately after this reset event, the deviceuploads the contents of the EEPROM into the DACregister
+      @note Immediately after this reset event, the device uploads the contents of the EEPROM into the DAC register
       @warning This is a reset by General command, the command is also sent to all devices with I2C connections
     */
     bool generalReset();

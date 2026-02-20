@@ -30,13 +30,19 @@ namespace m5 {
  */
 namespace unit {
 
+//! @brief Alias for ADS1110 based unit
 using UnitADC11 = m5::unit::UnitADS1110;
-using UnitDAC   = m5::unit::UnitMCP4725;
-using UnitDAC2  = m5::unit::UnitGP8413;
+//! @brief Alias for MCP4725 based unit
+using UnitDAC = m5::unit::UnitMCP4725;
+//! @brief Alias for GP8413 based unit
+using UnitDAC2 = m5::unit::UnitGP8413;
 
-using HatADC   = m5::unit::UnitADS1100;
+//! @brief Alias for ADS1100 based HAT
+using HatADC = m5::unit::UnitADS1100;
+//! @brief Alias for ADS1110 based HAT
 using HatADC11 = m5::unit::UnitADS1110;
-using HatDAC2  = m5::unit::UnitGP8413;
+//! @brief Alias for GP8413 based HAT
+using HatDAC2 = m5::unit::UnitGP8413;
 
 }  // namespace unit
 }  // namespace m5

@@ -20,11 +20,19 @@ namespace unit {
 */
 namespace gp8413 {
 
+/*!
+  @enum Output
+  @brief Output voltage range
+ */
 enum class Output : uint8_t {
     Range5V,   //!< 0 ~ 5V
     Range10V,  //!< 0 ~ 10V
 };
 
+/*!
+  @enum Channel
+  @brief Output channel
+ */
 enum class Channel : uint8_t {
     Zero,  //!< channel 0
     One,   //!< channel 1
@@ -67,12 +75,12 @@ public:
 
     ///@name Settings for begin
     ///@{
-    /*! @brief Gets the configration */
+    /*! @brief Gets the configuration */
     inline config_t config()
     {
         return _cfg;
     }
-    //! @brief Set the configration
+    //! @brief Set the configuration
     inline void config(const config_t& cfg)
     {
         _cfg = cfg;
