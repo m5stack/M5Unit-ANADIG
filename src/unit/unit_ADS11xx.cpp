@@ -9,6 +9,7 @@
 */
 #include "unit_ADS11xx.hpp"
 #include <M5Utility.hpp>
+#include <m5_unit_component/adapter_i2c.hpp>
 
 using namespace m5::unit::ads11xx;
 using namespace m5::utility::mmh3;
@@ -41,10 +42,25 @@ bool UnitADS11XX::begin()
         }
     }
 
-    UnitADS11XX::generalReset();
+    // I2C_Class hangs on generalCall (bus stuck after general call reset)
+    auto ad          = asAdapter<AdapterI2C>(Adapter::Type::I2C);
+    bool is_i2cclass = ad && ad->implType() == AdapterI2C::ImplType::I2CClass;
+    if (!is_i2cclass) {
+        UnitADS11XX::generalReset();
+    }
 
     Config c{};
-    if (!read_config(c.value) || c.value != DEFAULT_CONFIG_VALUE) {
+    if (!read_config(c.value)) {
+        M5_LIB_LOGE("Can not detect ADS11XX");
+        return false;
+    }
+    if (is_i2cclass) {
+        // Cannot generalReset, so write default config to ensure known state
+        if (!write_config(DEFAULT_CONFIG_VALUE)) {
+            M5_LIB_LOGE("Failed to write default config");
+            return false;
+        }
+    } else if (c.value != DEFAULT_CONFIG_VALUE) {
         M5_LIB_LOGE("Can not detect ADS11XX %02X", c.value);
         return false;
     }

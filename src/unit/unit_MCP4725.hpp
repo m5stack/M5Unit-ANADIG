@@ -191,6 +191,8 @@ public:
       @return True if successful
       @note Immediately after this reset event, the device uploads the contents of the EEPROM into the DAC register
       @warning This is a reset by General command, the command is also sent to all devices with I2C connections
+      @warning Not supported with m5::I2C_Class. The bus hangs because m5::I2C_Class has no timeout on bus
+     recovery after a general call reset
     */
     bool generalReset();
 

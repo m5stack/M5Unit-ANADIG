@@ -45,7 +45,7 @@ struct Data {
     float vdd{2048.f};             //!< VDD(mV)
     float factor{1.0f};            //!< Correction factor
 
-    ///! @brief Gets the differential value
+    //! @brief Gets the differential value
     inline int16_t differentialValue() const
     {
         return (int16_t)m5::types::big_uint16_t(raw[0], raw[1]).get();
@@ -119,6 +119,8 @@ public:
       @details Reset using I2C general call
       @return True if successful
       @warning This is a reset by General command, the command is also sent to all devices with I2C connections
+      @warning Not supported with m5::I2C_Class. The bus hangs because m5::I2C_Class has no timeout on bus
+     recovery after a general call reset
     */
     virtual bool generalReset();
 

@@ -34,8 +34,8 @@ const types::attr_t UnitADS1110::attr{attribute::AccessI2C};
 bool UnitADS1110::begin()
 {
     _factor = _cfg.factor;
-    return UnitADS11XX::begin() && _cfg.start_periodic ? startPeriodicMeasurement(_cfg.sampling_rate, _cfg.pga)
-                                                       : stopPeriodicMeasurement();
+    return UnitADS11XX::begin() &&
+           (_cfg.start_periodic ? startPeriodicMeasurement(_cfg.sampling_rate, _cfg.pga) : stopPeriodicMeasurement());
 }
 
 bool UnitADS1110::start_periodic_measurement(const ads1110::Sampling rate, const ads1110::PGA pga)
