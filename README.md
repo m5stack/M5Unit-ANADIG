@@ -15,10 +15,10 @@ DAC, is a unit with the ability to convert digital signal to analog signal (volt
 DAC2 Unit is an I2C digital-to-analog signal conversion unit. It utilizes the GP8413 solution, which provides high precision and accuracy in its performance. This chip can linearly convert a 15-bit digital value into two independent analog voltages of 0-5V or 0-10V. The output voltage error is only 0.2%, and it achieves linearity of up to 0.01%.
 
 ### SKU:U069
-ADC HAT is another type of C-HAT specifically design for M5StickC controller. Same as ADC unit, this is an ADC converter component for stickc. Packed with an ADC converter chip ADS1100, 
+ADC HAT is another type of C-HAT specifically designed for M5StickC controller. Same as ADC unit, this is an ADC converter component for stickc. Packed with an ADC converter chip ADS1100, 
 
 ### SKU:U069-V11
-ADC HAT V1.1 is another type of C-HAT specifically design for M5StickC controller. Same as ADC unit, this is an ADC converter component for stickc. Packed with an ADC converter chip ADS1110, 
+ADC HAT V1.1 is another type of C-HAT specifically designed for M5StickC controller. Same as ADC unit, this is an ADC converter component for stickc. Packed with an ADC converter chip ADS1110, 
 
 ### SKU:U068-B
 DAC2 Hat is an I2C digital-to-analog signal conversion unit designed to be compatible with the StickC series controllers. It offers high precision and accuracy in its performance by using the GP8413 solution
@@ -91,7 +91,7 @@ It will output it under docs/html
 If you want to output Git commit hashes to html, do it for the git cloned folder.
 
 #### Required
-- [Doxyegn](https://www.doxygen.nl/)
+- [Doxygen](https://www.doxygen.nl/)
 - [pcregrep](https://formulae.brew.sh/formula/pcre2)
 - [Git](https://git-scm.com/) (Output commit hash to html)
 
