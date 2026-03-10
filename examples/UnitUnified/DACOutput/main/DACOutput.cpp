@@ -38,6 +38,7 @@ m5::unit::HatDAC2 unit;
 #else
 #error Please choose unit or hat!
 #endif
+LGFX_Sprite sprite{};
 uint32_t counter{};
 bool has_display{};
 
@@ -118,14 +119,32 @@ I2cPins get_hat_i2c_pins(const m5::board_t board)
 }
 #endif
 
+constexpr int MARGIN{4};
+constexpr int BAR_H{12};
+constexpr int CH_BLOCK_H{30};  // 16(voltage) + 2(gap) + 12(bar)
+constexpr int FONT_H{16};
+
+void draw_channel(const int y, const int ch, const float v, const float maxV, const uint8_t bar_color)
+{
+    int bar_w = sprite.width() - MARGIN * 2;
+
+    sprite.setCursor(MARGIN, y);
+    sprite.printf("Ch:%d %.2f mV", ch, v);
+
+    int bar_y  = y + FONT_H + 2;
+    int fill_w = (int)((bar_w - 2) * (v / maxV));
+    sprite.drawRect(MARGIN, bar_y, bar_w, BAR_H, 3);
+    if (fill_w > 0) {
+        sprite.fillRect(MARGIN + 1, bar_y + 1, fill_w, BAR_H - 2, bar_color);
+    }
+}
+
 }  // namespace
 
 using namespace m5::unit::gp8413;
 
 void setup()
 {
-    delay(1500);
-
     auto m5cfg = M5.config();
 #if defined(USING_HAT_DAC2)
     m5cfg.pmic_button  = false;  // Disable BtnPWR
@@ -166,37 +185,43 @@ void setup()
         }
     }
 #else
-    auto pin_num_sda = M5.getPin(m5::pin_name_t::port_a_sda);
-    auto pin_num_scl = M5.getPin(m5::pin_name_t::port_a_scl);
+    // NessoN1: Arduino Wire (I2C_NUM_0) cannot be used for GROVE port.
+    //   Wire is used by M5Unified In_I2C for internal devices (IOExpander etc.).
+    //   Wire1 exists but is reserved for HatPort — cannot be used for GROVE.
+    //   Reconfiguring Wire to GROVE pins breaks In_I2C, causing ESP_ERR_INVALID_STATE in M5.update().
+    //   Solution: Use SoftwareI2C via M5HAL (bit-banging) for the GROVE port.
+    // NanoC6: Wire.begin() on GROVE pins conflicts with m5::I2C_Class registered by Ex_I2C.setPort()
+    //   on the same I2C_NUM_0, causing sporadic NACK errors.
+    //   Solution: Use M5.Ex_I2C (m5::I2C_Class) directly instead of Arduino Wire.
+    bool unit_ready{};
     if (board == m5::board_t::board_ArduinoNessoN1) {
-        // Port A of the NessoN1 is QWIIC, then use portB (GROVE)
-        pin_num_sda = M5.getPin(m5::pin_name_t::port_b_out);
-        pin_num_scl = M5.getPin(m5::pin_name_t::port_b_in);
-        M5_LOGI("getPin(NessoN1): SDA:%u SCL:%u", pin_num_sda, pin_num_scl);
-
-        // Wire is used internally, so SoftwareI2C handles the unit
+        // NessoN1: GROVE is on port_b (GPIO 5/4), not port_a (which maps to Wire pins 8/10)
+        auto pin_num_sda = M5.getPin(m5::pin_name_t::port_b_out);
+        auto pin_num_scl = M5.getPin(m5::pin_name_t::port_b_in);
+        M5_LOGI("getPin(M5HAL): SDA:%u SCL:%u", pin_num_sda, pin_num_scl);
         m5::hal::bus::I2CBusConfig i2c_cfg;
         i2c_cfg.pin_sda = m5::hal::gpio::getPin(pin_num_sda);
         i2c_cfg.pin_scl = m5::hal::gpio::getPin(pin_num_scl);
         auto i2c_bus    = m5::hal::bus::i2c::getBus(i2c_cfg);
-
-        if (!Units.add(unit, i2c_bus ? i2c_bus.value() : nullptr) || !Units.begin()) {
-            M5_LOGE("Failed to begin");
-            lcd.fillScreen(TFT_RED);
-            while (true) {
-                m5::utility::delay(10000);
-            }
-        }
+        M5_LOGI("Bus:%d", i2c_bus.has_value());
+        unit_ready = Units.add(unit, i2c_bus ? i2c_bus.value() : nullptr) && Units.begin();
+    } else if (board == m5::board_t::board_M5NanoC6) {
+        // NanoC6: Use M5.Ex_I2C (m5::I2C_Class, not Arduino Wire)
+        M5_LOGI("Using M5.Ex_I2C");
+        unit_ready = Units.add(unit, M5.Ex_I2C) && Units.begin();
     } else {
+        auto pin_num_sda = M5.getPin(m5::pin_name_t::port_a_sda);
+        auto pin_num_scl = M5.getPin(m5::pin_name_t::port_a_scl);
         M5_LOGI("getPin: SDA:%u SCL:%u", pin_num_sda, pin_num_scl);
         Wire.end();
         Wire.begin(pin_num_sda, pin_num_scl, 400 * 1000U);
-        if (!Units.add(unit, Wire) || !Units.begin()) {
-            M5_LOGE("Failed to begin");
-            lcd.fillScreen(TFT_RED);
-            while (true) {
-                m5::utility::delay(10000);
-            }
+        unit_ready = Units.add(unit, Wire) && Units.begin();
+    }
+    if (!unit_ready) {
+        M5_LOGE("Failed to begin");
+        lcd.fillScreen(TFT_RED);
+        while (true) {
+            m5::utility::delay(10000);
         }
     }
 #endif
@@ -210,11 +235,18 @@ void setup()
     M5_LOGI("%s", Units.debugInfo().c_str());
 
     if (has_display) {
-        lcd.setFont(lcd.width() > 240 ? &fonts::Font4 : &fonts::Font2);
+        constexpr RGBColor palettes[4] = {RGBColor(0, 0, 0), RGBColor(0, 0, 255), RGBColor(255, 0, 0),
+                                          RGBColor(255, 255, 255)};
+        sprite.setPsram(false);
+        sprite.setColorDepth(2);  // 4 colors
+        sprite.createSprite(lcd.width(), lcd.height());
+        sprite.setFont(&fonts::AsciiFont8x16);
+        auto pal = sprite.getPalette();
+        for (auto&& p : palettes) {
+            *pal++ = p;
+        }
+        sprite.setTextColor(3, 0);
         lcd.fillScreen(TFT_BLACK);
-        lcd.setTextDatum(middle_center);
-        lcd.drawString(func_name_table[fidx], lcd.width() >> 1, lcd.height() >> 1);
-        lcd.setTextDatum(top_left);
     }
     M5.Log.printf("Output:%s\n", func_name_table[fidx]);
 }
@@ -245,36 +277,30 @@ void loop()
 #endif
     counter += 6;
 
-    if (has_display) {
-        auto bwid = lcd.width() >> 3;
+    if (has_display && (pv0 != v0 || pv1 != v1)) {
+        pv0 = v0;
+        pv1 = v1;
+
+#if defined(USING_UNIT_DAC)
+        constexpr int num_ch = 1;
+#else
+        constexpr int num_ch = 2;
+#endif
+        int total_h = FONT_H + 2 + CH_BLOCK_H * num_ch + (num_ch - 1) * 4;
+        int y       = (lcd.height() - total_h) / 2;
+
+        sprite.clear();
+        sprite.setCursor(MARGIN, y);
+        sprite.printf("%s", func_name_table[fidx]);
+
+        int ch_y = y + FONT_H + 2;
+        draw_channel(ch_y, 0, v0, max_0, 2);
+#if !defined(USING_UNIT_DAC)
+        draw_channel(ch_y + CH_BLOCK_H + 4, 1, v1, max_1, 1);
+#endif
 
         lcd.startWrite();
-
-        if (pv0 != v0 || pv1 != v1) {
-            lcd.fillRect(bwid, (lcd.height() >> 1) + 24, lcd.width() - bwid * 2, (lcd.height() >> 1) - 24, TFT_BLACK);
-            lcd.drawString(m5::utility::formatString("< Ch0:%.2f", v0).c_str(), bwid * 2, (lcd.height() >> 1) + 24);
-#if !defined(USING_UNIT_DAC)
-            lcd.drawString(m5::utility::formatString("> Ch1:%.2f", v1).c_str(), bwid * 2, (lcd.height() >> 1) + 24 * 2);
-#endif
-        }
-
-        // Channel 0
-        if (pv0 != v0) {
-            pv0       = v0;
-            auto vhgt = lcd.height() * (v0 / max_0);
-            lcd.fillRect(0, 0, bwid, lcd.height() - vhgt, TFT_BLACK);
-            lcd.fillRect(0, lcd.height() - vhgt, bwid, vhgt, TFT_RED);
-        }
-#if !defined(USING_UNIT_DAC)
-        // Channel 1
-        if (pv1 != v1) {
-            pv1       = v1;
-            auto vhgt = lcd.height() * (v1 / max_1);
-            lcd.fillRect(lcd.width() - bwid, 0, bwid, lcd.height() - vhgt, TFT_BLACK);
-            lcd.fillRect(lcd.width() - bwid, lcd.height() - vhgt, bwid, vhgt, TFT_BLUE);
-        }
-#endif
-
+        sprite.pushSprite(&lcd, 0, 0);
         lcd.endWrite();
     }
 
@@ -284,13 +310,9 @@ void loop()
         func    = func_table[fidx];
         counter = 0;
 
+        pv0 = -1.f;
+        pv1 = -1.f;
         M5.Speaker.tone(2000, 20);
-        if (has_display) {
-            lcd.fillScreen(TFT_BLACK);
-            lcd.setTextDatum(top_center);
-            lcd.drawString(func_name_table[fidx], lcd.width() >> 1, lcd.height() >> 1);
-            lcd.setTextDatum(top_left);
-        }
         M5.Log.printf("==== Output:%s\n", func_name_table[fidx]);
     }
 
