@@ -12,41 +12,33 @@
 #include <M5UnitUnified.hpp>
 #include <googletest/test_template.hpp>
 #include <googletest/test_helper.hpp>
+#include <m5_unit_component/adapter_i2c.hpp>
 #include <unit/unit_MCP4725.hpp>
-#include <cmath>
-#include <random>
 
 using namespace m5::unit::googletest;
 using namespace m5::unit;
 using namespace m5::unit::mcp4725;
 
-const ::testing::Environment* global_fixture = ::testing::AddGlobalTestEnvironment(new GlobalFixture<400000U>());
-
-class TestMCP4725 : public ComponentTestBase<UnitMCP4725, bool> {
+class TestMCP4725 : public I2CComponentTestBase<UnitMCP4725> {
 protected:
     virtual UnitMCP4725* get_instance() override
     {
         auto ptr = new m5::unit::UnitMCP4725();
         return ptr;
     }
-    virtual bool is_using_hal() const override
-    {
-        return GetParam();
-    };
 };
-
-// INSTANTIATE_TEST_SUITE_P(ParamValues, TestMCP4725, ::testing::Values(false, true));
-// INSTANTIATE_TEST_SUITE_P(ParamValues, TestMCP4725, ::testing::Values(true));
-INSTANTIATE_TEST_SUITE_P(ParamValues, TestMCP4725, ::testing::Values(false));
 
 namespace {
 constexpr PowerDown pd_table[] = {PowerDown::OHM_1K, PowerDown::OHM_100K, PowerDown::OHM_500K, PowerDown::Normal};
 
 }  // namespace
 
-TEST_P(TestMCP4725, Settings)
+TEST_F(TestMCP4725, Settings)
 {
     SCOPED_TRACE(ustr);
+
+    auto ad          = unit->asAdapter<m5::unit::AdapterI2C>(m5::unit::Adapter::Type::I2C);
+    bool is_i2cclass = ad && ad->implType() == m5::unit::AdapterI2C::ImplType::I2CClass;
 
     EXPECT_EQ(unit->lastValue(), 0U);
     EXPECT_EQ(unit->powerDown(), PowerDown::Normal);
@@ -82,28 +74,31 @@ TEST_P(TestMCP4725, Settings)
         EXPECT_EQ(pwd, pd);
         EXPECT_EQ(raw, 0U);
 
-        // reset
-        uint8_t v = (uint8_t)pd;
-        v         = (v + 1) & 0x03;
-        EXPECT_TRUE(unit->writePowerDown((PowerDown)v));
-        EXPECT_TRUE(unit->writeVoltage(100U));
+        // I2C_Class hangs on generalReset (bus stuck after general call reset)
+        if (!is_i2cclass) {
+            // reset
+            uint8_t v = (uint8_t)pd;
+            v         = (v + 1) & 0x03;
+            EXPECT_TRUE(unit->writePowerDown((PowerDown)v));
+            EXPECT_TRUE(unit->writeVoltage(100U));
 
-        EXPECT_TRUE(unit->readDACRegister(pwd, raw));
-        EXPECT_EQ(pwd, (PowerDown)v);
-        EXPECT_EQ(raw, 100U);
+            EXPECT_TRUE(unit->readDACRegister(pwd, raw));
+            EXPECT_EQ(pwd, (PowerDown)v);
+            EXPECT_EQ(raw, 100U);
 
-        EXPECT_TRUE(unit->generalReset());
+            EXPECT_TRUE(unit->generalReset());
 
-        EXPECT_TRUE(unit->readDACRegister(pwd, raw));
-        EXPECT_EQ(pwd, pd);
-        EXPECT_EQ(raw, 0U);
-        EXPECT_TRUE(unit->readEEPROM(pwd, raw));
-        EXPECT_EQ(pwd, pd);
-        EXPECT_EQ(raw, 0U);
+            EXPECT_TRUE(unit->readDACRegister(pwd, raw));
+            EXPECT_EQ(pwd, pd);
+            EXPECT_EQ(raw, 0U);
+            EXPECT_TRUE(unit->readEEPROM(pwd, raw));
+            EXPECT_EQ(pwd, pd);
+            EXPECT_EQ(raw, 0U);
+        }
     }
 }
 
-TEST_P(TestMCP4725, Output)
+TEST_F(TestMCP4725, Output)
 {
     SCOPED_TRACE(ustr);
 

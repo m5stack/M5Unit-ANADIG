@@ -12,20 +12,17 @@
 #include <M5UnitUnified.hpp>
 #include <googletest/test_template.hpp>
 #include <googletest/test_helper.hpp>
+#include <m5_unit_component/adapter_i2c.hpp>
 #include <unit/unit_ADS1110.hpp>
 #include <cmath>
-#include <random>
 
 using namespace m5::unit::googletest;
 using namespace m5::unit;
 using namespace m5::unit::ads1110;
-using m5::unit::types::elapsed_time_t;
-
-const ::testing::Environment* global_fixture = ::testing::AddGlobalTestEnvironment(new GlobalFixture<400000U>());
 
 constexpr uint32_t STORED_SIZE{8};
 
-class TestADS1110 : public ComponentTestBase<UnitADS1110, bool> {
+class TestADS1110 : public I2CComponentTestBase<UnitADS1110> {
 protected:
     virtual UnitADS1110* get_instance() override
     {
@@ -34,18 +31,8 @@ protected:
         ccfg.stored_size = STORED_SIZE;
         ptr->component_config(ccfg);
         return ptr;
-
-        return ptr;
     }
-    virtual bool is_using_hal() const override
-    {
-        return GetParam();
-    };
 };
-
-// INSTANTIATE_TEST_SUITE_P(ParamValues, TestADS1110, ::testing::Values(false, true));
-// INSTANTIATE_TEST_SUITE_P(ParamValues, TestADS1110, ::testing::Values(true));
-INSTANTIATE_TEST_SUITE_P(ParamValues, TestADS1110, ::testing::Values(false));
 
 namespace {
 constexpr Sampling rate_table[] = {
@@ -56,53 +43,15 @@ constexpr Sampling rate_table[] = {
 };
 constexpr PGA pga_table[] = {PGA::Gain1, PGA::Gain2, PGA::Gain4, PGA::Gain8};
 
-constexpr uint32_t interval_table[] = {1000 / 240, 1000 / 60, 1000 / 30, 1000 / 15};
-
-template <class U>
-elapsed_time_t test_periodic(U* unit, const uint32_t times, const uint32_t measure_duration = 0)
-{
-    auto tm         = unit->interval();
-    auto timeout_at = m5::utility::millis() + 10 * 1000;
-
-    do {
-        unit->update();
-        if (unit->updated()) {
-            break;
-        }
-        std::this_thread::yield();
-    } while (!unit->updated() && m5::utility::millis() <= timeout_at);
-    // timeout
-    if (!unit->updated()) {
-        return 0;
-    }
-
-    //
-    uint32_t measured{};
-    auto start_at = m5::utility::millis();
-    timeout_at    = start_at + (times * (tm + measure_duration) * 2);
-
-    do {
-        unit->update();
-        measured += unit->updated() ? 1 : 0;
-        if (measured >= times) {
-            break;
-        }
-        std::this_thread::yield();
-
-    } while (measured < times && m5::utility::millis() <= timeout_at);
-    return (measured == times) ? m5::utility::millis() - start_at : 0;
-    //   return (measured == times) ? unit->updatedMillis() - start_at : 0;
-}
-
 }  // namespace
 
-TEST_P(TestADS1110, Settings)
+TEST_F(TestADS1110, Settings)
 {
     SCOPED_TRACE(ustr);
 
     EXPECT_TRUE(unit->inPeriodic());
 
-    // Faild in periodic
+    // Failed in periodic
     for (auto&& r : rate_table) {
         EXPECT_FALSE(unit->writeSamplingRate(r));
     }
@@ -127,9 +76,17 @@ TEST_P(TestADS1110, Settings)
     }
 }
 
-TEST_P(TestADS1110, Reset)
+TEST_F(TestADS1110, Reset)
 {
     SCOPED_TRACE(ustr);
+
+    // I2C_Class hangs on generalReset (bus stuck after general call reset)
+    auto ad          = unit->asAdapter<m5::unit::AdapterI2C>(m5::unit::Adapter::Type::I2C);
+    bool is_i2cclass = ad && ad->implType() == m5::unit::AdapterI2C::ImplType::I2CClass;
+    if (is_i2cclass) {
+        M5_LOGW("Skip Reset: I2C_Class does not recover from general call reset");
+        GTEST_SKIP();
+    }
 
     EXPECT_TRUE(unit->stopPeriodicMeasurement());
     EXPECT_FALSE(unit->inPeriodic());
@@ -161,7 +118,7 @@ TEST_P(TestADS1110, Reset)
     EXPECT_EQ(pga, PGA::Gain1);
 }
 
-TEST_P(TestADS1110, Singleshot)
+TEST_F(TestADS1110, Singleshot)
 {
     SCOPED_TRACE(ustr);
     Data d{};
@@ -184,7 +141,7 @@ TEST_P(TestADS1110, Singleshot)
     }
 }
 
-TEST_P(TestADS1110, Periodic)
+TEST_F(TestADS1110, Periodic)
 {
     SCOPED_TRACE(ustr);
 
@@ -201,16 +158,15 @@ TEST_P(TestADS1110, Periodic)
             EXPECT_TRUE(unit->startPeriodicMeasurement(r, p));
             EXPECT_TRUE(unit->inPeriodic());
 
-            auto tm      = interval_table[m5::stl::to_underlying(r)];
-            auto elapsed = test_periodic(unit.get(), STORED_SIZE, tm);
+            auto result = collect_periodic_measurements(unit.get(), STORED_SIZE, unit->interval() * STORED_SIZE * 3);
 
             EXPECT_TRUE(unit->stopPeriodicMeasurement());
             EXPECT_FALSE(unit->inPeriodic());
 
-            EXPECT_NE(elapsed, 0);
-            EXPECT_GE(elapsed, STORED_SIZE * tm);
+            EXPECT_FALSE(result.timed_out);
+            EXPECT_EQ(result.update_count, STORED_SIZE);
+            EXPECT_LE(result.median(), result.expected_interval + result.expected_interval * 15 / 100 + 1);
 
-            // M5_LOGI("TM:%u IT:%u e:%ld", tm, unit->interval(), elapsed);
             //
             EXPECT_EQ(unit->available(), STORED_SIZE);
             EXPECT_FALSE(unit->empty());
