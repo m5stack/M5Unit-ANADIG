@@ -11,10 +11,10 @@ on:
     branches:
       - '*'
     paths:
-      - 'src/unit/**.cpp'
-      - 'src/unit/**.hpp'
-      - 'src/unit/**.h'
-      - 'src/unit/**.c'
+      - 'src/**.cpp'
+      - 'src/**.hpp'
+      - 'src/**.h'
+      - 'src/**.c'
       - 'test/**.cpp'
       - 'test/**.hpp'
       - 'test/**.h'
@@ -24,13 +24,13 @@ on:
       - 'examples/UnitUnified/**.hpp'
       - 'examples/UnitUnified/**.h'
       - 'examples/UnitUnified/**.c'
-      - '**arduino-esp-v3-build-check.yml'
+      - '.github/workflows/arduino-esp-v3-build-check.yml'
   pull_request:
     paths:
-      - 'src/unit/**.cpp'
-      - 'src/unit/**.hpp'
-      - 'src/unit/**.h'
-      - 'src/unit/**.c'
+      - 'src/**.cpp'
+      - 'src/**.hpp'
+      - 'src/**.h'
+      - 'src/**.c'
       - 'test/**.cpp'
       - 'test/**.hpp'
       - 'test/**.h'
@@ -40,7 +40,7 @@ on:
       - 'examples/UnitUnified/**.hpp'
       - 'examples/UnitUnified/**.h'
       - 'examples/UnitUnified/**.c'
-      - '**arduino-esp-v3-build-check.yml'
+      - '.github/workflows/arduino-esp-v3-build-check.yml'
   workflow_dispatch:
 
 defaults:
