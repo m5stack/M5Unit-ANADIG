@@ -48,7 +48,7 @@ struct Data {
     //! @brief Gets the differential value
     inline int16_t differentialValue() const
     {
-        return (int16_t)m5::types::big_uint16_t(raw[0], raw[1]).get();
+        return static_cast<int16_t>(m5::types::big_uint16_t(raw[0], raw[1]).get());
     }
     //! @brief Gets the differential voltage(mV)
     inline float differentialVoltage() const
@@ -69,6 +69,8 @@ class UnitADS11XX : public Component, public PeriodicMeasurementAdapter<UnitADS1
     M5_UNIT_COMPONENT_HPP_BUILDER(UnitADS11XX, 0x00);
 
 public:
+    /*! @brief Constructor
+        @param addr I2C address */
     explicit UnitADS11XX(const uint8_t addr = DEFAULT_ADDRESS)
         : Component(addr), _data{new m5::container::CircularBuffer<ads11xx::Data>(1)}
     {
@@ -80,7 +82,9 @@ public:
     {
     }
 
+    //! @brief Begin the unit
     virtual bool begin() override;
+    //! @brief Update the unit
     virtual void update(const bool force = false) override;
 
     ///@name Measurement data by periodic
@@ -149,7 +153,7 @@ protected:
     std::unique_ptr<m5::container::CircularBuffer<ads11xx::Data>> _data{};
     ads11xx::PGA _pga{};
     uint8_t _rate{};
-    float _vdd{2.048f};
+    float _vdd{2048.f};
     float _factor{1.0f};
 
     struct Config {

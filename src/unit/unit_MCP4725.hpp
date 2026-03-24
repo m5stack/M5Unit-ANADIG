@@ -125,7 +125,7 @@ public:
        @brief Output the voltage
        @param mv Output voltage(mV)
        @return True if successful
-       @Note If exceeding the range, it will be kept within the range
+       @note If exceeding the range, it will be kept within the range
       */
     template <typename T, typename std::enable_if<std::is_floating_point<T>::value, std::nullptr_t>::type = nullptr>
     inline bool writeVoltage(const T mv)
@@ -136,7 +136,7 @@ public:
        @brief Output the voltage
        @param raw Output raw value
         @return True if successful
-       @Note If exceeding the range, it will be kept within the range
+       @note If exceeding the range, it will be kept within the range
       */
     inline bool writeVoltage(const uint16_t raw)
     {

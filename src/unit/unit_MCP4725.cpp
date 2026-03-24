@@ -48,19 +48,18 @@ bool UnitMCP4725::begin()
 bool UnitMCP4725::writeVoltageAndEEPROM(const uint16_t raw, const bool blocking)
 {
     if (write_voltage(Command::WriteDACAndEEPROM, raw)) {
-        bool done{!blocking};
         if (blocking) {
             m5::utility::delay(25);  // typ:25 max:50
             auto timeout_at = m5::utility::millis() + 25;
             do {
-                done = is_eeprom_ready();
-                if (done) {
-                    break;
-                };
+                if (is_eeprom_ready()) {
+                    return true;
+                }
                 m5::utility::delay(1);
-            } while (!done && m5::utility::millis() <= timeout_at);
+            } while (m5::utility::millis() <= timeout_at);
+            return false;  // timeout
         }
-        return done;
+        return true;  // non-blocking
     }
     return false;
 }
@@ -96,7 +95,7 @@ bool UnitMCP4725::readDACRegister(mcp4725::PowerDown& pd, uint16_t& raw)
     uint8_t rbuf[5]{};
     if (read_status(rbuf)) {
         pd  = static_cast<PowerDown>((rbuf[0] >> 1) & 0x03);
-        raw = ((uint16_t)rbuf[1] << 4) | (uint16_t)((rbuf[2] >> 4) & 0x0F);
+        raw = (static_cast<uint16_t>(rbuf[1]) << 4) | static_cast<uint16_t>((rbuf[2] >> 4) & 0x0F);
         return true;
     }
     return false;
@@ -107,7 +106,7 @@ bool UnitMCP4725::readEEPROM(mcp4725::PowerDown& pd, uint16_t& raw)
     uint8_t rbuf[5]{};
     if (read_status(rbuf)) {
         pd  = static_cast<PowerDown>((rbuf[3] >> 5) & 0x03);
-        raw = ((uint16_t)(rbuf[3] & 0x0F) << 8) | (uint16_t)rbuf[4];
+        raw = (static_cast<uint16_t>(rbuf[3] & 0x0F) << 8) | static_cast<uint16_t>(rbuf[4]);
         return true;
     }
     return false;

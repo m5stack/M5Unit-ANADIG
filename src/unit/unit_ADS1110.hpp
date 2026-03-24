@@ -57,6 +57,9 @@ public:
         float factor{100.f / 610.f};
     };
 
+    /*! @brief Constructor
+        @param factor Correction factor
+        @param addr I2C address */
     explicit UnitADS1110(const float factor = 100.f / 610.f, const uint8_t addr = DEFAULT_ADDRESS) : UnitADS11XX(addr)
     {
         _vdd        = 2048.f;  // Fixed (internal VDD)
@@ -66,6 +69,7 @@ public:
     {
     }
 
+    //! @brief Begin the unit
     virtual bool begin() override;
 
     ///@name Settings for begin

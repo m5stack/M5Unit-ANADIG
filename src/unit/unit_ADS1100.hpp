@@ -60,6 +60,10 @@ public:
         float factor{0.25f};
     };
 
+    /*! @brief Constructor
+        @param vdd Supply voltage(mV)
+        @param factor Correction factor
+        @param addr I2C address */
     explicit UnitADS1100(const float vdd = 3300.f, const float factor = 0.25f, const uint8_t addr = DEFAULT_ADDRESS)
         : UnitADS11XX(addr)
     {
@@ -70,6 +74,7 @@ public:
     {
     }
 
+    //! @brief Begin the unit
     virtual bool begin() override;
 
     ///@name Settings for begin
