@@ -106,22 +106,25 @@ TEST_F(TestMCP4725, Output)
     EXPECT_EQ(unit->powerDown(), PowerDown::Normal);
     EXPECT_TRUE(unit->writeVoltageAndEEPROM(0U));
 
-    auto supply_voltage = unit->config().supply_voltage;
+    auto supply_voltage     = unit->config().supply_voltage;
+    auto saturation_voltage = unit->config().saturation_voltage;
 
     PowerDown pwd{};
     uint16_t raw{};
-    const float near = UnitMCP4725::MAXIMUM_VOLTAGE / UnitMCP4725::RESOLUTION;
+    // 1 LSB = supply_voltage / 4096
+    const float near = supply_voltage / 4096.0f;
 
     //
     EXPECT_TRUE(unit->writeVoltage(1234.56f));
     EXPECT_TRUE(unit->readDACRegister(pwd, raw));
-    // M5_LOGI("%f", raw_to_voltage(raw, supply_voltage));
     EXPECT_NEAR(UnitMCP4725::raw_to_voltage(raw, supply_voltage), 1234.56f, near);
 
-    EXPECT_TRUE(unit->writeVoltage(3333.33f));
+    // Exceeding saturation_voltage is clamped
+    EXPECT_TRUE(unit->writeVoltage(saturation_voltage + 100.0f));
     EXPECT_TRUE(unit->readDACRegister(pwd, raw));
-    EXPECT_EQ(raw, UnitMCP4725::voltage_to_raw(UnitMCP4725::MAXIMUM_VOLTAGE, supply_voltage));
+    EXPECT_EQ(raw, UnitMCP4725::voltage_to_raw(saturation_voltage, supply_voltage));
 
+    // Negative values return false
     EXPECT_FALSE(unit->writeVoltage(-1234.56f));
 
     //
@@ -131,13 +134,26 @@ TEST_F(TestMCP4725, Output)
     EXPECT_TRUE(unit->readEEPROM(pwd, raw));
     EXPECT_NEAR(UnitMCP4725::raw_to_voltage(raw, supply_voltage), 1234.56f, near);
 
-    EXPECT_TRUE(unit->writeVoltageAndEEPROM(3333.33f));
+    // Exceeding saturation_voltage is clamped
+    EXPECT_TRUE(unit->writeVoltageAndEEPROM(saturation_voltage + 100.0f));
     EXPECT_TRUE(unit->readDACRegister(pwd, raw));
-    EXPECT_EQ(raw, UnitMCP4725::voltage_to_raw(UnitMCP4725::MAXIMUM_VOLTAGE, supply_voltage));
+    EXPECT_EQ(raw, UnitMCP4725::voltage_to_raw(saturation_voltage, supply_voltage));
     EXPECT_TRUE(unit->readEEPROM(pwd, raw));
-    EXPECT_EQ(raw, UnitMCP4725::voltage_to_raw(UnitMCP4725::MAXIMUM_VOLTAGE, supply_voltage));
+    EXPECT_EQ(raw, UnitMCP4725::voltage_to_raw(saturation_voltage, supply_voltage));
 
+    // Negative values return false
     EXPECT_FALSE(unit->writeVoltageAndEEPROM(-1234.56f));
+
+    // Static conversion: full-scale and zero
+    EXPECT_EQ(UnitMCP4725::voltage_to_raw(supply_voltage, supply_voltage), +UnitMCP4725::RESOLUTION);
+    EXPECT_EQ(UnitMCP4725::voltage_to_raw(0.0f, supply_voltage), 0U);
+
+    // Round-trip: raw -> voltage -> raw
+    for (uint16_t r = 0; r < 4096; r += 512) {
+        float v     = UnitMCP4725::raw_to_voltage(r, supply_voltage);
+        uint16_t r2 = UnitMCP4725::voltage_to_raw(v, supply_voltage);
+        EXPECT_NEAR(r, r2, 1) << "round-trip failed at raw=" << r;
+    }
 
     //
     EXPECT_EQ(unit->powerDown(), PowerDown::Normal);
