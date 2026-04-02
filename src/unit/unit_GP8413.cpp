@@ -73,14 +73,14 @@ bool UnitGP8413::writeOutputRange(const gp8413::Output range0, const gp8413::Out
 
 bool UnitGP8413::writeVoltage(const gp8413::Channel channel, const uint16_t raw)
 {
-    uint8_t buf[2]{static_cast<uint8_t>(raw & 0xFF), static_cast<uint8_t>(raw >> 8)};
+    const uint8_t buf[2]{static_cast<uint8_t>(raw & 0xFF), static_cast<uint8_t>(raw >> 8)};
     return write_voltage(channel_reg_table[m5::stl::to_underlying(channel)], buf, 2);
 }
 
 bool UnitGP8413::writeBothVoltage(const uint16_t raw0, const uint16_t raw1)
 {
-    uint8_t buf[4]{static_cast<uint8_t>(raw0 & 0xFF), static_cast<uint8_t>(raw0 >> 8),
-                   static_cast<uint8_t>(raw1 & 0xFF), static_cast<uint8_t>(raw1 >> 8)};
+    const uint8_t buf[4]{static_cast<uint8_t>(raw0 & 0xFF), static_cast<uint8_t>(raw0 >> 8),
+                         static_cast<uint8_t>(raw1 & 0xFF), static_cast<uint8_t>(raw1 >> 8)};
     return write_voltage(channel_reg_table[0], buf, 4);
 }
 

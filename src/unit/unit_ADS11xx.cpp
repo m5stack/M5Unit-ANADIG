@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: MIT
  */
 /*!
-  @file unit_ADS11XX.cpp
+  @file unit_ADS11xx.cpp
   @brief ADS11XX Unit for M5UnitUnified
 */
 #include "unit_ADS11xx.hpp"

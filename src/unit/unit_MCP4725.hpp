@@ -41,19 +41,19 @@ class UnitMCP4725 : public Component {
     M5_UNIT_COMPONENT_HPP_BUILDER(UnitMCP4725, 0x60);
 
 public:
-    static constexpr uint16_t RESOLUTION{0x0FFF};    // 12bits
-    static constexpr float MAXIMUM_VOLTAGE{3300.f};  // mV
+    static constexpr uint16_t RESOLUTION{0x0FFF};  // 12bits max code
 
     //! @brief Raw value to voltage(mV)
-    static inline float raw_to_voltage(const uint16_t raw, const float supply_voltage = 5000.f)
+    static inline float raw_to_voltage(const uint16_t raw, const float supply_voltage)
     {
-        return static_cast<float>(raw) * supply_voltage / RESOLUTION;
+        return static_cast<float>(raw) * supply_voltage / 4096.0f;
     }
     //! @brief Voltage(mV) to raw value
-    static inline uint16_t voltage_to_raw(const float mv, const float supply_voltage = 5000.f)
+    static inline uint16_t voltage_to_raw(const float mv, const float supply_voltage)
     {
-        float val = m5::stl::clamp(mv, 0.0f, MAXIMUM_VOLTAGE);
-        return static_cast<uint16_t>((val / supply_voltage) * RESOLUTION);
+        float val    = m5::stl::clamp(mv, 0.0f, supply_voltage);
+        uint32_t raw = static_cast<uint32_t>((val / supply_voltage) * 4096.0f);
+        return static_cast<uint16_t>(raw > RESOLUTION ? RESOLUTION : raw);
     }
 
     /*!
@@ -63,8 +63,11 @@ public:
     struct config_t {
         //! Using EEPROM settings on begin?
         bool using_eeprom_settings{false};
-        //! Voltage supplied mV (Used to calculate output values)
+        //! VDD of MCP4725 chip (mV). Used for raw <-> voltage conversion
         float supply_voltage{5000.f};
+        //! Max reliable output voltage (mV). 0 means no limit (uses supply_voltage)
+        //! @note UnitDAC (U012) saturates at ~3.3V despite 5V VDD
+        float saturation_voltage{3300.f};
     };
 
     explicit UnitMCP4725(const uint8_t addr = DEFAULT_ADDRESS) : Component(addr)
@@ -125,18 +128,20 @@ public:
        @brief Output the voltage
        @param mv Output voltage(mV)
        @return True if successful
-       @note If exceeding the range, it will be kept within the range
+       @note Negative values return false. Values exceeding the saturation voltage are clamped
       */
     template <typename T, typename std::enable_if<std::is_floating_point<T>::value, std::nullptr_t>::type = nullptr>
     inline bool writeVoltage(const T mv)
     {
-        return (mv >= 0.0f) && writeVoltage(voltage_to_raw((float)mv, _cfg.supply_voltage));
+        float limit = (_cfg.saturation_voltage > 0.f) ? _cfg.saturation_voltage : _cfg.supply_voltage;
+        return (mv >= 0.0f) &&
+               writeVoltage(voltage_to_raw(std::min(static_cast<float>(mv), limit), _cfg.supply_voltage));
     }
     /*!
        @brief Output the voltage
        @param raw Output raw value
         @return True if successful
-       @note If exceeding the range, it will be kept within the range
+       @note Negative values return false. Values exceeding the supply voltage are clamped
       */
     inline bool writeVoltage(const uint16_t raw)
     {
@@ -160,12 +165,15 @@ public:
       @param mv Output voltage(mV)
       @param blocking Wait until EEPROM write is complete if true
       @return True if successful
-      @Note If exceeding the range, it will be kept within the range
+      @note Negative values return false. Values exceeding the supply voltage are clamped
      */
     template <typename T, typename std::enable_if<std::is_floating_point<T>::value, std::nullptr_t>::type = nullptr>
     inline bool writeVoltageAndEEPROM(const T mv, const bool blocking = true)
     {
-        return (mv >= 0.0f) && writeVoltageAndEEPROM(voltage_to_raw((float)mv, _cfg.supply_voltage), blocking);
+        float limit = (_cfg.saturation_voltage > 0.f) ? _cfg.saturation_voltage : _cfg.supply_voltage;
+        return (mv >= 0.0f) &&
+               writeVoltageAndEEPROM(voltage_to_raw(std::min(static_cast<float>(mv), limit), _cfg.supply_voltage),
+                                     blocking);
     }
 
     /*!

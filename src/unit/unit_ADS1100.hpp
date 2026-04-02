@@ -50,7 +50,6 @@ public:
         //! Start periodic measurement on begin?
         bool start_periodic{true};
         //! Data sampling rate if start on begin
-        //        ads1100::Sampling sampling_rate{ads1100::Sampling::Rate8};
         ads1100::Sampling sampling_rate{ads1100::Sampling::Rate32};
         //! PGA if start on begin
         ads1100::PGA pga{ads1100::PGA::Gain1};

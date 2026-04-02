@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: MIT
  */
 /*!
-  @file unit_ADS11XX.hpp
+  @file unit_ADS11xx.hpp
   @brief Base class of ADS1100,ADS1110
 */
 #ifndef M5_UNIT_ANADIG_UNIT_ADS11XX_HPP
