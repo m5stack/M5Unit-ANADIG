@@ -74,7 +74,9 @@ I2cPins get_hat_i2c_pins(const m5::board_t board)
 
 #if defined(USING_UNIT_ADC11)
 using namespace m5::unit::ads1110;
-#elif defined(USING_HAT_ADC11) || defined(USING_HAT_ADC)
+#elif defined(USING_HAT_ADC11)
+using namespace m5::unit::ads1110;
+#elif defined(USING_HAT_ADC)
 using namespace m5::unit::ads1100;
 #else
 #endif
@@ -99,7 +101,7 @@ void setup()
 
 #if defined(USING_HAT_ADC11) || defined(USING_HAT_ADC)
     const auto pins = get_hat_i2c_pins(board);
-    M5_LOGI("getHatPin: SDA:%u SCL:%u", pins.sda, pins.scl);
+    M5_LOGI("getHatPin: SDA:%d SCL:%d", pins.sda, pins.scl);
     if (pins.sda < 0 || pins.scl < 0) {
         M5_LOGE("Illegal pin number");
         lcd.fillScreen(TFT_RED);
@@ -131,7 +133,7 @@ void setup()
         // NessoN1: GROVE is on port_b (GPIO 5/4), not port_a (which maps to Wire pins 8/10)
         auto pin_num_sda = M5.getPin(m5::pin_name_t::port_b_out);
         auto pin_num_scl = M5.getPin(m5::pin_name_t::port_b_in);
-        M5_LOGI("getPin(M5HAL): SDA:%u SCL:%u", pin_num_sda, pin_num_scl);
+        M5_LOGI("getPin(M5HAL): SDA:%d SCL:%d", pin_num_sda, pin_num_scl);
         m5::hal::bus::I2CBusConfig i2c_cfg;
         i2c_cfg.pin_sda = m5::hal::gpio::getPin(pin_num_sda);
         i2c_cfg.pin_scl = m5::hal::gpio::getPin(pin_num_scl);
@@ -145,7 +147,7 @@ void setup()
     } else {
         auto pin_num_sda = M5.getPin(m5::pin_name_t::port_a_sda);
         auto pin_num_scl = M5.getPin(m5::pin_name_t::port_a_scl);
-        M5_LOGI("getPin: SDA:%u SCL:%u", pin_num_sda, pin_num_scl);
+        M5_LOGI("getPin: SDA:%d SCL:%d", pin_num_sda, pin_num_scl);
         Wire.end();
         Wire.begin(pin_num_sda, pin_num_scl, 400 * 1000U);
         unit_ready = Units.add(unit, Wire) && Units.begin();

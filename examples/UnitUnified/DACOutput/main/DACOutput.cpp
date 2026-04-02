@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: MIT
  */
 /*
-  Example using M5UnitUnified for UnitDAC2/HatDAC2
+  Example using M5UnitUnified for UnitDAC/UnitDAC2/HatDAC2
 */
 #include <M5Unified.h>
 #include <M5UnitUnified.h>
@@ -166,7 +166,7 @@ void setup()
 
 #if defined(USING_HAT_DAC2)
     const auto pins = get_hat_i2c_pins(board);
-    M5_LOGI("getHatPin: SDA:%u SCL:%u", pins.sda, pins.scl);
+    M5_LOGI("getHatPin: SDA:%d SCL:%d", pins.sda, pins.scl);
     if (pins.sda < 0 || pins.scl < 0) {
         M5_LOGE("Illegal pin number");
         lcd.fillScreen(TFT_RED);
@@ -198,7 +198,7 @@ void setup()
         // NessoN1: GROVE is on port_b (GPIO 5/4), not port_a (which maps to Wire pins 8/10)
         auto pin_num_sda = M5.getPin(m5::pin_name_t::port_b_out);
         auto pin_num_scl = M5.getPin(m5::pin_name_t::port_b_in);
-        M5_LOGI("getPin(M5HAL): SDA:%u SCL:%u", pin_num_sda, pin_num_scl);
+        M5_LOGI("getPin(M5HAL): SDA:%d SCL:%d", pin_num_sda, pin_num_scl);
         m5::hal::bus::I2CBusConfig i2c_cfg;
         i2c_cfg.pin_sda = m5::hal::gpio::getPin(pin_num_sda);
         i2c_cfg.pin_scl = m5::hal::gpio::getPin(pin_num_scl);
@@ -212,7 +212,7 @@ void setup()
     } else {
         auto pin_num_sda = M5.getPin(m5::pin_name_t::port_a_sda);
         auto pin_num_scl = M5.getPin(m5::pin_name_t::port_a_scl);
-        M5_LOGI("getPin: SDA:%u SCL:%u", pin_num_sda, pin_num_scl);
+        M5_LOGI("getPin: SDA:%d SCL:%d", pin_num_sda, pin_num_scl);
         Wire.end();
         Wire.begin(pin_num_sda, pin_num_scl, 400 * 1000U);
         unit_ready = Units.add(unit, Wire) && Units.begin();
@@ -255,7 +255,7 @@ void loop()
 {
     static float pv0{}, pv1{};
 #if defined(USING_UNIT_DAC)
-    static float max_0{m5::unit::UnitDAC::MAXIMUM_VOLTAGE};
+    static float max_0{unit.config().saturation_voltage};
 #else
     static float max_0{unit.maximumVoltage(Channel::Zero)};
     static float max_1{unit.maximumVoltage(Channel::One)};
@@ -331,6 +331,4 @@ void loop()
         M5.Log.printf("---- Range V0:%uV V1:%uV\n", (int)(max_0 / 1000), (int)(max_1 / 1000));
     }
 #endif
-
-    m5::utility::delay(1);
 }
