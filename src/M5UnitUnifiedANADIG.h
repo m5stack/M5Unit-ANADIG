@@ -5,7 +5,7 @@
  */
 /*!
   @file M5UnitUnifiedANADIG.h
-  @brief Main header of M5UnitANADIG using M5UnitUnfied
+  @brief Main header of M5UnitANADIG using M5UnitUnified
 */
 #ifndef M5_UNIT_UNIFIED_ANADIG_H
 #define M5_UNIT_UNIFIED_ANADIG_H

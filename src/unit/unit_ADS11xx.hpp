@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: MIT
  */
 /*!
-  @file unit_ADS11XX.hpp
+  @file unit_ADS11xx.hpp
   @brief Base class of ADS1100,ADS1110
 */
 #ifndef M5_UNIT_ANADIG_UNIT_ADS11XX_HPP
@@ -45,10 +45,10 @@ struct Data {
     float vdd{2048.f};             //!< VDD(mV)
     float factor{1.0f};            //!< Correction factor
 
-    ///! @brief Gets the differential value
+    //! @brief Gets the differential value
     inline int16_t differentialValue() const
     {
-        return (int16_t)m5::types::big_uint16_t(raw[0], raw[1]).get();
+        return static_cast<int16_t>(m5::types::big_uint16_t(raw[0], raw[1]).get());
     }
     //! @brief Gets the differential voltage(mV)
     inline float differentialVoltage() const
@@ -69,6 +69,8 @@ class UnitADS11XX : public Component, public PeriodicMeasurementAdapter<UnitADS1
     M5_UNIT_COMPONENT_HPP_BUILDER(UnitADS11XX, 0x00);
 
 public:
+    /*! @brief Constructor
+        @param addr I2C address */
     explicit UnitADS11XX(const uint8_t addr = DEFAULT_ADDRESS)
         : Component(addr), _data{new m5::container::CircularBuffer<ads11xx::Data>(1)}
     {
@@ -80,7 +82,9 @@ public:
     {
     }
 
+    //! @brief Begin the unit
     virtual bool begin() override;
+    //! @brief Update the unit
     virtual void update(const bool force = false) override;
 
     ///@name Measurement data by periodic
@@ -119,6 +123,8 @@ public:
       @details Reset using I2C general call
       @return True if successful
       @warning This is a reset by General command, the command is also sent to all devices with I2C connections
+      @warning Not supported with m5::I2C_Class. The bus hangs because m5::I2C_Class has no timeout on bus
+     recovery after a general call reset
     */
     virtual bool generalReset();
 
@@ -147,7 +153,7 @@ protected:
     std::unique_ptr<m5::container::CircularBuffer<ads11xx::Data>> _data{};
     ads11xx::PGA _pga{};
     uint8_t _rate{};
-    float _vdd{2.048f};
+    float _vdd{2048.f};
     float _factor{1.0f};
 
     struct Config {
@@ -161,7 +167,7 @@ protected:
         }
         inline bool continuous() const
         {
-            return value & (1U << 4);
+            return !(value & (1U << 4));
         }
         inline bool single() const
         {
@@ -169,7 +175,7 @@ protected:
         }
         inline bool st() const
         {
-            // ADS1100 ST/BSY   Continuous: Always true, Single: False if data raedy
+            // ADS1100 ST/BSY   Continuous: Always true, Single: False if data ready
             // ADS1110 ST/DRDY  Continuous/Single: False if data ready
             return (value & 0x80);
         }
@@ -188,7 +194,7 @@ protected:
         }
         inline void single(bool enable)
         {
-            continuous(false);
+            continuous(!enable);
         }
         inline void st(const bool b)
         {

@@ -20,11 +20,19 @@ namespace unit {
 */
 namespace gp8413 {
 
+/*!
+  @enum Output
+  @brief Output voltage range
+ */
 enum class Output : uint8_t {
     Range5V,   //!< 0 ~ 5V
     Range10V,  //!< 0 ~ 10V
 };
 
+/*!
+  @enum Channel
+  @brief Output channel
+ */
 enum class Channel : uint8_t {
     Zero,  //!< channel 0
     One,   //!< channel 1
@@ -67,12 +75,12 @@ public:
 
     ///@name Settings for begin
     ///@{
-    /*! @brief Gets the configration */
+    /*! @brief Gets the configuration */
     inline config_t config()
     {
         return _cfg;
     }
-    //! @brief Set the configration
+    //! @brief Set the configuration
     inline void config(const config_t& cfg)
     {
         _cfg = cfg;
@@ -104,24 +112,26 @@ public:
       @param channel Channel to output
       @param mv Output voltage(mV)
       @return True if successful
-      @Note If exceeding the range, it will be kept within the range
+      @note Negative values return false. Values exceeding the output range are clamped
      */
     template <typename T, typename std::enable_if<std::is_floating_point<T>::value, std::nullptr_t>::type = nullptr>
     inline bool writeVoltage(const gp8413::Channel channel, const T mv)
     {
-        return (mv >= 0.0f) && writeVoltage(channel, voltage_to_raw(channel, (float)mv));
+        return (mv >= 0.0f) && writeVoltage(channel, voltage_to_raw(channel, static_cast<float>(mv)));
     }
     //! @brief Output the voltage(mV) to channel 0
     template <typename T, typename std::enable_if<std::is_floating_point<T>::value, std::nullptr_t>::type = nullptr>
     inline bool writeChannel0Voltage(const T mv)
     {
-        return (mv >= 0.0f) && writeVoltage(gp8413::Channel::Zero, voltage_to_raw(gp8413::Channel::Zero, (float)mv));
+        return (mv >= 0.0f) &&
+               writeVoltage(gp8413::Channel::Zero, voltage_to_raw(gp8413::Channel::Zero, static_cast<float>(mv)));
     }
     //! @brief Output the voltage(mV) to channel 1
     template <typename T, typename std::enable_if<std::is_floating_point<T>::value, std::nullptr_t>::type = nullptr>
     inline bool writeChannel1Voltage(const T mv)
     {
-        return (mv >= 0.0f) && writeVoltage(gp8413::Channel::One, voltage_to_raw(gp8413::Channel::One, (float)mv));
+        return (mv >= 0.0f) &&
+               writeVoltage(gp8413::Channel::One, voltage_to_raw(gp8413::Channel::One, static_cast<float>(mv)));
     }
     /*!
       @brief Output the voltage to both channel
@@ -132,8 +142,8 @@ public:
     template <typename T, typename std::enable_if<std::is_floating_point<T>::value, std::nullptr_t>::type = nullptr>
     inline bool writeBothVoltage(const T mv0, const T mv1)
     {
-        return writeBothVoltage(voltage_to_raw(gp8413::Channel::Zero, (float)mv0),
-                                voltage_to_raw(gp8413::Channel::One, (float)mv1));
+        return writeBothVoltage(voltage_to_raw(gp8413::Channel::Zero, static_cast<float>(mv0)),
+                                voltage_to_raw(gp8413::Channel::One, static_cast<float>(mv1)));
     }
     /*!
       @brief Output the voltage to both channel
@@ -143,8 +153,8 @@ public:
     template <typename T, typename std::enable_if<std::is_floating_point<T>::value, std::nullptr_t>::type = nullptr>
     inline bool writeBothVoltage(const T mv)
     {
-        return (mv >= 0.0f) && writeBothVoltage(voltage_to_raw(gp8413::Channel::Zero, (float)mv),
-                                                voltage_to_raw(gp8413::Channel::One, (float)mv));
+        return (mv >= 0.0f) && writeBothVoltage(voltage_to_raw(gp8413::Channel::Zero, static_cast<float>(mv)),
+                                                voltage_to_raw(gp8413::Channel::One, static_cast<float>(mv)));
     }
     ///@}
 

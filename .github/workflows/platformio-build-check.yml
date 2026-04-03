@@ -8,30 +8,34 @@ on:
     branches:
       - '*'
     paths:
-      - 'src/unit/**.cpp'
-      - 'src/unit/**.hpp'
-      - 'src/unit/**.h'
-      - 'src/unit/**.c'
+      - 'src/**.cpp'
+      - 'src/**.hpp'
+      - 'src/**.h'
+      - 'src/**.c'
       - 'examples/UnitUnified/**.ino'
       - 'examples/UnitUnified/**.cpp'
       - 'examples/UnitUnified/**.hpp'
       - 'examples/UnitUnified/**.h'
       - 'examples/UnitUnified/**.c'
-      - '**/platformio-build-check.yml'
-      - '**platformio.ini'
+      - '.github/workflows/platformio-build-check.yml'
+      - 'platformio.ini'
+      - 'unit_adc_env.ini'
+      - 'unit_dac_env.ini'
   pull_request:
     paths:
-      - 'src/unit/**.cpp'
-      - 'src/unit/**.hpp'
-      - 'src/unit/**.h'
-      - 'src/unit/**.c'
+      - 'src/**.cpp'
+      - 'src/**.hpp'
+      - 'src/**.h'
+      - 'src/**.c'
       - 'examples/UnitUnified/**.ino'
       - 'examples/UnitUnified/**.cpp'
       - 'examples/UnitUnified/**.hpp'
       - 'examples/UnitUnified/**.h'
       - 'examples/UnitUnified/**.c'
-      - '**/platformio-build-check.yml'
-      - '**platformio.ini'
+      - '.github/workflows/platformio-build-check.yml'
+      - 'platformio.ini'
+      - 'unit_adc_env.ini'
+      - 'unit_dac_env.ini'
   workflow_dispatch:
 
 defaults:
@@ -46,11 +50,11 @@ jobs:
   build:
     name: ${{ matrix.unit }}:${{ matrix.example }}@${{ matrix.board }}:${{ matrix.framework }}:${{ matrix.espressif32 }}
     runs-on: ubuntu-latest
-    timeout-minutes: 5
+    timeout-minutes: 12
 
     strategy:
       fail-fast: false
-      #max-parallel: 1
+      max-parallel: 20
       
       matrix:
         example:
@@ -72,14 +76,18 @@ jobs:
           - Fire
           - StampS3
           - Dial
-          - AtomMatrix
+          - Atom
           - AtomS3
           - AtomS3R
           - NanoC6
           - StickCPlus
           - StickCPlus2
+          - StickS3
           - Paper
           - CoreInk
+          - Cardputer
+          - Tab5
+          - NessoN1
 
         framework:
           - Arduino
@@ -159,12 +167,63 @@ jobs:
             espressif32: latest
             unit: HatDAC2
             board: StickCPlus2
+          - example: ADCInput
+            framework: Arduino
+            espressif32: latest
+            unit: HatADC
+            board: CoreInk
+          - example: ADCInput
+            framework: Arduino
+            espressif32: latest
+            unit: HatADC11
+            board: CoreInk
+          - example: DACOutput
+            framework: Arduino
+            espressif32: latest
+            unit: HatDAC2
+            board: CoreInk
+          - example: ADCInput
+            framework: Arduino
+            espressif32: latest
+            unit: HatADC
+            board: StickS3
+          - example: ADCInput
+            framework: Arduino
+            espressif32: latest
+            unit: HatADC11
+            board: StickS3
+          - example: DACOutput
+            framework: Arduino
+            espressif32: latest
+            unit: HatDAC2
+            board: StickS3
+          - example: ADCInput
+            framework: Arduino
+            espressif32: latest
+            unit: HatADC
+            board: NessoN1
+          - example: ADCInput
+            framework: Arduino
+            espressif32: latest
+            unit: HatADC11
+            board: NessoN1
+          - example: DACOutput
+            framework: Arduino
+            espressif32: latest
+            unit: HatDAC2
+            board: NessoN1
 
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
         with:
-          ref: ${{ github.event.pull_request.head.sha }}
+          python-version: '3.10'
+
+      - name: Install intelhex
+        run: pip install intelhex
 
       - name: Build examples
         uses: karniv00l/platformio-run-action@v1

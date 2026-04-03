@@ -37,7 +37,7 @@ constexpr float max_mv_table[] = {
 */
 constexpr uint8_t mode_nibble_table[] = {0x05, 0x07};
 
-constexpr uint8_t store_commad[] = {0x02, 0x10, 0x03, 0x00};
+constexpr uint8_t store_command[] = {0x02, 0x10, 0x03, 0x00};
 constexpr uint32_t store_wait_ms{10};  // At least 7 ms
 }  // namespace
 
@@ -73,20 +73,21 @@ bool UnitGP8413::writeOutputRange(const gp8413::Output range0, const gp8413::Out
 
 bool UnitGP8413::writeVoltage(const gp8413::Channel channel, const uint16_t raw)
 {
-    uint8_t buf[2]{(uint8_t)(raw & 0xFF), (uint8_t)(raw >> 8)};
+    const uint8_t buf[2]{static_cast<uint8_t>(raw & 0xFF), static_cast<uint8_t>(raw >> 8)};
     return write_voltage(channel_reg_table[m5::stl::to_underlying(channel)], buf, 2);
 }
 
 bool UnitGP8413::writeBothVoltage(const uint16_t raw0, const uint16_t raw1)
 {
-    uint8_t buf[4]{(uint8_t)(raw0 & 0xFF), (uint8_t)(raw0 >> 8), (uint8_t)(raw1 & 0xFF), (uint8_t)(raw1 >> 8)};
+    const uint8_t buf[4]{static_cast<uint8_t>(raw0 & 0xFF), static_cast<uint8_t>(raw0 >> 8),
+                         static_cast<uint8_t>(raw1 & 0xFF), static_cast<uint8_t>(raw1 >> 8)};
     return write_voltage(channel_reg_table[0], buf, 4);
 }
 
 uint16_t UnitGP8413::voltage_to_raw(const Channel channel, const float mv)
 {
     float maxMv = maximumVoltage(channel);
-    float val   = std::fmin(std::fmax(mv, 0.0f), maxMv);
+    float val   = m5::stl::clamp(mv, 0.0f, maxMv);
     return static_cast<uint16_t>((val / maxMv) * RESOLUTION);
 }
 
@@ -97,7 +98,7 @@ bool UnitGP8413::write_voltage(const uint8_t reg, const uint8_t* buf, const uint
 
 bool UnitGP8413::storeBothVoltage()
 {
-    if (writeWithTransaction(store_commad, m5::stl::size(store_commad)) == m5::hal::error::error_t::OK) {
+    if (writeWithTransaction(store_command, m5::stl::size(store_command)) == m5::hal::error::error_t::OK) {
         m5::utility::delay(store_wait_ms);
         return true;
     }

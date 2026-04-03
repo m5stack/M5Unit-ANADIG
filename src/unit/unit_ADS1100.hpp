@@ -50,7 +50,6 @@ public:
         //! Start periodic measurement on begin?
         bool start_periodic{true};
         //! Data sampling rate if start on begin
-        //        ads1100::Sampling sampling_rate{ads1100::Sampling::Rate8};
         ads1100::Sampling sampling_rate{ads1100::Sampling::Rate32};
         //! PGA if start on begin
         ads1100::PGA pga{ads1100::PGA::Gain1};
@@ -60,26 +59,31 @@ public:
         float factor{0.25f};
     };
 
-    explicit UnitADS1100(const float vdd = 3.3f, const float factor = 0.25f, const uint8_t addr = DEFAULT_ADDRESS)
+    /*! @brief Constructor
+        @param vdd Supply voltage(mV)
+        @param factor Correction factor
+        @param addr I2C address */
+    explicit UnitADS1100(const float vdd = 3300.f, const float factor = 0.25f, const uint8_t addr = DEFAULT_ADDRESS)
         : UnitADS11XX(addr)
     {
-        _vdd        = vdd;
+        _cfg.vdd    = vdd;
         _cfg.factor = _factor = factor;
     }
     virtual ~UnitADS1100()
     {
     }
 
+    //! @brief Begin the unit
     virtual bool begin() override;
 
     ///@name Settings for begin
     ///@{
-    /*! @brief Gets the configration */
+    /*! @brief Gets the configuration */
     inline config_t config()
     {
         return _cfg;
     }
-    //! @brief Set the configration
+    //! @brief Set the configuration
     inline void config(const config_t& cfg)
     {
         _cfg = cfg;
@@ -134,7 +138,7 @@ public:
     ///@{
     /*!
       @brief Measurement single shot
-      @param[out] data Measuerd data
+      @param[out] data Measured data
       @param rate Data sampling rate
       @param pga Programmable Gain Amplifier
       @return True if successful
