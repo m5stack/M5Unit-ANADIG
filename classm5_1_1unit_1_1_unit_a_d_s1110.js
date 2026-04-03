@@ -1,6 +1,8 @@
 var classm5_1_1unit_1_1_unit_a_d_s1110 =
 [
     [ "config_t", "structm5_1_1unit_1_1_unit_a_d_s1110_1_1config__t.html", "structm5_1_1unit_1_1_unit_a_d_s1110_1_1config__t" ],
+    [ "UnitADS1110", "classm5_1_1unit_1_1_unit_a_d_s1110.html#aba3f93efcc2a9fc6bd3836290716d0fe", null ],
+    [ "begin", "classm5_1_1unit_1_1_unit_a_d_s1110.html#ae67e3da7b94fd4d05c1770a8acebbc4e", null ],
     [ "config", "classm5_1_1unit_1_1_unit_a_d_s1110.html#a78a724a01c9decba8bd156dd29affbfd", null ],
     [ "config", "classm5_1_1unit_1_1_unit_a_d_s1110.html#abb3126cd483113516b5a87fca4ba4e39", null ],
     [ "generalReset", "classm5_1_1unit_1_1_unit_a_d_s1110.html#ae30f7cba44f5e2539a7037680acecc83", null ],

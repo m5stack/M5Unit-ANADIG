@@ -27,7 +27,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">M5Unit-ANADIG<span id="projectnumber">&#160;0.2.0 git rev:e984a40</span>
+   <div id="projectname">M5Unit-ANADIG<span id="projectnumber">&#160;0.3.0 git rev:6ce23e4</span>
    </div>
   </td>
  </tr>
@@ -139,92 +139,96 @@ $(function(){initNavTree('unit___a_d_s1110_8hpp_source.html',''); initResizable(
 <div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>    };</div>
 </div>
 <div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span> </div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>    <span class="keyword">explicit</span> <a class="code hl_class" href="classm5_1_1unit_1_1_unit_a_d_s1110.html">UnitADS1110</a>(<span class="keyword">const</span> <span class="keywordtype">float</span> factor = 100.f / 610.f, <span class="keyword">const</span> uint8_t addr = DEFAULT_ADDRESS) : <a class="code hl_class" href="classm5_1_1unit_1_1_unit_a_d_s11_x_x.html">UnitADS11XX</a>(addr)</div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>    {</div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>        _vdd        = 2048.f;  <span class="comment">// Fixed (internal VDD)</span></div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>        _cfg.<a class="code hl_variable" href="structm5_1_1unit_1_1_unit_a_d_s1110_1_1config__t.html#a463da2c601dcc502a13ef798b3582fd6">factor</a> = _factor = factor;</div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>    }</div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>    <span class="keyword">virtual</span> ~UnitADS1110()</div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>    {</div>
+<div class="foldopen" id="foldopen00063" data-start="{" data-end="}">
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno"><a class="line" href="classm5_1_1unit_1_1_unit_a_d_s1110.html#aba3f93efcc2a9fc6bd3836290716d0fe">   63</a></span>    <span class="keyword">explicit</span> <a class="code hl_function" href="classm5_1_1unit_1_1_unit_a_d_s1110.html#aba3f93efcc2a9fc6bd3836290716d0fe">UnitADS1110</a>(<span class="keyword">const</span> <span class="keywordtype">float</span> factor = 100.f / 610.f, <span class="keyword">const</span> uint8_t addr = DEFAULT_ADDRESS) : <a class="code hl_class" href="classm5_1_1unit_1_1_unit_a_d_s11_x_x.html">UnitADS11XX</a>(addr)</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>    {</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>        _vdd        = 2048.f;  <span class="comment">// Fixed (internal VDD)</span></div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>        _cfg.<a class="code hl_variable" href="structm5_1_1unit_1_1_unit_a_d_s1110_1_1config__t.html#a463da2c601dcc502a13ef798b3582fd6">factor</a> = _factor = factor;</div>
 <div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>    }</div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span> </div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>    <span class="keyword">virtual</span> <span class="keywordtype">bool</span> begin() <span class="keyword">override</span>;</div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span> </div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span> </div>
-<div class="foldopen" id="foldopen00074" data-start="{" data-end="}">
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno"><a class="line" href="classm5_1_1unit_1_1_unit_a_d_s1110.html#a78a724a01c9decba8bd156dd29affbfd">   74</a></span>    <span class="keyword">inline</span> <a class="code hl_struct" href="structm5_1_1unit_1_1_unit_a_d_s1110_1_1config__t.html">config_t</a> <a class="code hl_function" href="classm5_1_1unit_1_1_unit_a_d_s1110.html#a78a724a01c9decba8bd156dd29affbfd">config</a>()</div>
-<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>    {</div>
-<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>        <span class="keywordflow">return</span> _cfg;</div>
-<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>    }</div>
 </div>
-<div class="foldopen" id="foldopen00079" data-start="{" data-end="}">
-<div class="line"><a id="l00079" name="l00079"></a><span class="lineno"><a class="line" href="classm5_1_1unit_1_1_unit_a_d_s1110.html#abb3126cd483113516b5a87fca4ba4e39">   79</a></span>    <span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code hl_function" href="classm5_1_1unit_1_1_unit_a_d_s1110.html#abb3126cd483113516b5a87fca4ba4e39">config</a>(<span class="keyword">const</span> <a class="code hl_struct" href="structm5_1_1unit_1_1_unit_a_d_s1110_1_1config__t.html">config_t</a>&amp; cfg)</div>
-<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>    {</div>
-<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>        _cfg = cfg;</div>
-<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>    }</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>    <span class="keyword">virtual</span> <a class="code hl_class" href="classm5_1_1unit_1_1_unit_a_d_s1110.html">~UnitADS1110</a>()</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>    {</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>    }</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span> </div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>    <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code hl_function" href="classm5_1_1unit_1_1_unit_a_d_s1110.html#ae67e3da7b94fd4d05c1770a8acebbc4e">begin</a>() <span class="keyword">override</span>;</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span> </div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span> </div>
+<div class="foldopen" id="foldopen00078" data-start="{" data-end="}">
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno"><a class="line" href="classm5_1_1unit_1_1_unit_a_d_s1110.html#a78a724a01c9decba8bd156dd29affbfd">   78</a></span>    <span class="keyword">inline</span> <a class="code hl_struct" href="structm5_1_1unit_1_1_unit_a_d_s1110_1_1config__t.html">config_t</a> <a class="code hl_function" href="classm5_1_1unit_1_1_unit_a_d_s1110.html#a78a724a01c9decba8bd156dd29affbfd">config</a>()</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>    {</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>        <span class="keywordflow">return</span> _cfg;</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>    }</div>
 </div>
-<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span> </div>
-<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span> </div>
-<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>    <span class="keywordtype">bool</span> <a class="code hl_function" href="classm5_1_1unit_1_1_unit_a_d_s1110.html#afec2fb796b6efa1826caa903706c9a2a">readSamplingRate</a>(<a class="code hl_enumeration" href="unit___a_d_s1110_8hpp.html#aaf34b838327572d223ee440c9877dd56">ads1110::Sampling</a>&amp; rate);</div>
-<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>    <span class="keywordtype">bool</span> <a class="code hl_function" href="classm5_1_1unit_1_1_unit_a_d_s1110.html#a842b2513f92db85d43be3a518fc9b5da">writeSamplingRate</a>(<span class="keyword">const</span> <a class="code hl_enumeration" href="unit___a_d_s1110_8hpp.html#aaf34b838327572d223ee440c9877dd56">ads1110::Sampling</a> rate);</div>
-<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span> </div>
-<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span> </div>
-<div class="foldopen" id="foldopen00110" data-start="{" data-end="}">
-<div class="line"><a id="l00110" name="l00110"></a><span class="lineno"><a class="line" href="classm5_1_1unit_1_1_unit_a_d_s1110.html#a37842a45e1f1fd86c771178aa0c4246a">  110</a></span>    <span class="keyword">inline</span> <span class="keywordtype">bool</span> <a class="code hl_function" href="classm5_1_1unit_1_1_unit_a_d_s1110.html#a37842a45e1f1fd86c771178aa0c4246a">startPeriodicMeasurement</a>(<span class="keyword">const</span> <a class="code hl_enumeration" href="unit___a_d_s1110_8hpp.html#aaf34b838327572d223ee440c9877dd56">ads1110::Sampling</a> rate, <span class="keyword">const</span> <a class="code hl_enumeration" href="unit___a_d_s11xx_8hpp.html#a95f6d2d54a1e5af2f353ec7117fd69ee">ads1110::PGA</a> pga)</div>
-<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>    {</div>
-<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>        <span class="keywordflow">return</span> start_periodic_measurement(rate, pga);</div>
-<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>    }</div>
+<div class="foldopen" id="foldopen00083" data-start="{" data-end="}">
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno"><a class="line" href="classm5_1_1unit_1_1_unit_a_d_s1110.html#abb3126cd483113516b5a87fca4ba4e39">   83</a></span>    <span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code hl_function" href="classm5_1_1unit_1_1_unit_a_d_s1110.html#abb3126cd483113516b5a87fca4ba4e39">config</a>(<span class="keyword">const</span> <a class="code hl_struct" href="structm5_1_1unit_1_1_unit_a_d_s1110_1_1config__t.html">config_t</a>&amp; cfg)</div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>    {</div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>        _cfg = cfg;</div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>    }</div>
 </div>
-<div class="foldopen" id="foldopen00115" data-start="{" data-end="}">
-<div class="line"><a id="l00115" name="l00115"></a><span class="lineno"><a class="line" href="classm5_1_1unit_1_1_unit_a_d_s1110.html#a34de1a9369d245be8a34445e81f8f86b">  115</a></span>    <span class="keyword">inline</span> <span class="keywordtype">bool</span> <a class="code hl_function" href="classm5_1_1unit_1_1_unit_a_d_s1110.html#a34de1a9369d245be8a34445e81f8f86b">startPeriodicMeasurement</a>()</div>
-<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>    {</div>
-<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>        <span class="keywordflow">return</span> UnitADS11XX::startPeriodicMeasurement();</div>
-<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>    }</div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span> </div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span> </div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>    <span class="keywordtype">bool</span> <a class="code hl_function" href="classm5_1_1unit_1_1_unit_a_d_s1110.html#afec2fb796b6efa1826caa903706c9a2a">readSamplingRate</a>(<a class="code hl_enumeration" href="unit___a_d_s1110_8hpp.html#aaf34b838327572d223ee440c9877dd56">ads1110::Sampling</a>&amp; rate);</div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>    <span class="keywordtype">bool</span> <a class="code hl_function" href="classm5_1_1unit_1_1_unit_a_d_s1110.html#a842b2513f92db85d43be3a518fc9b5da">writeSamplingRate</a>(<span class="keyword">const</span> <a class="code hl_enumeration" href="unit___a_d_s1110_8hpp.html#aaf34b838327572d223ee440c9877dd56">ads1110::Sampling</a> rate);</div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span> </div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span> </div>
+<div class="foldopen" id="foldopen00114" data-start="{" data-end="}">
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno"><a class="line" href="classm5_1_1unit_1_1_unit_a_d_s1110.html#a37842a45e1f1fd86c771178aa0c4246a">  114</a></span>    <span class="keyword">inline</span> <span class="keywordtype">bool</span> <a class="code hl_function" href="classm5_1_1unit_1_1_unit_a_d_s1110.html#a37842a45e1f1fd86c771178aa0c4246a">startPeriodicMeasurement</a>(<span class="keyword">const</span> <a class="code hl_enumeration" href="unit___a_d_s1110_8hpp.html#aaf34b838327572d223ee440c9877dd56">ads1110::Sampling</a> rate, <span class="keyword">const</span> <a class="code hl_enumeration" href="unit___a_d_s11xx_8hpp.html#a95f6d2d54a1e5af2f353ec7117fd69ee">ads1110::PGA</a> pga)</div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>    {</div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>        <span class="keywordflow">return</span> start_periodic_measurement(rate, pga);</div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>    }</div>
 </div>
-<div class="foldopen" id="foldopen00123" data-start="{" data-end="}">
-<div class="line"><a id="l00123" name="l00123"></a><span class="lineno"><a class="line" href="classm5_1_1unit_1_1_unit_a_d_s1110.html#a4efa98da66075c6d984524dfda7d367b">  123</a></span>    <span class="keyword">inline</span> <span class="keywordtype">bool</span> <a class="code hl_function" href="classm5_1_1unit_1_1_unit_a_d_s1110.html#a4efa98da66075c6d984524dfda7d367b">stopPeriodicMeasurement</a>()</div>
-<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>    {</div>
-<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>        <span class="keywordflow">return</span> UnitADS11XX::stopPeriodicMeasurement();</div>
-<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>    }</div>
+<div class="foldopen" id="foldopen00119" data-start="{" data-end="}">
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno"><a class="line" href="classm5_1_1unit_1_1_unit_a_d_s1110.html#a34de1a9369d245be8a34445e81f8f86b">  119</a></span>    <span class="keyword">inline</span> <span class="keywordtype">bool</span> <a class="code hl_function" href="classm5_1_1unit_1_1_unit_a_d_s1110.html#a34de1a9369d245be8a34445e81f8f86b">startPeriodicMeasurement</a>()</div>
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>    {</div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>        <span class="keywordflow">return</span> UnitADS11XX::startPeriodicMeasurement();</div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>    }</div>
 </div>
-<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span> </div>
-<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span> </div>
-<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span>    <span class="keywordtype">bool</span> <a class="code hl_function" href="classm5_1_1unit_1_1_unit_a_d_s1110.html#a9109b082b770a9df24a3578930f56f4c">measureSingleshot</a>(<a class="code hl_struct" href="structm5_1_1unit_1_1ads11xx_1_1_data.html">ads1110::Data</a>&amp; data, <span class="keyword">const</span> <a class="code hl_enumeration" href="unit___a_d_s1110_8hpp.html#aaf34b838327572d223ee440c9877dd56">ads1110::Sampling</a> rate, <span class="keyword">const</span> <a class="code hl_enumeration" href="unit___a_d_s11xx_8hpp.html#a95f6d2d54a1e5af2f353ec7117fd69ee">ads1110::PGA</a> pga);</div>
-<div class="foldopen" id="foldopen00144" data-start="{" data-end="}">
-<div class="line"><a id="l00144" name="l00144"></a><span class="lineno"><a class="line" href="classm5_1_1unit_1_1_unit_a_d_s1110.html#a14d8e2af4306a39d6d0cbe51059bd1c9">  144</a></span>    <span class="keyword">inline</span> <span class="keywordtype">bool</span> <a class="code hl_function" href="classm5_1_1unit_1_1_unit_a_d_s1110.html#a14d8e2af4306a39d6d0cbe51059bd1c9">measureSingleshot</a>(<a class="code hl_struct" href="structm5_1_1unit_1_1ads11xx_1_1_data.html">ads1110::Data</a>&amp; data)</div>
-<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span>    {</div>
-<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span>        <span class="keywordflow">return</span> UnitADS11XX::measure_singleshot(data);</div>
-<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span>    }</div>
+<div class="foldopen" id="foldopen00127" data-start="{" data-end="}">
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno"><a class="line" href="classm5_1_1unit_1_1_unit_a_d_s1110.html#a4efa98da66075c6d984524dfda7d367b">  127</a></span>    <span class="keyword">inline</span> <span class="keywordtype">bool</span> <a class="code hl_function" href="classm5_1_1unit_1_1_unit_a_d_s1110.html#a4efa98da66075c6d984524dfda7d367b">stopPeriodicMeasurement</a>()</div>
+<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>    {</div>
+<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span>        <span class="keywordflow">return</span> UnitADS11XX::stopPeriodicMeasurement();</div>
+<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span>    }</div>
 </div>
-<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span> </div>
-<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span>    <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code hl_function" href="classm5_1_1unit_1_1_unit_a_d_s1110.html#ae30f7cba44f5e2539a7037680acecc83">generalReset</a>() <span class="keyword">override</span>;</div>
-<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span> </div>
-<div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span><span class="keyword">protected</span>:</div>
-<div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span>    <span class="keywordtype">bool</span> start_periodic_measurement(<span class="keyword">const</span> <a class="code hl_enumeration" href="unit___a_d_s1110_8hpp.html#aaf34b838327572d223ee440c9877dd56">ads1110::Sampling</a> rate, <span class="keyword">const</span> <a class="code hl_enumeration" href="unit___a_d_s11xx_8hpp.html#a95f6d2d54a1e5af2f353ec7117fd69ee">ads1110::PGA</a> pga);</div>
-<div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span>    <span class="keyword">virtual</span> uint32_t get_interval(<span class="keyword">const</span> uint8_t rate) <span class="keyword">override</span>;</div>
+<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span> </div>
+<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span> </div>
+<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span>    <span class="keywordtype">bool</span> <a class="code hl_function" href="classm5_1_1unit_1_1_unit_a_d_s1110.html#a9109b082b770a9df24a3578930f56f4c">measureSingleshot</a>(<a class="code hl_struct" href="structm5_1_1unit_1_1ads11xx_1_1_data.html">ads1110::Data</a>&amp; data, <span class="keyword">const</span> <a class="code hl_enumeration" href="unit___a_d_s1110_8hpp.html#aaf34b838327572d223ee440c9877dd56">ads1110::Sampling</a> rate, <span class="keyword">const</span> <a class="code hl_enumeration" href="unit___a_d_s11xx_8hpp.html#a95f6d2d54a1e5af2f353ec7117fd69ee">ads1110::PGA</a> pga);</div>
+<div class="foldopen" id="foldopen00148" data-start="{" data-end="}">
+<div class="line"><a id="l00148" name="l00148"></a><span class="lineno"><a class="line" href="classm5_1_1unit_1_1_unit_a_d_s1110.html#a14d8e2af4306a39d6d0cbe51059bd1c9">  148</a></span>    <span class="keyword">inline</span> <span class="keywordtype">bool</span> <a class="code hl_function" href="classm5_1_1unit_1_1_unit_a_d_s1110.html#a14d8e2af4306a39d6d0cbe51059bd1c9">measureSingleshot</a>(<a class="code hl_struct" href="structm5_1_1unit_1_1ads11xx_1_1_data.html">ads1110::Data</a>&amp; data)</div>
+<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span>    {</div>
+<div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span>        <span class="keywordflow">return</span> UnitADS11XX::measure_singleshot(data);</div>
+<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span>    }</div>
+</div>
+<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span> </div>
+<div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span>    <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code hl_function" href="classm5_1_1unit_1_1_unit_a_d_s1110.html#ae30f7cba44f5e2539a7037680acecc83">generalReset</a>() <span class="keyword">override</span>;</div>
 <div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span> </div>
-<div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span><span class="keyword">private</span>:</div>
-<div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span>    config_t _cfg{};</div>
-<div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span>};</div>
-</div>
+<div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span><span class="keyword">protected</span>:</div>
+<div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span>    <span class="keywordtype">bool</span> start_periodic_measurement(<span class="keyword">const</span> <a class="code hl_enumeration" href="unit___a_d_s1110_8hpp.html#aaf34b838327572d223ee440c9877dd56">ads1110::Sampling</a> rate, <span class="keyword">const</span> <a class="code hl_enumeration" href="unit___a_d_s11xx_8hpp.html#a95f6d2d54a1e5af2f353ec7117fd69ee">ads1110::PGA</a> pga);</div>
+<div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span>    <span class="keyword">virtual</span> uint32_t get_interval(<span class="keyword">const</span> uint8_t rate) <span class="keyword">override</span>;</div>
 <div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span> </div>
-<div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span>}  <span class="comment">// namespace unit</span></div>
-<div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span>}  <span class="comment">// namespace m5</span></div>
-<div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span><span class="keyword">private</span>:</div>
+<div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span>    config_t _cfg{};</div>
+<div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span>};</div>
+</div>
+<div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span> </div>
+<div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span>}  <span class="comment">// namespace unit</span></div>
+<div class="line"><a id="l00171" name="l00171"></a><span class="lineno">  171</span>}  <span class="comment">// namespace m5</span></div>
+<div class="line"><a id="l00172" name="l00172"></a><span class="lineno">  172</span><span class="preprocessor">#endif</span></div>
 <div class="ttc" id="aclassm5_1_1unit_1_1_unit_a_d_s1110_html"><div class="ttname"><a href="classm5_1_1unit_1_1_unit_a_d_s1110.html">m5::unit::UnitADS1110</a></div><div class="ttdoc">16-bit, self-calibrating, delta-sigma A/D converter</div><div class="ttdef"><b>Definition</b> unit_ADS1110.hpp:41</div></div>
-<div class="ttc" id="aclassm5_1_1unit_1_1_unit_a_d_s1110_html_a14d8e2af4306a39d6d0cbe51059bd1c9"><div class="ttname"><a href="classm5_1_1unit_1_1_unit_a_d_s1110.html#a14d8e2af4306a39d6d0cbe51059bd1c9">m5::unit::UnitADS1110::measureSingleshot</a></div><div class="ttdeci">bool measureSingleshot(ads1110::Data &amp;data)</div><div class="ttdoc">Measurement single shot using current settings.</div><div class="ttdef"><b>Definition</b> unit_ADS1110.hpp:144</div></div>
-<div class="ttc" id="aclassm5_1_1unit_1_1_unit_a_d_s1110_html_a34de1a9369d245be8a34445e81f8f86b"><div class="ttname"><a href="classm5_1_1unit_1_1_unit_a_d_s1110.html#a34de1a9369d245be8a34445e81f8f86b">m5::unit::UnitADS1110::startPeriodicMeasurement</a></div><div class="ttdeci">bool startPeriodicMeasurement()</div><div class="ttdoc">Start periodic measurement using current settings.</div><div class="ttdef"><b>Definition</b> unit_ADS1110.hpp:115</div></div>
-<div class="ttc" id="aclassm5_1_1unit_1_1_unit_a_d_s1110_html_a37842a45e1f1fd86c771178aa0c4246a"><div class="ttname"><a href="classm5_1_1unit_1_1_unit_a_d_s1110.html#a37842a45e1f1fd86c771178aa0c4246a">m5::unit::UnitADS1110::startPeriodicMeasurement</a></div><div class="ttdeci">bool startPeriodicMeasurement(const ads1110::Sampling rate, const ads1110::PGA pga)</div><div class="ttdoc">Start periodic measurement.</div><div class="ttdef"><b>Definition</b> unit_ADS1110.hpp:110</div></div>
-<div class="ttc" id="aclassm5_1_1unit_1_1_unit_a_d_s1110_html_a4efa98da66075c6d984524dfda7d367b"><div class="ttname"><a href="classm5_1_1unit_1_1_unit_a_d_s1110.html#a4efa98da66075c6d984524dfda7d367b">m5::unit::UnitADS1110::stopPeriodicMeasurement</a></div><div class="ttdeci">bool stopPeriodicMeasurement()</div><div class="ttdoc">Stop periodic measurement.</div><div class="ttdef"><b>Definition</b> unit_ADS1110.hpp:123</div></div>
-<div class="ttc" id="aclassm5_1_1unit_1_1_unit_a_d_s1110_html_a78a724a01c9decba8bd156dd29affbfd"><div class="ttname"><a href="classm5_1_1unit_1_1_unit_a_d_s1110.html#a78a724a01c9decba8bd156dd29affbfd">m5::unit::UnitADS1110::config</a></div><div class="ttdeci">config_t config()</div><div class="ttdoc">Gets the configration.</div><div class="ttdef"><b>Definition</b> unit_ADS1110.hpp:74</div></div>
+<div class="ttc" id="aclassm5_1_1unit_1_1_unit_a_d_s1110_html_a14d8e2af4306a39d6d0cbe51059bd1c9"><div class="ttname"><a href="classm5_1_1unit_1_1_unit_a_d_s1110.html#a14d8e2af4306a39d6d0cbe51059bd1c9">m5::unit::UnitADS1110::measureSingleshot</a></div><div class="ttdeci">bool measureSingleshot(ads1110::Data &amp;data)</div><div class="ttdoc">Measurement single shot using current settings.</div><div class="ttdef"><b>Definition</b> unit_ADS1110.hpp:148</div></div>
+<div class="ttc" id="aclassm5_1_1unit_1_1_unit_a_d_s1110_html_a34de1a9369d245be8a34445e81f8f86b"><div class="ttname"><a href="classm5_1_1unit_1_1_unit_a_d_s1110.html#a34de1a9369d245be8a34445e81f8f86b">m5::unit::UnitADS1110::startPeriodicMeasurement</a></div><div class="ttdeci">bool startPeriodicMeasurement()</div><div class="ttdoc">Start periodic measurement using current settings.</div><div class="ttdef"><b>Definition</b> unit_ADS1110.hpp:119</div></div>
+<div class="ttc" id="aclassm5_1_1unit_1_1_unit_a_d_s1110_html_a37842a45e1f1fd86c771178aa0c4246a"><div class="ttname"><a href="classm5_1_1unit_1_1_unit_a_d_s1110.html#a37842a45e1f1fd86c771178aa0c4246a">m5::unit::UnitADS1110::startPeriodicMeasurement</a></div><div class="ttdeci">bool startPeriodicMeasurement(const ads1110::Sampling rate, const ads1110::PGA pga)</div><div class="ttdoc">Start periodic measurement.</div><div class="ttdef"><b>Definition</b> unit_ADS1110.hpp:114</div></div>
+<div class="ttc" id="aclassm5_1_1unit_1_1_unit_a_d_s1110_html_a4efa98da66075c6d984524dfda7d367b"><div class="ttname"><a href="classm5_1_1unit_1_1_unit_a_d_s1110.html#a4efa98da66075c6d984524dfda7d367b">m5::unit::UnitADS1110::stopPeriodicMeasurement</a></div><div class="ttdeci">bool stopPeriodicMeasurement()</div><div class="ttdoc">Stop periodic measurement.</div><div class="ttdef"><b>Definition</b> unit_ADS1110.hpp:127</div></div>
+<div class="ttc" id="aclassm5_1_1unit_1_1_unit_a_d_s1110_html_a78a724a01c9decba8bd156dd29affbfd"><div class="ttname"><a href="classm5_1_1unit_1_1_unit_a_d_s1110.html#a78a724a01c9decba8bd156dd29affbfd">m5::unit::UnitADS1110::config</a></div><div class="ttdeci">config_t config()</div><div class="ttdoc">Gets the configuration.</div><div class="ttdef"><b>Definition</b> unit_ADS1110.hpp:78</div></div>
 <div class="ttc" id="aclassm5_1_1unit_1_1_unit_a_d_s1110_html_a842b2513f92db85d43be3a518fc9b5da"><div class="ttname"><a href="classm5_1_1unit_1_1_unit_a_d_s1110.html#a842b2513f92db85d43be3a518fc9b5da">m5::unit::UnitADS1110::writeSamplingRate</a></div><div class="ttdeci">bool writeSamplingRate(const ads1110::Sampling rate)</div><div class="ttdoc">Write the Sampling rate.</div><div class="ttdef"><b>Definition</b> unit_ADS1110.cpp:75</div></div>
 <div class="ttc" id="aclassm5_1_1unit_1_1_unit_a_d_s1110_html_a9109b082b770a9df24a3578930f56f4c"><div class="ttname"><a href="classm5_1_1unit_1_1_unit_a_d_s1110.html#a9109b082b770a9df24a3578930f56f4c">m5::unit::UnitADS1110::measureSingleshot</a></div><div class="ttdeci">bool measureSingleshot(ads1110::Data &amp;data, const ads1110::Sampling rate, const ads1110::PGA pga)</div><div class="ttdoc">Measurement single shot.</div><div class="ttdef"><b>Definition</b> unit_ADS1110.cpp:49</div></div>
-<div class="ttc" id="aclassm5_1_1unit_1_1_unit_a_d_s1110_html_abb3126cd483113516b5a87fca4ba4e39"><div class="ttname"><a href="classm5_1_1unit_1_1_unit_a_d_s1110.html#abb3126cd483113516b5a87fca4ba4e39">m5::unit::UnitADS1110::config</a></div><div class="ttdeci">void config(const config_t &amp;cfg)</div><div class="ttdoc">Set the configration.</div><div class="ttdef"><b>Definition</b> unit_ADS1110.hpp:79</div></div>
+<div class="ttc" id="aclassm5_1_1unit_1_1_unit_a_d_s1110_html_aba3f93efcc2a9fc6bd3836290716d0fe"><div class="ttname"><a href="classm5_1_1unit_1_1_unit_a_d_s1110.html#aba3f93efcc2a9fc6bd3836290716d0fe">m5::unit::UnitADS1110::UnitADS1110</a></div><div class="ttdeci">UnitADS1110(const float factor=100.f/610.f, const uint8_t addr=DEFAULT_ADDRESS)</div><div class="ttdoc">Constructor.</div><div class="ttdef"><b>Definition</b> unit_ADS1110.hpp:63</div></div>
+<div class="ttc" id="aclassm5_1_1unit_1_1_unit_a_d_s1110_html_abb3126cd483113516b5a87fca4ba4e39"><div class="ttname"><a href="classm5_1_1unit_1_1_unit_a_d_s1110.html#abb3126cd483113516b5a87fca4ba4e39">m5::unit::UnitADS1110::config</a></div><div class="ttdeci">void config(const config_t &amp;cfg)</div><div class="ttdoc">Set the configuration.</div><div class="ttdef"><b>Definition</b> unit_ADS1110.hpp:83</div></div>
 <div class="ttc" id="aclassm5_1_1unit_1_1_unit_a_d_s1110_html_ae30f7cba44f5e2539a7037680acecc83"><div class="ttname"><a href="classm5_1_1unit_1_1_unit_a_d_s1110.html#ae30f7cba44f5e2539a7037680acecc83">m5::unit::UnitADS1110::generalReset</a></div><div class="ttdeci">virtual bool generalReset() override</div><div class="ttdoc">General reset.</div><div class="ttdef"><b>Definition</b> unit_ADS1110.cpp:57</div></div>
+<div class="ttc" id="aclassm5_1_1unit_1_1_unit_a_d_s1110_html_ae67e3da7b94fd4d05c1770a8acebbc4e"><div class="ttname"><a href="classm5_1_1unit_1_1_unit_a_d_s1110.html#ae67e3da7b94fd4d05c1770a8acebbc4e">m5::unit::UnitADS1110::begin</a></div><div class="ttdeci">virtual bool begin() override</div><div class="ttdoc">Begin the unit.</div><div class="ttdef"><b>Definition</b> unit_ADS1110.cpp:34</div></div>
 <div class="ttc" id="aclassm5_1_1unit_1_1_unit_a_d_s1110_html_afec2fb796b6efa1826caa903706c9a2a"><div class="ttname"><a href="classm5_1_1unit_1_1_unit_a_d_s1110.html#afec2fb796b6efa1826caa903706c9a2a">m5::unit::UnitADS1110::readSamplingRate</a></div><div class="ttdeci">bool readSamplingRate(ads1110::Sampling &amp;rate)</div><div class="ttdoc">Read the Sampling rate.</div><div class="ttdef"><b>Definition</b> unit_ADS1110.cpp:65</div></div>
 <div class="ttc" id="aclassm5_1_1unit_1_1_unit_a_d_s11_x_x_html"><div class="ttname"><a href="classm5_1_1unit_1_1_unit_a_d_s11_x_x.html">m5::unit::UnitADS11XX</a></div><div class="ttdoc">Base class of ADS1100,ADS1110.</div><div class="ttdef"><b>Definition</b> unit_ADS11xx.hpp:68</div></div>
 <div class="ttc" id="anamespaceads1110_html"><div class="ttname"><a href="namespaceads1110.html">ads1110</a></div><div class="ttdoc">For ADS1110.</div></div>
-<div class="ttc" id="anamespacem5_html"><div class="ttname"><a href="namespacem5.html">m5</a></div><div class="ttdoc">Top level namespace of M5stack.</div></div>
+<div class="ttc" id="anamespacem5_html"><div class="ttname"><a href="namespacem5.html">m5</a></div><div class="ttdoc">Top level namespace of M5Stack.</div></div>
 <div class="ttc" id="anamespaceunit_html"><div class="ttname"><a href="namespaceunit.html">unit</a></div><div class="ttdoc">Unit-related namespace.</div></div>
 <div class="ttc" id="astructm5_1_1unit_1_1_unit_a_d_s1110_1_1config__t_html"><div class="ttname"><a href="structm5_1_1unit_1_1_unit_a_d_s1110_1_1config__t.html">m5::unit::UnitADS1110::config_t</a></div><div class="ttdoc">Settings for begin.</div><div class="ttdef"><b>Definition</b> unit_ADS1110.hpp:49</div></div>
 <div class="ttc" id="astructm5_1_1unit_1_1_unit_a_d_s1110_1_1config__t_html_a463da2c601dcc502a13ef798b3582fd6"><div class="ttname"><a href="structm5_1_1unit_1_1_unit_a_d_s1110_1_1config__t.html#a463da2c601dcc502a13ef798b3582fd6">m5::unit::UnitADS1110::config_t::factor</a></div><div class="ttdeci">float factor</div><div class="ttdoc">Correction factor (Normalization factor of input due to voltage divider resistors,...</div><div class="ttdef"><b>Definition</b> unit_ADS1110.hpp:57</div></div>

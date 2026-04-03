@@ -27,7 +27,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">M5Unit-ANADIG<span id="projectnumber">&#160;0.2.0 git rev:e984a40</span>
+   <div id="projectname">M5Unit-ANADIG<span id="projectnumber">&#160;0.3.0 git rev:6ce23e4</span>
    </div>
   </td>
  </tr>
@@ -145,16 +145,16 @@ virtual bool&#160;</td><td class="memItemRight" valign="bottom"><b>begin</b> () 
 <tr><td colspan="2"><div class="groupHeader">Settings for begin</div></td></tr>
 <tr class="memitem:ad9ca16214dadc0eea148739bcf5d6280" id="r_ad9ca16214dadc0eea148739bcf5d6280"><td class="memItemLeft" align="right" valign="top"><a id="ad9ca16214dadc0eea148739bcf5d6280" name="ad9ca16214dadc0eea148739bcf5d6280"></a>
 <a class="el" href="structm5_1_1unit_1_1_unit_m_c_p4725_1_1config__t.html">config_t</a>&#160;</td><td class="memItemRight" valign="bottom"><b>config</b> ()</td></tr>
-<tr class="memdesc:ad9ca16214dadc0eea148739bcf5d6280"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the configration. <br /></td></tr>
+<tr class="memdesc:ad9ca16214dadc0eea148739bcf5d6280"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the configuration. <br /></td></tr>
 <tr class="separator:ad9ca16214dadc0eea148739bcf5d6280"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a698d6d5788f9eba752763c8eabb4b9f0" id="r_a698d6d5788f9eba752763c8eabb4b9f0"><td class="memItemLeft" align="right" valign="top"><a id="a698d6d5788f9eba752763c8eabb4b9f0" name="a698d6d5788f9eba752763c8eabb4b9f0"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>config</b> (const <a class="el" href="structm5_1_1unit_1_1_unit_m_c_p4725_1_1config__t.html">config_t</a> &amp;cfg)</td></tr>
-<tr class="memdesc:a698d6d5788f9eba752763c8eabb4b9f0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the configration. <br /></td></tr>
+<tr class="memdesc:a698d6d5788f9eba752763c8eabb4b9f0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the configuration. <br /></td></tr>
 <tr class="separator:a698d6d5788f9eba752763c8eabb4b9f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">Properties</div></td></tr>
 <tr class="memitem:a9bfbfab1356b6c99c47e7f99b975e636" id="r_a9bfbfab1356b6c99c47e7f99b975e636"><td class="memItemLeft" align="right" valign="top"><a id="a9bfbfab1356b6c99c47e7f99b975e636" name="a9bfbfab1356b6c99c47e7f99b975e636"></a>
 <a class="el" href="unit___m_c_p4725_8hpp.html#a4f3002f99f14c3b8245616ef57600fe9">mcp4725::PowerDown</a>&#160;</td><td class="memItemRight" valign="bottom"><b>powerDown</b> () const</td></tr>
-<tr class="memdesc:a9bfbfab1356b6c99c47e7f99b975e636"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the iner power down mode. <br /></td></tr>
+<tr class="memdesc:a9bfbfab1356b6c99c47e7f99b975e636"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the inner power down mode. <br /></td></tr>
 <tr class="separator:a9bfbfab1356b6c99c47e7f99b975e636"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a934fdbc7d8d0e7e535b658244daf9fa9" id="r_a934fdbc7d8d0e7e535b658244daf9fa9"><td class="memItemLeft" align="right" valign="top"><a id="a934fdbc7d8d0e7e535b658244daf9fa9" name="a934fdbc7d8d0e7e535b658244daf9fa9"></a>
 uint16_t&#160;</td><td class="memItemRight" valign="bottom"><b>lastValue</b> () const</td></tr>
@@ -197,23 +197,20 @@ template&lt;typename T , typename std::enable_if&lt;!std::is_same&lt; uint16_t, 
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
-<tr class="memitem:afa3ba680123681cd0e135e285e72ef90" id="r_afa3ba680123681cd0e135e285e72ef90"><td class="memItemLeft" align="right" valign="top"><a id="afa3ba680123681cd0e135e285e72ef90" name="afa3ba680123681cd0e135e285e72ef90"></a>
-static float&#160;</td><td class="memItemRight" valign="bottom"><b>raw_to_voltage</b> (const uint16_t raw, const float supply_voltage=5000.f)</td></tr>
-<tr class="memdesc:afa3ba680123681cd0e135e285e72ef90"><td class="mdescLeft">&#160;</td><td class="mdescRight">Raw value to voltage(mV) <br /></td></tr>
-<tr class="separator:afa3ba680123681cd0e135e285e72ef90"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7618b9515a09dc8cd4d45e445e382e81" id="r_a7618b9515a09dc8cd4d45e445e382e81"><td class="memItemLeft" align="right" valign="top"><a id="a7618b9515a09dc8cd4d45e445e382e81" name="a7618b9515a09dc8cd4d45e445e382e81"></a>
-static uint16_t&#160;</td><td class="memItemRight" valign="bottom"><b>voltage_to_raw</b> (const float mv, const float supply_voltage=5000.f)</td></tr>
-<tr class="memdesc:a7618b9515a09dc8cd4d45e445e382e81"><td class="mdescLeft">&#160;</td><td class="mdescRight">Voltage(mV) to raw value. <br /></td></tr>
-<tr class="separator:a7618b9515a09dc8cd4d45e445e382e81"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1c320da324dde4f4ffd74a9bad74e5fd" id="r_a1c320da324dde4f4ffd74a9bad74e5fd"><td class="memItemLeft" align="right" valign="top"><a id="a1c320da324dde4f4ffd74a9bad74e5fd" name="a1c320da324dde4f4ffd74a9bad74e5fd"></a>
+static float&#160;</td><td class="memItemRight" valign="bottom"><b>raw_to_voltage</b> (const uint16_t raw, const float supply_voltage)</td></tr>
+<tr class="memdesc:a1c320da324dde4f4ffd74a9bad74e5fd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Raw value to voltage(mV) <br /></td></tr>
+<tr class="separator:a1c320da324dde4f4ffd74a9bad74e5fd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a69be294cd0d0cd3ae073ee60cf3dd082" id="r_a69be294cd0d0cd3ae073ee60cf3dd082"><td class="memItemLeft" align="right" valign="top"><a id="a69be294cd0d0cd3ae073ee60cf3dd082" name="a69be294cd0d0cd3ae073ee60cf3dd082"></a>
+static uint16_t&#160;</td><td class="memItemRight" valign="bottom"><b>voltage_to_raw</b> (const float mv, const float supply_voltage)</td></tr>
+<tr class="memdesc:a69be294cd0d0cd3ae073ee60cf3dd082"><td class="mdescLeft">&#160;</td><td class="mdescRight">Voltage(mV) to raw value. <br /></td></tr>
+<tr class="separator:a69be294cd0d0cd3ae073ee60cf3dd082"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-attribs" name="pub-static-attribs"></a>
 Static Public Attributes</h2></td></tr>
 <tr class="memitem:a83f9cee90152c689f9ebbf6de5f3619c" id="r_a83f9cee90152c689f9ebbf6de5f3619c"><td class="memItemLeft" align="right" valign="top"><a id="a83f9cee90152c689f9ebbf6de5f3619c" name="a83f9cee90152c689f9ebbf6de5f3619c"></a>
 static constexpr uint16_t&#160;</td><td class="memItemRight" valign="bottom"><b>RESOLUTION</b> {0x0FFF}</td></tr>
 <tr class="separator:a83f9cee90152c689f9ebbf6de5f3619c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1fc0350bec36bf41c47a324341f72f25" id="r_a1fc0350bec36bf41c47a324341f72f25"><td class="memItemLeft" align="right" valign="top"><a id="a1fc0350bec36bf41c47a324341f72f25" name="a1fc0350bec36bf41c47a324341f72f25"></a>
-static constexpr float&#160;</td><td class="memItemRight" valign="bottom"><b>MAXIMUM_VOLTAGE</b> {3300.f}</td></tr>
-<tr class="separator:a1fc0350bec36bf41c47a324341f72f25"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-types" name="pro-types"></a>
 Protected Types</h2></td></tr>
@@ -258,8 +255,10 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>read_status</b> (uint
 
 <p>General reset. </p>
 <p>Reset using I2C general call </p><dl class="section return"><dt>Returns</dt><dd>True if successful </dd></dl>
-<dl class="section note"><dt>Note</dt><dd>Immediately after this reset event, the deviceuploads the contents of the EEPROM into the DACregister </dd></dl>
-<dl class="section warning"><dt>Warning</dt><dd>This is a reset by General command, the command is also sent to all devices with I2C connections </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>Immediately after this reset event, the device uploads the contents of the EEPROM into the DAC register </dd></dl>
+<dl class="section warning"><dt>Warning</dt><dd>This is a reset by General command, the command is also sent to all devices with I2C connections </dd>
+<dd>
+Not supported with m5::I2C_Class. The bus hangs because m5::I2C_Class has no timeout on bus recovery after a general call reset </dd></dl>
 
 </div>
 </div>
@@ -384,7 +383,8 @@ template&lt;typename T , typename std::enable_if&lt; std::is_floating_point&lt; 
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>True if successful @Note If exceeding the range, it will be kept within the range </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>True if successful </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>Negative values return false. Values exceeding the saturation voltage are clamped </dd></dl>
 
 </div>
 </div>
@@ -418,7 +418,8 @@ template&lt;typename T , typename std::enable_if&lt; std::is_floating_point&lt; 
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>True if successful @Note If exceeding the range, it will be kept within the range </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>True if successful </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>Negative values return false. Values exceeding the supply voltage are clamped </dd></dl>
 
 </div>
 </div>
@@ -459,7 +460,8 @@ template&lt;typename T , typename std::enable_if&lt; std::is_floating_point&lt; 
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>True if successful @Note If exceeding the range, it will be kept within the range </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>True if successful </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>Negative values return false. Values exceeding the supply voltage are clamped </dd></dl>
 
 </div>
 </div>

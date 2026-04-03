@@ -1,12 +1,24 @@
 var searchData=
 [
-  ['writebothvoltage_0',['writeBothVoltage',['../classm5_1_1unit_1_1_unit_g_p8413.html#afae25b23ac9618eeaddf8c80d01e74ee',1,'m5::unit::UnitGP8413::writeBothVoltage(const T mv0, const T mv1)'],['../classm5_1_1unit_1_1_unit_g_p8413.html#a7688ed04ec42a3dfe02d0e3581490c2c',1,'m5::unit::UnitGP8413::writeBothVoltage(const T mv)'],['../classm5_1_1unit_1_1_unit_g_p8413.html#ab2101f7dd410274087d288eddeaaa066',1,'m5::unit::UnitGP8413::writeBothVoltage(const uint16_t raw0, const uint16_t raw1)'],['../classm5_1_1unit_1_1_unit_g_p8413.html#a5db6d79346c67d1bb01da24ea4075f5d',1,'m5::unit::UnitGP8413::writeBothVoltage(const uint16_t raw)']]],
-  ['writechannel0voltage_1',['writeChannel0Voltage',['../classm5_1_1unit_1_1_unit_g_p8413.html#af15c1ddc5712e6083566bcc564c462e0',1,'m5::unit::UnitGP8413::writeChannel0Voltage(const T mv)'],['../classm5_1_1unit_1_1_unit_g_p8413.html#aa1fed6e60b39f0e0c2fd044eaea324ce',1,'m5::unit::UnitGP8413::writeChannel0Voltage(const uint16_t raw)']]],
-  ['writechannel1voltage_2',['writeChannel1Voltage',['../classm5_1_1unit_1_1_unit_g_p8413.html#a80203fa17255b82359696717103183c0',1,'m5::unit::UnitGP8413::writeChannel1Voltage(const T mv)'],['../classm5_1_1unit_1_1_unit_g_p8413.html#a023d94b61f968a27cae58db78eeca75e',1,'m5::unit::UnitGP8413::writeChannel1Voltage(const uint16_t raw)']]],
-  ['writeoutputrange_3',['writeOutputRange',['../classm5_1_1unit_1_1_unit_g_p8413.html#aa4eb854e83f22755a22ea9547acb558a',1,'m5::unit::UnitGP8413']]],
-  ['writepga_4',['writePGA',['../classm5_1_1unit_1_1_unit_a_d_s11_x_x.html#a2b2836409e05ae42d75a6684cb3de4ef',1,'m5::unit::UnitADS11XX']]],
-  ['writepowerdown_5',['writePowerDown',['../classm5_1_1unit_1_1_unit_m_c_p4725.html#a3c25582ba3e7e12daf05ed0a7d9a10ce',1,'m5::unit::UnitMCP4725']]],
-  ['writesamplingrate_6',['writeSamplingRate',['../classm5_1_1unit_1_1_unit_a_d_s1100.html#a3659e01a142c72cc42d358d5f517db4d',1,'m5::unit::UnitADS1100::writeSamplingRate()'],['../classm5_1_1unit_1_1_unit_a_d_s1110.html#a842b2513f92db85d43be3a518fc9b5da',1,'m5::unit::UnitADS1110::writeSamplingRate()']]],
-  ['writevoltage_7',['writeVoltage',['../classm5_1_1unit_1_1_unit_g_p8413.html#a4cf38697e1c4dfdaa0ed00de7954626e',1,'m5::unit::UnitGP8413::writeVoltage(const gp8413::Channel channel, const T mv)'],['../classm5_1_1unit_1_1_unit_g_p8413.html#a0a25dbb2c0ddfa8ccd2ffffadcfef2d7',1,'m5::unit::UnitGP8413::writeVoltage(const gp8413::Channel channel, const uint16_t raw)'],['../classm5_1_1unit_1_1_unit_m_c_p4725.html#acedc95dc92aab56730703e7bda195807',1,'m5::unit::UnitMCP4725::writeVoltage(const T mv)'],['../classm5_1_1unit_1_1_unit_m_c_p4725.html#a1d1fdaaad753ff3a2cc3fd487cb2950a',1,'m5::unit::UnitMCP4725::writeVoltage(const uint16_t raw)'],['../classm5_1_1unit_1_1_unit_m_c_p4725.html#ac765e569754285cf53e280eee002e2e0',1,'m5::unit::UnitMCP4725::writeVoltage(const T raw)']]],
-  ['writevoltageandeeprom_8',['writeVoltageAndEEPROM',['../classm5_1_1unit_1_1_unit_m_c_p4725.html#ae1f5c94b052b79d794450fb310353bc9',1,'m5::unit::UnitMCP4725::writeVoltageAndEEPROM(const T mv, const bool blocking=true)'],['../classm5_1_1unit_1_1_unit_m_c_p4725.html#af1f7ed52e01bd458ba48a251e75962f9',1,'m5::unit::UnitMCP4725::writeVoltageAndEEPROM(const uint16_t raw, const bool blocking=true)'],['../classm5_1_1unit_1_1_unit_m_c_p4725.html#a90935a5c323e8d13b9f764c225b595ab',1,'m5::unit::UnitMCP4725::writeVoltageAndEEPROM(const T raw, const bool blocking=true)']]]
+  ['unit_0',['unit',['../namespaceunit.html',1,'']]],
+  ['unit_5fads1100_2ecpp_1',['unit_ADS1100.cpp',['../unit___a_d_s1100_8cpp.html',1,'']]],
+  ['unit_5fads1100_2ehpp_2',['unit_ADS1100.hpp',['../unit___a_d_s1100_8hpp.html',1,'']]],
+  ['unit_5fads1110_2ecpp_3',['unit_ADS1110.cpp',['../unit___a_d_s1110_8cpp.html',1,'']]],
+  ['unit_5fads1110_2ehpp_4',['unit_ADS1110.hpp',['../unit___a_d_s1110_8hpp.html',1,'']]],
+  ['unit_5fads11xx_2ecpp_5',['unit_ADS11xx.cpp',['../unit___a_d_s11xx_8cpp.html',1,'']]],
+  ['unit_5fads11xx_2ehpp_6',['unit_ADS11xx.hpp',['../unit___a_d_s11xx_8hpp.html',1,'']]],
+  ['unit_5fgp8413_2ecpp_7',['unit_GP8413.cpp',['../unit___g_p8413_8cpp.html',1,'']]],
+  ['unit_5fgp8413_2ehpp_8',['unit_GP8413.hpp',['../unit___g_p8413_8hpp.html',1,'']]],
+  ['unit_5fmcp4725_2ecpp_9',['unit_MCP4725.cpp',['../unit___m_c_p4725_8cpp.html',1,'']]],
+  ['unit_5fmcp4725_2ehpp_10',['unit_MCP4725.hpp',['../unit___m_c_p4725_8hpp.html',1,'']]],
+  ['unitadc11_11',['UnitADC11',['../_m5_unit_unified_a_n_a_d_i_g_8hpp.html#a57f9366d77beef782e8fd0b70389e39a',1,'m5::unit']]],
+  ['unitads1100_12',['UnitADS1100',['../classm5_1_1unit_1_1_unit_a_d_s1100.html',1,'m5::unit::UnitADS1100'],['../classm5_1_1unit_1_1_unit_a_d_s1100.html#a7fa8ff73a54568e3d79a544874b4536f',1,'m5::unit::UnitADS1100::UnitADS1100()']]],
+  ['unitads1110_13',['UnitADS1110',['../classm5_1_1unit_1_1_unit_a_d_s1110.html',1,'m5::unit::UnitADS1110'],['../classm5_1_1unit_1_1_unit_a_d_s1110.html#aba3f93efcc2a9fc6bd3836290716d0fe',1,'m5::unit::UnitADS1110::UnitADS1110()']]],
+  ['unitads11xx_14',['UnitADS11XX',['../classm5_1_1unit_1_1_unit_a_d_s11_x_x.html',1,'m5::unit::UnitADS11XX'],['../classm5_1_1unit_1_1_unit_a_d_s11_x_x.html#a6088bce30cef0a0dc5f7246d44dcc6b7',1,'m5::unit::UnitADS11XX::UnitADS11XX()']]],
+  ['unitdac_15',['UnitDAC',['../_m5_unit_unified_a_n_a_d_i_g_8hpp.html#a376b6ff6e8c95b74c502a40aa24534e4',1,'m5::unit']]],
+  ['unitdac2_16',['UnitDAC2',['../_m5_unit_unified_a_n_a_d_i_g_8hpp.html#a948aa06d7faf85d123591cb247b95feb',1,'m5::unit']]],
+  ['unitgp8413_17',['UnitGP8413',['../classm5_1_1unit_1_1_unit_g_p8413.html',1,'m5::unit']]],
+  ['unitmcp4725_18',['UnitMCP4725',['../classm5_1_1unit_1_1_unit_m_c_p4725.html',1,'m5::unit']]],
+  ['update_19',['update',['../classm5_1_1unit_1_1_unit_a_d_s11_x_x.html#a7efa3e525dddb83a51f2b78ea7284bea',1,'m5::unit::UnitADS11XX']]],
+  ['using_5feeprom_5fsettings_20',['using_eeprom_settings',['../structm5_1_1unit_1_1_unit_m_c_p4725_1_1config__t.html#a19037d1dab18b76d3fd5b98416149e60',1,'m5::unit::UnitMCP4725::config_t']]]
 ];

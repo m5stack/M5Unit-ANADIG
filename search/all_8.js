@@ -1,8 +1,9 @@
 var searchData=
 [
-  ['ohm_5f100k_0',['OHM_100K',['../unit___m_c_p4725_8hpp.html#a4f3002f99f14c3b8245616ef57600fe9a7973ed4dc2d3ec1e35476ac045ecf5b7',1,'m5::unit::mcp4725']]],
-  ['ohm_5f1k_1',['OHM_1K',['../unit___m_c_p4725_8hpp.html#a4f3002f99f14c3b8245616ef57600fe9af3c822d8d437644b59b9d520813ce848',1,'m5::unit::mcp4725']]],
-  ['ohm_5f500k_2',['OHM_500K',['../unit___m_c_p4725_8hpp.html#a4f3002f99f14c3b8245616ef57600fe9a6d34d478f630362a9f7a970c5225c239',1,'m5::unit::mcp4725']]],
-  ['one_3',['One',['../unit___g_p8413_8hpp.html#a9998dc431436f7e0b5e70a6301290fd0a06c2cea18679d64399783748fa367bdd',1,'m5::unit::gp8413']]],
-  ['output_4',['Output',['../unit___g_p8413_8hpp.html#a28e58b430a4fec35fb3e0e3d605ab3a3',1,'m5::unit::gp8413']]]
+  ['m5_0',['m5',['../namespacem5.html',1,'']]],
+  ['m5unit_20anadig_1',['M5Unit-ANADIG',['../index.html',1,'']]],
+  ['m5unitunifiedanadig_2ehpp_2',['M5UnitUnifiedANADIG.hpp',['../_m5_unit_unified_a_n_a_d_i_g_8hpp.html',1,'']]],
+  ['maximumvoltage_3',['maximumVoltage',['../classm5_1_1unit_1_1_unit_g_p8413.html#aa0334657acbba93a7287bc1772eaf9e7',1,'m5::unit::UnitGP8413']]],
+  ['mcp4725_4',['mcp4725',['../namespacemcp4725.html',1,'']]],
+  ['measuresingleshot_5',['measureSingleshot',['../classm5_1_1unit_1_1_unit_a_d_s1100.html#aad22e273963cea701459bf52784a81a9',1,'m5::unit::UnitADS1100::measureSingleshot(ads1100::Data &amp;data, const ads1100::Sampling rate, const ads1100::PGA pga)'],['../classm5_1_1unit_1_1_unit_a_d_s1100.html#a5cdfc3206063eb29e9107a568ae00cbc',1,'m5::unit::UnitADS1100::measureSingleshot(ads1100::Data &amp;data)'],['../classm5_1_1unit_1_1_unit_a_d_s1110.html#a9109b082b770a9df24a3578930f56f4c',1,'m5::unit::UnitADS1110::measureSingleshot(ads1110::Data &amp;data, const ads1110::Sampling rate, const ads1110::PGA pga)'],['../classm5_1_1unit_1_1_unit_a_d_s1110.html#a14d8e2af4306a39d6d0cbe51059bd1c9',1,'m5::unit::UnitADS1110::measureSingleshot(ads1110::Data &amp;data)']]]
 ];

@@ -27,7 +27,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">M5Unit-ANADIG<span id="projectnumber">&#160;0.2.0 git rev:e984a40</span>
+   <div id="projectname">M5Unit-ANADIG<span id="projectnumber">&#160;0.3.0 git rev:6ce23e4</span>
    </div>
   </td>
  </tr>
@@ -128,14 +128,15 @@ Classes</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a6088bce30cef0a0dc5f7246d44dcc6b7" id="r_a6088bce30cef0a0dc5f7246d44dcc6b7"><td class="memItemLeft" align="right" valign="top"><a id="a6088bce30cef0a0dc5f7246d44dcc6b7" name="a6088bce30cef0a0dc5f7246d44dcc6b7"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>UnitADS11XX</b> (const uint8_t addr=DEFAULT_ADDRESS)</td></tr>
+<tr class="memitem:a6088bce30cef0a0dc5f7246d44dcc6b7" id="r_a6088bce30cef0a0dc5f7246d44dcc6b7"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6088bce30cef0a0dc5f7246d44dcc6b7">UnitADS11XX</a> (const uint8_t addr=DEFAULT_ADDRESS)</td></tr>
+<tr class="memdesc:a6088bce30cef0a0dc5f7246d44dcc6b7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor.  <br /></td></tr>
 <tr class="separator:a6088bce30cef0a0dc5f7246d44dcc6b7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a62dc664f80ba64a234321684ad92e361" id="r_a62dc664f80ba64a234321684ad92e361"><td class="memItemLeft" align="right" valign="top"><a id="a62dc664f80ba64a234321684ad92e361" name="a62dc664f80ba64a234321684ad92e361"></a>
-virtual bool&#160;</td><td class="memItemRight" valign="bottom"><b>begin</b> () override</td></tr>
+<tr class="memitem:a62dc664f80ba64a234321684ad92e361" id="r_a62dc664f80ba64a234321684ad92e361"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a62dc664f80ba64a234321684ad92e361">begin</a> () override</td></tr>
+<tr class="memdesc:a62dc664f80ba64a234321684ad92e361"><td class="mdescLeft">&#160;</td><td class="mdescRight">Begin the unit.  <br /></td></tr>
 <tr class="separator:a62dc664f80ba64a234321684ad92e361"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7efa3e525dddb83a51f2b78ea7284bea" id="r_a7efa3e525dddb83a51f2b78ea7284bea"><td class="memItemLeft" align="right" valign="top"><a id="a7efa3e525dddb83a51f2b78ea7284bea" name="a7efa3e525dddb83a51f2b78ea7284bea"></a>
 virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>update</b> (const bool force=false) override</td></tr>
+<tr class="memdesc:a7efa3e525dddb83a51f2b78ea7284bea"><td class="mdescLeft">&#160;</td><td class="mdescRight">Update the unit. <br /></td></tr>
 <tr class="separator:a7efa3e525dddb83a51f2b78ea7284bea"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a576528bb41e30975444d952affa440ce" id="r_a576528bb41e30975444d952affa440ce"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a576528bb41e30975444d952affa440ce">generalReset</a> ()</td></tr>
 <tr class="memdesc:a576528bb41e30975444d952affa440ce"><td class="mdescLeft">&#160;</td><td class="mdescRight">General reset.  <br /></td></tr>
@@ -208,7 +209,7 @@ std::unique_ptr&lt; m5::container::CircularBuffer&lt; <a class="el" href="struct
 uint8_t&#160;</td><td class="memItemRight" valign="bottom"><b>_rate</b> {}</td></tr>
 <tr class="separator:a7a85a1f83ef0ba7935ea5ddcc3532955"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3cd4ae4f0d3e1582b801ddcb41e3cf7c" id="r_a3cd4ae4f0d3e1582b801ddcb41e3cf7c"><td class="memItemLeft" align="right" valign="top"><a id="a3cd4ae4f0d3e1582b801ddcb41e3cf7c" name="a3cd4ae4f0d3e1582b801ddcb41e3cf7c"></a>
-float&#160;</td><td class="memItemRight" valign="bottom"><b>_vdd</b> {2.048f}</td></tr>
+float&#160;</td><td class="memItemRight" valign="bottom"><b>_vdd</b> {2048.f}</td></tr>
 <tr class="separator:a3cd4ae4f0d3e1582b801ddcb41e3cf7c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6e457b8236eb48a29a882fe29d035682" id="r_a6e457b8236eb48a29a882fe29d035682"><td class="memItemLeft" align="right" valign="top"><a id="a6e457b8236eb48a29a882fe29d035682" name="a6e457b8236eb48a29a882fe29d035682"></a>
 float&#160;</td><td class="memItemRight" valign="bottom"><b>_factor</b> {1.0f}</td></tr>
@@ -216,7 +217,70 @@ float&#160;</td><td class="memItemRight" valign="bottom"><b>_factor</b> {1.0f}</
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Base class of ADS1100,ADS1110. </p>
-</div><h2 class="groupheader">Member Function Documentation</h2>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a6088bce30cef0a0dc5f7246d44dcc6b7" name="a6088bce30cef0a0dc5f7246d44dcc6b7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6088bce30cef0a0dc5f7246d44dcc6b7">&#9670;&#160;</a></span>UnitADS11XX()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">m5::unit::UnitADS11XX::UnitADS11XX </td>
+          <td>(</td>
+          <td class="paramtype">const uint8_t</td>          <td class="paramname"><span class="paramname"><em>addr</em></span><span class="paramdefsep"> = </span><span class="paramdefval">DEFAULT_ADDRESS</span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">explicit</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Constructor. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">addr</td><td>I2C address </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="a62dc664f80ba64a234321684ad92e361" name="a62dc664f80ba64a234321684ad92e361"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a62dc664f80ba64a234321684ad92e361">&#9670;&#160;</a></span>begin()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool m5::unit::UnitADS11XX::begin </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Begin the unit. </p>
+
+<p>Reimplemented in <a class="el" href="classm5_1_1unit_1_1_unit_a_d_s1100.html#aec3d596ecb6666591430fbe4db2c901c">m5::unit::UnitADS1100</a>, and <a class="el" href="classm5_1_1unit_1_1_unit_a_d_s1110.html#ae67e3da7b94fd4d05c1770a8acebbc4e">m5::unit::UnitADS1110</a>.</p>
+
+</div>
+</div>
 <a id="a576528bb41e30975444d952affa440ce" name="a576528bb41e30975444d952affa440ce"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a576528bb41e30975444d952affa440ce">&#9670;&#160;</a></span>generalReset()</h2>
 
@@ -242,7 +306,9 @@ float&#160;</td><td class="memItemRight" valign="bottom"><b>_factor</b> {1.0f}</
 
 <p>General reset. </p>
 <p>Reset using I2C general call </p><dl class="section return"><dt>Returns</dt><dd>True if successful </dd></dl>
-<dl class="section warning"><dt>Warning</dt><dd>This is a reset by General command, the command is also sent to all devices with I2C connections </dd></dl>
+<dl class="section warning"><dt>Warning</dt><dd>This is a reset by General command, the command is also sent to all devices with I2C connections </dd>
+<dd>
+Not supported with m5::I2C_Class. The bus hangs because m5::I2C_Class has no timeout on bus recovery after a general call reset </dd></dl>
 
 <p>Reimplemented in <a class="el" href="classm5_1_1unit_1_1_unit_a_d_s1100.html#ab94b0a43c70875a2d43b5ff236494cd1">m5::unit::UnitADS1100</a>, and <a class="el" href="classm5_1_1unit_1_1_unit_a_d_s1110.html#ae30f7cba44f5e2539a7037680acecc83">m5::unit::UnitADS1110</a>.</p>
 
