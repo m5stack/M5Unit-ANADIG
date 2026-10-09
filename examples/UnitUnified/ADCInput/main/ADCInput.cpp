@@ -16,11 +16,11 @@
 // Choose one define symbol to match the unit you are using
 // *************************************************************
 #if !defined(USING_UNIT_ADC11) && !defined(USING_HAT_ADC11) && !defined(USING_HAT_ADC)
-// For UnitADC11
+// For UnitADC11 (U013-V11)
 // #define USING_UNIT_ADC11
-// For HatADC11
+// For HatADC11 (U069-V11)
 // #define USING_HAT_ADC11
-// For HatADC
+// For HatADC (U069)
 // #define USING_HAT_ADC
 #endif
 // *************************************************************
@@ -32,7 +32,7 @@ m5::unit::UnitUnified Units;
 #if defined(USING_UNIT_ADC11)
 m5::unit::UnitADC11 unit;
 #elif defined(USING_HAT_ADC11)
-m5::unit::UnitADC11 unit;
+m5::unit::HatADC11 unit;
 #elif defined(USING_HAT_ADC)
 m5::unit::HatADC unit;
 #else
@@ -86,7 +86,7 @@ void setup()
         m5::unit::wiring::failStop();
     }
 
-    M5_LOGI("M5UnitUnified has been begun with %s", unit.deviceName());
+    M5_LOGI("M5UnitUnified initialized with %s", unit.deviceName());
     M5_LOGI("%s", Units.debugInfo().c_str());
 
     // ePaper panels are not suitable for continuous redraw

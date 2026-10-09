@@ -17,11 +17,11 @@
 // Choose one define symbol to match the unit you are using
 // *************************************************************
 #if !defined(USING_UNIT_DAC) && !defined(USING_UNIT_DAC2) && !defined(USING_HAT_DAC2)
-// For UnitDAC
+// For UnitDAC (U012)
 // #define USING_UNIT_DAC
-// For UnitDAC2
+// For UnitDAC2 (U012-B)
 // #define USING_UNIT_DAC2
-// For HatDAC2
+// For HatDAC2 (U068-B)
 // #define USING_HAT_DAC2
 #endif
 // *************************************************************
@@ -47,32 +47,31 @@ constexpr inline float deg2rad(const float deg)
     return ((deg) / 180.0f * M_PI);
 }
 
-float sin_curve(const uint32_t counter, const float maxMv)
+float sin_curve(const uint32_t counter, const float max_mv)
 {
     float rad = deg2rad(counter % 360);
     float v   = sinf(rad);
-    return maxMv * (v + 1.0f) * 0.5f;
+    return max_mv * (v + 1.0f) * 0.5f;
 }
 
-float sawtooth_wave(const uint32_t counter, const float maxMv)
+float sawtooth_wave(const uint32_t counter, const float max_mv)
 {
-    float rad = (counter % 360) / 360.f;
-    float v   = rad - floor(rad);
-    return v * maxMv;
+    const float phase = (counter % 360) / 360.f;  // 0.0 - <1.0
+    return phase * max_mv;
 }
 
-float square_wave(const uint32_t counter, const float maxMv)
+float square_wave(const uint32_t counter, const float max_mv)
 {
     float rad = deg2rad(counter % 360);
     float v   = (sinf(rad) >= 0.0f) ? 1.0f : -1.0f;
-    return maxMv * (v + 1.0f) * 0.5f;
+    return max_mv * (v + 1.0f) * 0.5f;
 }
 
-float triangle_wave(const uint32_t counter, const float maxMv)
+float triangle_wave(const uint32_t counter, const float max_mv)
 {
     float rad = deg2rad(counter % 360);
     float v   = asinf(sinf(rad));
-    return maxMv * (v + M_PI / 2) / M_PI;
+    return max_mv * (v + M_PI / 2) / M_PI;
 }
 
 using function = float (*)(const uint32_t, const float);
@@ -84,7 +83,7 @@ constexpr function func_table[4] = {
     square_wave,
 
 };
-const char* func_name_table[4] = {
+const char* const func_name_table[4] = {
     "SinCurve",
     "SawtoothWave",
     "TriangleWave",
@@ -99,7 +98,7 @@ constexpr int BAR_H{12};
 constexpr int CH_BLOCK_H{30};  // 16(voltage) + 2(gap) + 12(bar)
 constexpr int FONT_H{16};
 
-void draw_channel(const int y, const int ch, const float v, const float maxV, const uint8_t bar_color)
+void draw_channel(const int y, const int ch, const float v, const float max_v, const uint8_t bar_color)
 {
     int bar_w = sprite.width() - MARGIN * 2;
 
@@ -107,7 +106,7 @@ void draw_channel(const int y, const int ch, const float v, const float maxV, co
     sprite.printf("Ch:%d %.2f mV", ch, v);
 
     int bar_y  = y + FONT_H + 2;
-    int fill_w = (int)((bar_w - 2) * (v / maxV));
+    int fill_w = (int)((bar_w - 2) * (v / max_v));
     sprite.drawRect(MARGIN, bar_y, bar_w, BAR_H, 3);
     if (fill_w > 0) {
         sprite.fillRect(MARGIN + 1, bar_y + 1, fill_w, BAR_H - 2, bar_color);
@@ -156,7 +155,7 @@ void setup()
     unit.writeBothVoltage(0U, 0U);
 #endif
 
-    M5_LOGI("M5UnitUnified has been begun");
+    M5_LOGI("M5UnitUnified initialized");
     M5_LOGI("%s", Units.debugInfo().c_str());
 
     if (has_display) {
@@ -253,7 +252,7 @@ void loop()
         max_0 = unit.maximumVoltage(Channel::Zero);
         max_1 = unit.maximumVoltage(Channel::One);
 
-        M5.Log.printf("---- Range V0:%uV V1:%uV\n", (int)(max_0 / 1000), (int)(max_1 / 1000));
+        M5.Log.printf("---- Range V0:%dV V1:%dV\n", (int)(max_0 / 1000), (int)(max_1 / 1000));
     }
 #endif
 }
