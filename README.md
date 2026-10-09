@@ -56,7 +56,7 @@ See also examples using conventional methods here.
 |UnitDAC|OK||
 |UnitDAC2|OK||
 
-See also [examples/UnitUnified/ViaPaHub](examples/UnitUnified/ViaPaHub) and [M5Unit-HUB](https://github.com/m5stack/M5Unit-HUB)
+See also the [ViaPaHub](examples/UnitUnified/ViaPaHub) example (UnitADC11 / UnitDAC / UnitDAC2 on one PaHub) and [M5Unit-HUB](https://github.com/m5stack/M5Unit-HUB)
 
 ## Examples
 See also [examples/UnitUnified](examples/UnitUnified)
