@@ -94,6 +94,8 @@ TEST_F(TestMCP4725, Settings)
             EXPECT_TRUE(unit->readEEPROM(pwd, raw));
             EXPECT_EQ(pwd, pd);
             EXPECT_EQ(raw, 0U);
+        } else {
+            M5_LOGW("Skip Reset: I2C_Class does not recover from general call reset");
         }
     }
 }

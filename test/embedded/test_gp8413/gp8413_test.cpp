@@ -12,50 +12,21 @@
 #include <M5UnitUnified.hpp>
 #include <googletest/test_template.hpp>
 #include <googletest/test_helper.hpp>
+#include <m5_unit_component/adapter_i2c.hpp>
 #include <unit/unit_GP8413.hpp>
+#include <wiring/m5_unit_unified_wiring.hpp>
 
 using namespace m5::unit::googletest;
 using namespace m5::unit;
 using namespace m5::unit::gp8413;
-
-#if defined(USING_HAT_DAC2)
-namespace hat {
-struct I2cPins {
-    int sda, scl;
-};
-
-I2cPins get_hat_pins(const m5::board_t board)
-{
-    switch (board) {
-        case m5::board_t::board_M5StickC:
-        case m5::board_t::board_M5StickCPlus:
-        case m5::board_t::board_M5StickCPlus2:
-            return {0, 26};
-        case m5::board_t::board_M5StickS3:
-            return {8, 0};
-        case m5::board_t::board_M5StackCoreInk:
-            return {25, 26};
-        case m5::board_t::board_ArduinoNessoN1:
-            return {6, 7};
-        default:
-            return {-1, -1};
-    }
-}
-}  // namespace hat
-#endif
 
 class TestGP8413 : public I2CComponentTestBase<UnitGP8413> {
 protected:
 #if defined(USING_HAT_DAC2)
     virtual bool begin() override
     {
-        auto board      = M5.getBoard();
-        const auto pins = hat::get_hat_pins(board);
-        // NessoN1: Wire is used by M5Unified In_I2C; use Wire1 for Hat port
-        auto& wire = (board == m5::board_t::board_ArduinoNessoN1) ? Wire1 : Wire;
-        wire.end();
-        wire.begin(pins.sda, pins.scl, unit->component_config().clock);
-        return Units.add(*unit, wire) && Units.begin();
+        // Board-aware Hat I2C (StickC series Wire / NessoN1 Wire1)
+        return m5::unit::wiring::addHatI2C(Units, *unit) && Units.begin();
     }
 #endif
     virtual UnitGP8413* get_instance() override
@@ -82,7 +53,7 @@ TEST_F(TestGP8413, Settings)
 
     for (auto&& or0 : output_table) {
         for (auto&& or1 : output_table) {
-            auto s = m5::utility::formatString("OR0:%u OR1:%u", or0, or1);
+            auto s = m5::utility::formatString("OR0:%u OR1:%u", (unsigned)or0, (unsigned)or1);
             SCOPED_TRACE(s);
 
             EXPECT_TRUE(unit->writeOutputRange(or0, or1));
@@ -100,8 +71,6 @@ TEST_F(TestGP8413, Output)
 
     EXPECT_TRUE(unit->writeOutputRange(Output::Range5V, Output::Range10V));
     EXPECT_TRUE(unit->writeBothVoltage(10000.f));
-
-    m5::utility::delay(3 * 1000);
 
     EXPECT_TRUE(unit->writeChannel0Voltage(5000.f));
     EXPECT_TRUE(unit->writeChannel1Voltage(5000.f));
@@ -129,7 +98,7 @@ TEST_F(TestGP8413, Boundary)
     // Over-range voltage clamped (not rejected)
     for (auto&& or0 : output_table) {
         for (auto&& or1 : output_table) {
-            auto s = m5::utility::formatString("OR0:%u OR1:%u", or0, or1);
+            auto s = m5::utility::formatString("OR0:%u OR1:%u", (unsigned)or0, (unsigned)or1);
             SCOPED_TRACE(s);
 
             EXPECT_TRUE(unit->writeOutputRange(or0, or1));
@@ -155,8 +124,29 @@ TEST_F(TestGP8413, Boundary)
 TEST_F(TestGP8413, Store)
 {
     SCOPED_TRACE(ustr);
-    auto start_at = m5::utility::millis();
-    EXPECT_TRUE(unit->storeBothVoltage());
-    auto duration = m5::utility::millis() - start_at;
-    EXPECT_GE(duration, 7);  // Need wait at least 7ms for store
+
+    // The store sequence is bit-banged on SDA/SCL, so it is supported only on buses that can be released
+    // and whose pins are known (see storeBothVoltage())
+    auto ad              = unit->asAdapter<AdapterI2C>(Adapter::Type::I2C);
+    const auto type      = ad ? ad->implType() : AdapterI2C::ImplType::Unknown;
+    const bool supported = ad && ad->sda() >= 0 && ad->scl() >= 0 &&
+                           (type == AdapterI2C::ImplType::TwoWire || type == AdapterI2C::ImplType::I2CClass ||
+                            type == AdapterI2C::ImplType::Bus);
+
+    // Store 0V so that the unit outputs 0V at the next power-on
+    EXPECT_TRUE(unit->writeBothVoltage(0.0f));
+
+    const auto start_at = m5::utility::millis();
+    const bool stored   = unit->storeBothVoltage();
+    const auto duration = m5::utility::elapsedSince(start_at);
+    if (supported) {
+        EXPECT_TRUE(stored);
+        EXPECT_GE(duration, 7U);  // Need wait at least 7ms for store
+    } else {
+        M5_LOGW("Store is not supported on this bus (impl:%u)", (unsigned)type);
+        EXPECT_FALSE(stored);
+    }
+
+    // The bus is restored after the store
+    EXPECT_TRUE(unit->writeBothVoltage(0.0f));
 }
