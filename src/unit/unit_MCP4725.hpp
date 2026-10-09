@@ -41,14 +41,25 @@ class UnitMCP4725 : public Component {
     M5_UNIT_COMPONENT_HPP_BUILDER(UnitMCP4725, 0x60);
 
 public:
-    static constexpr uint16_t RESOLUTION{0x0FFF};  // 12bits max code
+    //! @brief Maximum raw output value (12 bits)
+    static constexpr uint16_t RESOLUTION{0x0FFF};
 
-    //! @brief Raw value to voltage(mV)
+    /*!
+      @brief Raw value to voltage(mV)
+      @param raw Raw value
+      @param supply_voltage VDD of the chip (mV)
+      @return Voltage (mV)
+     */
     static inline float raw_to_voltage(const uint16_t raw, const float supply_voltage)
     {
         return static_cast<float>(raw) * supply_voltage / 4096.0f;
     }
-    //! @brief Voltage(mV) to raw value
+    /*!
+      @brief Voltage(mV) to raw value
+      @param mv Voltage (mV), clamped to 0 - supply_voltage
+      @param supply_voltage VDD of the chip (mV)
+      @return Raw value (0 - RESOLUTION)
+     */
     static inline uint16_t voltage_to_raw(const float mv, const float supply_voltage)
     {
         float val    = m5::stl::clamp(mv, 0.0f, supply_voltage);
@@ -70,6 +81,10 @@ public:
         float saturation_voltage{3300.f};
     };
 
+    /*!
+      @brief Constructor
+      @param addr I2C address
+     */
     explicit UnitMCP4725(const uint8_t addr = DEFAULT_ADDRESS) : Component(addr)
     {
         auto ccfg  = component_config();
@@ -80,6 +95,10 @@ public:
     {
     }
 
+    /*!
+      @brief Initialize the unit and apply config_t
+      @return True if successful
+     */
     virtual bool begin() override;
 
     ///@name Settings for begin
@@ -101,12 +120,12 @@ public:
     //! @brief Gets the inner power down mode
     inline mcp4725::PowerDown powerDown() const
     {
-        return _powerDown;
+        return _power_down;
     }
     //! @brief Gets the last output raw value
     inline uint16_t lastValue() const
     {
-        return _lastValue;
+        return _last_value;
     }
     ///@}
 
@@ -140,14 +159,19 @@ public:
     /*!
        @brief Output the voltage
        @param raw Output raw value
-        @return True if successful
-       @note Negative values return false. Values exceeding the supply voltage are clamped
+       @return True if successful
+       @note Masked with RESOLUTION (12 bits)
       */
     inline bool writeVoltage(const uint16_t raw)
     {
         return write_voltage(Command::FastMode, raw);
     }
-    //! @brief Output the voltage
+    /*!
+       @brief Output the voltage
+       @param raw Output raw value (unsigned integer other than uint16_t)
+       @return True if successful
+       @note Masked with RESOLUTION (12 bits)
+      */
     template <typename T, typename std::enable_if<!std::is_same<uint16_t, T>::value && std::is_unsigned<T>::value,
                                                   std::nullptr_t>::type = nullptr>
     inline bool writeVoltage(const T raw)
@@ -157,7 +181,7 @@ public:
 
     ///@}
 
-    //! @note After a reset, the device uploads the contents of the EEPROM to the DAC register
+    ///@note After a reset, the device uploads the contents of the EEPROM to the DAC register
     ///@name Write to DAC register and EEPROM
     ///@{
     /*!
@@ -165,7 +189,7 @@ public:
       @param mv Output voltage(mV)
       @param blocking Wait until EEPROM write is complete if true
       @return True if successful
-      @note Negative values return false. Values exceeding the supply voltage are clamped
+      @note Negative values return false. Values exceeding the saturation voltage are clamped
      */
     template <typename T, typename std::enable_if<std::is_floating_point<T>::value, std::nullptr_t>::type = nullptr>
     inline bool writeVoltageAndEEPROM(const T mv, const bool blocking = true)
@@ -181,10 +205,17 @@ public:
       @param raw Output raw value
       @param blocking Wait until EEPROM write is complete if true
       @return True if successful
+      @note Masked with RESOLUTION (12 bits)
      */
     bool writeVoltageAndEEPROM(const uint16_t raw, const bool blocking = true);
 
-    //! @brief Write to DAC register and EEPROM
+    /*!
+      @brief Write to DAC register and EEPROM
+      @param raw Output raw value (unsigned integer other than uint16_t)
+      @param blocking Wait until EEPROM write is complete if true
+      @return True if successful
+      @note Masked with RESOLUTION (12 bits)
+     */
     template <typename T, typename std::enable_if<!std::is_same<uint16_t, T>::value && std::is_unsigned<T>::value,
                                                   std::nullptr_t>::type = nullptr>
     bool writeVoltageAndEEPROM(const T raw, const bool blocking = true)
@@ -228,12 +259,12 @@ protected:
 
     bool write_voltage(const Command cmd, const uint16_t raw);
     bool is_eeprom_ready();
-    uint32_t make_buffer(uint8_t buf[3], const uint16_t raw, const Command cmd);
+    uint32_t make_buffer(uint8_t buf[3], const uint16_t raw, const Command cmd) const;
     bool read_status(uint8_t rbuf[5]);
 
 private:
-    mcp4725::PowerDown _powerDown{};
-    uint16_t _lastValue{};
+    mcp4725::PowerDown _power_down{};
+    uint16_t _last_value{};
     config_t _cfg{};
 };
 
