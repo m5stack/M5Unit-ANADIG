@@ -213,6 +213,10 @@ jobs:
             espressif32: latest
             unit: HatDAC2
             board: NessoN1
+          - example: ViaPaHub
+            framework: Arduino
+            espressif32: latest
+            board: Core
 
     steps:
       - name: Checkout
