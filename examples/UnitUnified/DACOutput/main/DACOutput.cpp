@@ -10,7 +10,7 @@
 #include <M5UnitUnified.h>
 #include <M5UnitUnifiedANADIG.h>
 #include <M5Utility.h>
-#include <M5HAL.hpp>
+#include <wiring/m5_unit_unified_wiring.hpp>  // Board-aware I2C wiring helpers
 #include <cmath>
 
 // *************************************************************
@@ -94,31 +94,6 @@ const char* func_name_table[4] = {
 uint32_t fidx{};
 function func = func_table[fidx];
 
-#if defined(USING_HAT_DAC2)
-struct I2cPins {
-    int sda;
-    int scl;
-};
-
-I2cPins get_hat_i2c_pins(const m5::board_t board)
-{
-    switch (board) {
-        case m5::board_t::board_M5StickC:
-        case m5::board_t::board_M5StickCPlus:
-        case m5::board_t::board_M5StickCPlus2:
-            return {0, 26};
-        case m5::board_t::board_M5StickS3:
-            return {8, 0};
-        case m5::board_t::board_M5StackCoreInk:
-            return {25, 26};
-        case m5::board_t::board_ArduinoNessoN1:
-            return {6, 7};
-        default:
-            return {-1, -1};
-    }
-}
-#endif
-
 constexpr int MARGIN{4};
 constexpr int BAR_H{12};
 constexpr int CH_BLOCK_H{30};  // 16(voltage) + 2(gap) + 12(bar)
@@ -154,7 +129,6 @@ void setup()
 
     M5.begin(m5cfg);
     M5.setTouchButtonHeightByRatio(100);
-    const auto board = M5.getBoard();
 
     // The screen shall be in landscape mode if exists
     if (lcd.height() > lcd.width()) {
@@ -165,66 +139,17 @@ void setup()
     has_display = !lcd.isEPD() && (lcd.width() > 0 && lcd.height() > 0);
 
 #if defined(USING_HAT_DAC2)
-    const auto pins = get_hat_i2c_pins(board);
-    M5_LOGI("getHatPin: SDA:%d SCL:%d", pins.sda, pins.scl);
-    if (pins.sda < 0 || pins.scl < 0) {
-        M5_LOGE("Illegal pin number");
-        lcd.fillScreen(TFT_RED);
-        while (true) {
-            m5::utility::delay(10000);
-        }
-    }
-    auto& wire = (board == m5::board_t::board_ArduinoNessoN1) ? Wire1 : Wire;
-    wire.end();
-    wire.begin(pins.sda, pins.scl, 400 * 1000U);
-    if (!Units.add(unit, wire) || !Units.begin()) {
-        M5_LOGE("Failed to begin");
-        lcd.fillScreen(TFT_RED);
-        while (true) {
-            m5::utility::delay(10000);
-        }
-    }
+    // Hat: board-aware Hat I2C (StickC series Wire / NessoN1 Wire1)
+    const bool unit_ready = m5::unit::wiring::addHatI2C(Units, unit) && Units.begin();
 #else
-    // NessoN1: Arduino Wire (I2C_NUM_0) cannot be used for GROVE port.
-    //   Wire is used by M5Unified In_I2C for internal devices (IOExpander etc.).
-    //   Wire1 exists but is reserved for HatPort — cannot be used for GROVE.
-    //   Reconfiguring Wire to GROVE pins breaks In_I2C, causing ESP_ERR_INVALID_STATE in M5.update().
-    //   Solution: Use SoftwareI2C via M5HAL (bit-banging) for the GROVE port.
-    // NanoC6: Wire.begin() on GROVE pins conflicts with m5::I2C_Class registered by Ex_I2C.setPort()
-    //   on the same I2C_NUM_0, causing sporadic NACK errors.
-    //   Solution: Use M5.Ex_I2C (m5::I2C_Class) directly instead of Arduino Wire.
-    bool unit_ready{};
-    if (board == m5::board_t::board_ArduinoNessoN1) {
-        // NessoN1: GROVE is on port_b (GPIO 5/4), not port_a (which maps to Wire pins 8/10)
-        auto pin_num_sda = M5.getPin(m5::pin_name_t::port_b_out);
-        auto pin_num_scl = M5.getPin(m5::pin_name_t::port_b_in);
-        M5_LOGI("getPin(M5HAL): SDA:%d SCL:%d", pin_num_sda, pin_num_scl);
-        m5::hal::bus::I2CBusConfig i2c_cfg;
-        i2c_cfg.pin_sda = m5::hal::gpio::getPin(pin_num_sda);
-        i2c_cfg.pin_scl = m5::hal::gpio::getPin(pin_num_scl);
-        auto i2c_bus    = m5::hal::bus::i2c::getBus(i2c_cfg);
-        M5_LOGI("Bus:%d", i2c_bus.has_value());
-        unit_ready = Units.add(unit, i2c_bus ? i2c_bus.value() : nullptr) && Units.begin();
-    } else if (board == m5::board_t::board_M5NanoC6) {
-        // NanoC6: Use M5.Ex_I2C (m5::I2C_Class, not Arduino Wire)
-        M5_LOGI("Using M5.Ex_I2C");
-        unit_ready = Units.add(unit, M5.Ex_I2C) && Units.begin();
-    } else {
-        auto pin_num_sda = M5.getPin(m5::pin_name_t::port_a_sda);
-        auto pin_num_scl = M5.getPin(m5::pin_name_t::port_a_scl);
-        M5_LOGI("getPin: SDA:%d SCL:%d", pin_num_sda, pin_num_scl);
-        Wire.end();
-        Wire.begin(pin_num_sda, pin_num_scl, 400 * 1000U);
-        unit_ready = Units.add(unit, Wire) && Units.begin();
-    }
+    // Board-aware I2C: NessoN1 -> SoftwareI2C(port_b), NanoC6/NanoH2 -> Ex_I2C, others -> Wire
+    const bool unit_ready = m5::unit::wiring::addI2C(Units, unit) && Units.begin();
+#endif
     if (!unit_ready) {
         M5_LOGE("Failed to begin");
-        lcd.fillScreen(TFT_RED);
-        while (true) {
-            m5::utility::delay(10000);
-        }
+        M5_LOGW("%s", Units.debugInfo().c_str());
+        m5::unit::wiring::failStop();
     }
-#endif
 
 #if !defined(USING_UNIT_DAC)
     unit.writeOutputRange(Output::Range5V, Output::Range5V);
