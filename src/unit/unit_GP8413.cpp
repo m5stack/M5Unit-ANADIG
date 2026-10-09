@@ -9,6 +9,11 @@
 */
 #include "unit_GP8413.hpp"
 #include <M5Utility.hpp>
+#include <M5HAL.hpp>
+#include <m5_unit_component/adapter_i2c.hpp>
+#if defined(ARDUINO)
+#include <Wire.h>
+#endif
 
 using namespace m5::utility::mmh3;
 using namespace m5::unit::types;
@@ -37,8 +42,114 @@ constexpr float max_mv_table[] = {
 */
 constexpr uint8_t mode_nibble_table[] = {0x05, 0x07};
 
-constexpr uint8_t store_command[] = {0x02, 0x10, 0x03, 0x00};
+/*
+  Store sequence (datasheet 3.3.6). It contains 3-bit frames and frames without a device address, which the
+  hardware I2C controller cannot generate, so the sequence is bit-banged on the SDA/SCL pins.
+  Timing follows DFRobot_GP8XXX_IIC::store().
+*/
+constexpr uint8_t store_head{0x02};  // "010" (3 bits, no ACK)
+constexpr uint8_t store_cmd_addr{0x10};
+constexpr uint8_t store_cmd_enter{0x03};
+constexpr uint8_t store_cmd_exit{0x00};
+constexpr uint8_t store_data_count{8};
 constexpr uint32_t store_wait_ms{10};  // At least 7 ms
+
+constexpr uint32_t cycle_total_us{5};
+constexpr uint32_t cycle_before_us{1};
+constexpr uint32_t cycle_after_us{2};
+constexpr uint32_t ack_timeout_us{250};
+
+using m5::hal::interface::gpio::Pin;
+using PinMode = m5::hal::types::gpio_mode_t;
+
+void bb_start(Pin* sda, Pin* scl)
+{
+    scl->writeHigh();
+    sda->writeHigh();
+    m5::utility::delayMicroseconds(cycle_before_us);
+    sda->writeLow();
+    m5::utility::delayMicroseconds(cycle_after_us);
+    scl->writeLow();
+    m5::utility::delayMicroseconds(cycle_total_us);
+}
+
+void bb_stop(Pin* sda, Pin* scl)
+{
+    sda->writeLow();
+    m5::utility::delayMicroseconds(cycle_before_us);
+    scl->writeHigh();
+    m5::utility::delayMicroseconds(cycle_total_us);
+    sda->writeHigh();
+    m5::utility::delayMicroseconds(cycle_total_us);
+}
+
+// The chip does not always drive ACK, so the level is only waited for (not checked)
+void bb_ack(Pin* sda, Pin* scl, const bool level)
+{
+    sda->setMode(PinMode::Input);
+    m5::utility::delayMicroseconds(cycle_before_us);
+    scl->writeHigh();
+    m5::utility::delayMicroseconds(cycle_after_us);
+    for (uint32_t t = 0; sda->read() != level && t < ack_timeout_us; ++t) {
+        m5::utility::delayMicroseconds(1);
+    }
+    m5::utility::delayMicroseconds(cycle_before_us);
+    scl->writeLow();
+    m5::utility::delayMicroseconds(cycle_after_us);
+    sda->setMode(PinMode::Output);
+}
+
+void bb_write(Pin* sda, Pin* scl, const uint8_t data, const bool ack_level, const uint8_t bits = 8,
+              const bool with_ack = true)
+{
+    for (int_fast8_t i = bits - 1; i >= 0; --i) {
+        sda->write(data & (1U << i));
+        m5::utility::delayMicroseconds(cycle_before_us);
+        scl->writeHigh();
+        m5::utility::delayMicroseconds(cycle_total_us);
+        scl->writeLow();
+        m5::utility::delayMicroseconds(cycle_after_us);
+    }
+    if (with_ack) {
+        bb_ack(sda, scl, ack_level);
+    } else {
+        sda->writeLow();
+        scl->writeHigh();
+    }
+}
+
+void bb_store_sequence(Pin* sda, Pin* scl, const uint8_t addr)
+{
+    sda->setMode(PinMode::Output);
+    scl->setMode(PinMode::Output);
+    scl->writeHigh();
+    sda->writeHigh();
+
+    bb_start(sda, scl);
+    bb_write(sda, scl, store_head, false, 3, false);
+    bb_stop(sda, scl);
+    bb_start(sda, scl);
+    bb_write(sda, scl, store_cmd_addr, false);
+    bb_write(sda, scl, store_cmd_enter, false);
+    bb_stop(sda, scl);
+
+    bb_start(sda, scl);
+    bb_write(sda, scl, static_cast<uint8_t>(addr << 1), true);
+    for (uint_fast8_t i = 0; i < store_data_count; ++i) {
+        bb_write(sda, scl, 0x00, true);
+    }
+    bb_stop(sda, scl);
+
+    m5::utility::delay(store_wait_ms);
+
+    bb_start(sda, scl);
+    bb_write(sda, scl, store_head, false, 3, false);
+    bb_stop(sda, scl);
+    bb_start(sda, scl);
+    bb_write(sda, scl, store_cmd_addr, false);
+    bb_write(sda, scl, store_cmd_exit, false);
+    bb_stop(sda, scl);
+}
 }  // namespace
 
 namespace m5 {
@@ -101,11 +212,75 @@ bool UnitGP8413::write_voltage(const uint8_t reg, const uint8_t* buf, const uint
 
 bool UnitGP8413::storeBothVoltage()
 {
-    if (writeWithTransaction(store_command, m5::stl::size(store_command)) == m5::hal::error::error_t::OK) {
-        m5::utility::delay(store_wait_ms);
-        return true;
+    auto ad = asAdapter<AdapterI2C>(Adapter::Type::I2C);
+    if (!ad || ad->sda() < 0 || ad->scl() < 0) {
+        M5_LIB_LOGE("Store needs an I2C bus with known SDA/SCL pins");
+        return false;
     }
-    return false;
+    // Via a hub (PaHub etc.), route the parent channels to this unit first.
+    // The hub is an analog switch, so the bit-banged frames pass through it
+    if (!selectChannel(channel())) {
+        M5_LIB_LOGE("Failed to select the channel");
+        return false;
+    }
+
+    // Release the bus, bit-bang on the same pins, then restore the bus
+    const auto type = ad->implType();
+    switch (type) {
+#if defined(ARDUINO) && defined(WIRE_HAS_END)
+        case AdapterI2C::ImplType::TwoWire: {
+            auto wire = ad->impl()->getWire();
+            if (!wire || !wire->end()) {
+                return false;
+            }
+            break;
+        }
+#endif
+        case AdapterI2C::ImplType::I2CClass:
+            if (!ad->end()) {
+                return false;
+            }
+            break;
+        case AdapterI2C::ImplType::Bus:  // Software I2C on GPIO; nothing to release
+            break;
+        default:
+            M5_LIB_LOGE("Store is not supported on this I2C backend:%u", m5::stl::to_underlying(type));
+            return false;
+    }
+
+    auto sda = m5::hal::gpio::getPin(ad->sda());
+    auto scl = m5::hal::gpio::getPin(ad->scl());
+    if (sda && scl) {
+        bb_store_sequence(sda, scl, address());
+    }
+
+    bool restored{};
+    switch (type) {
+#if defined(ARDUINO) && defined(WIRE_HAS_END)
+        case AdapterI2C::ImplType::TwoWire:
+            restored = ad->impl()->getWire()->begin(ad->sda(), ad->scl(), ad->clock());
+            break;
+#endif
+        case AdapterI2C::ImplType::I2CClass:
+            restored = ad->begin();
+            break;
+        case AdapterI2C::ImplType::Bus:  // Back to the idle state of the software I2C (open-drain, released)
+            if (!sda || !scl) {
+                break;
+            }
+            sda->setMode(PinMode::Output_OpenDrain);
+            scl->setMode(PinMode::Output_OpenDrain);
+            scl->writeHigh();
+            sda->writeHigh();
+            restored = true;
+            break;
+        default:
+            break;
+    }
+    if (!restored) {
+        M5_LIB_LOGE("Failed to restore the I2C bus");
+    }
+    return sda && scl && restored;
 }
 
 }  // namespace unit
