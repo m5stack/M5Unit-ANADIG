@@ -19,7 +19,7 @@ constexpr uint32_t interval_table[] = {
     1000 / 128 + 1,
     1000 / 32 + 1,
     1000 / 16 + 1,
-    1000 / 8,
+    1000 / 8 + 1,
 };
 
 }  // namespace
@@ -95,8 +95,8 @@ uint32_t UnitADS1100::get_interval(const uint8_t rate)
 
 bool UnitADS1100::read_if_ready_in_periodic(uint8_t v[2])
 {
-    // ADS1100 don't have data ready status for periodic
-    return /*is_data_ready() && */ read_measurement(v);
+    // ADS1100 doesn't have data ready status for periodic
+    return read_measurement(v);
 }
 
 }  // namespace unit
