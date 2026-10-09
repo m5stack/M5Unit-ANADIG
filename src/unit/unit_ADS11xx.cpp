@@ -22,6 +22,13 @@ constexpr uint8_t DEFAULT_CONFIG_VALUE{0x8C};
 namespace m5 {
 namespace unit {
 
+namespace {
+constexpr uint_fast8_t detect_retry_count{3};
+constexpr uint32_t detect_retry_interval_ms{100};
+constexpr uint32_t singleshot_timeout_ms{1000};
+constexpr uint32_t reset_timeout_ms{100};
+}  // namespace
+
 namespace ads11xx {
 const int32_t Data::min_code_table[4] = {-2048, -8192, -16384, -32768};
 }  // namespace ads11xx
@@ -49,8 +56,17 @@ bool UnitADS11XX::begin()
         UnitADS11XX::generalReset();
     }
 
+    // Without the general call reset, this read is the first transaction on the bus.
+    // The first transaction can fail intermittently on some buses (e.g. NanoC6/NanoH2 Ex_I2C), so retry it
     Config c{};
-    if (!read_config(c.value)) {
+    bool detected{};
+    for (uint_fast8_t retry = 0; retry < detect_retry_count && !detected; ++retry) {
+        if (retry) {
+            m5::utility::delay(detect_retry_interval_ms);
+        }
+        detected = read_config(c.value);
+    }
+    if (!detected) {
         M5_LIB_LOGE("Can not detect ADS11XX");
         return false;
     }
@@ -64,8 +80,11 @@ bool UnitADS11XX::begin()
         M5_LIB_LOGE("Can not detect ADS11XX %02X", c.value);
         return false;
     }
-    _pga  = c.pga();
-    _rate = c.rate();
+    // Both paths leave the default configuration on the chip
+    Config dc{};
+    dc.value = DEFAULT_CONFIG_VALUE;
+    _pga     = dc.pga();
+    _rate    = dc.rate();
     return true;
 }
 
@@ -74,7 +93,7 @@ void UnitADS11XX::update(const bool force)
     _updated = false;
     if (inPeriodic()) {
         elapsed_time_t at{m5::utility::millis()};
-        if (force || !_latest || at >= _latest + _interval) {
+        if (force || !_latest || m5::utility::hasElapsed(_latest, _interval, at)) {
             Data d{};
             _updated = read_if_ready_in_periodic(d.raw.data());
             if (_updated) {
@@ -141,7 +160,9 @@ bool UnitADS11XX::measure_singleshot(ads11xx::Data& data, const uint8_t cfg_valu
     c.st(true);
     c.single(true);
     if (write_config(c.value)) {
-        auto timeout_at = m5::utility::millis() + 1000;
+        const auto start_at = m5::utility::millis();
+        // Wait for the conversion time first, then poll
+        m5::utility::delay(get_interval(c.rate()));
         do {
             if (is_data_ready() && read_measurement(data.raw.data())) {
                 data.pga    = _pga;
@@ -150,7 +171,8 @@ bool UnitADS11XX::measure_singleshot(ads11xx::Data& data, const uint8_t cfg_valu
                 data.factor = _factor;
                 return true;
             }
-        } while (m5::utility::millis() <= timeout_at);
+            m5::utility::delay(1);
+        } while (!m5::utility::hasElapsed(start_at, singleshot_timeout_ms));
     }
     return false;
 }
@@ -193,14 +215,13 @@ bool UnitADS11XX::generalReset()
     generalCall(&cmd, 1);
 
     Config c{};
-    auto timeout_at = m5::utility::millis() + 100;
+    const auto start_at = m5::utility::millis();
     do {
         if (read_config(c.value) && c.value == DEFAULT_CONFIG_VALUE) {
             return true;
         }
         m5::utility::delay(1);
-
-    } while (m5::utility::millis() <= timeout_at);
+    } while (!m5::utility::hasElapsed(start_at, reset_timeout_ms));
     return false;
 }
 

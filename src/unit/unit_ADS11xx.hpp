@@ -12,6 +12,7 @@
 #include <M5UnitComponent.hpp>
 #include <m5_utility/stl/extension.hpp>
 #include <m5_utility/container/circular_buffer.hpp>
+#include <array>
 #include <limits>  // NaN
 
 namespace m5 {
@@ -56,6 +57,7 @@ struct Data {
         return differentialValue() / (-min_code_table[rate & 0x03] / vdd * (1U << m5::stl::to_underlying(pga))) /
                factor;
     }
+    //! @brief Minimum output code for each data rate (index: rate)
     static const int32_t min_code_table[4];
 };
 
@@ -188,11 +190,11 @@ protected:
         {
             value = (value & ~0x03) | m5::stl::to_underlying(pga);
         }
-        inline void continuous(bool enable)
+        inline void continuous(const bool enable)
         {
             value = (value & ~(1U << 4)) | ((enable ? 0 : 1) << 4);
         }
-        inline void single(bool enable)
+        inline void single(const bool enable)
         {
             continuous(!enable);
         }
