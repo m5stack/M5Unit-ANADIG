@@ -94,6 +94,31 @@ You must choose a define symbol for the unit you will use.
 #endif
 ```
 
+### For ESP-IDF settings
+
+> **NOTE:** The ESP-IDF native build (`idf.py`) targets ESP-IDF **5.1 or later** (5.x and 6.x).
+
+On ESP-IDF native builds (`idf.py`), the unit is selected via Kconfig instead of editing the source `#define`. The examples with a variant expose the choice through `main/Kconfig.projbuild`, which sources one of the Kconfig files in `examples/UnitUnified/common/`:
+
+| Kconfig file | Variants offered | Used by |
+|---|---|---|
+| `Kconfig.variant.adc` | UnitADC11 / HatADC11 / HatADC | ADCInput |
+| `Kconfig.variant.dac` | UnitDAC / UnitDAC2 / HatDAC2 | DACOutput |
+
+`examples/UnitUnified/common/variant.cmake` then maps the chosen `CONFIG_EXAMPLE_USING_*` to the source-level macro shared with the Arduino build, so the example source itself does not need to be edited.
+
+Pick the variant with `menuconfig`:
+
+```sh
+cd examples/UnitUnified/ADCInput                   # or DACOutput
+idf.py set-target esp32s3                          # or esp32 / esp32c6 / esp32p4 / ...
+idf.py menuconfig
+# -> M5Unit-ANADIG ADCInput example (or M5Unit-ANADIG DACOutput example) -> Target unit -> choose ONE
+idf.py build flash monitor
+```
+
+The ViaPaHub example has no variant; run `idf.py set-target <chip>` and `idf.py build flash monitor` directly.
+
 ### Doxygen document
 [GitHub Pages](https://m5stack.github.io/M5Unit-ANADIG/)
 

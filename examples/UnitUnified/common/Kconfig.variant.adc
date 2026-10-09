@@ -1,0 +1,20 @@
+# "Target unit" selection for the ADCInput example (ESP-IDF).
+# rsource'd from ADCInput/main/Kconfig.projbuild. The chosen CONFIG_EXAMPLE_USING_* is mapped
+# to the source-level USING_* macro in common/variant.cmake (shared with the Arduino build).
+menu "M5Unit-ANADIG ADCInput example"
+
+choice EXAMPLE_ADC_VARIANT
+    prompt "Target unit"
+    default EXAMPLE_USING_UNIT_ADC11
+    help
+        Which ADC unit this example drives.
+
+    config EXAMPLE_USING_UNIT_ADC11
+        bool "UnitADC11 (U013-V11, I2C / GROVE)"
+    config EXAMPLE_USING_HAT_ADC11
+        bool "HatADC11 (U069-V11, I2C / Hat port)"
+    config EXAMPLE_USING_HAT_ADC
+        bool "HatADC (U069, I2C / Hat port)"
+endchoice
+
+endmenu
