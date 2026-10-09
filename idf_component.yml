@@ -17,6 +17,11 @@ dependencies:
   m5stack/M5Utility:
     git: https://github.com/m5stack/M5Utility.git
     version: main
+  # unit_GP8413.cpp uses the M5HAL GPIO layer directly (store sequence). It is also pulled in by
+  # M5UnitUnified; the same git URL and ref resolve to a single component.
+  m5stack/M5HAL:
+    git: https://github.com/m5stack/M5HAL.git
+    version: main
 
 targets:
   - esp32
