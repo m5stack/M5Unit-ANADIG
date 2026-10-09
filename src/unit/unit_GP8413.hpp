@@ -48,7 +48,8 @@ class UnitGP8413 : public Component {
     M5_UNIT_COMPONENT_HPP_BUILDER(UnitGP8413, 0x59);
 
 public:
-    static constexpr uint16_t RESOLUTION{0x7FFF};  // 15bits
+    //! @brief Maximum raw output value (15 bits)
+    static constexpr uint16_t RESOLUTION{0x7FFF};
 
     /*!
       @struct config_t
@@ -61,6 +62,10 @@ public:
         gp8413::Output range1{gp8413::Output::Range10V};
     };
 
+    /*!
+      @brief Constructor
+      @param addr I2C address
+     */
     explicit UnitGP8413(const uint8_t addr = DEFAULT_ADDRESS) : Component(addr)
     {
         auto ccfg  = component_config();
@@ -71,6 +76,10 @@ public:
     {
     }
 
+    /*!
+      @brief Initialize the unit and apply config_t (output ranges)
+      @return True if successful
+     */
     virtual bool begin() override;
 
     ///@name Settings for begin
@@ -89,12 +98,20 @@ public:
 
     ///@name Settings
     ///@{
-    //! @brief Gets the inner range
+    /*!
+      @brief Gets the output range set for the channel
+      @param channel Target channel
+      @return Output range
+     */
     gp8413::Output range(const gp8413::Channel channel) const
     {
         return _range[m5::stl::to_underlying(channel)];
     }
-    //! @brief Get the maximum voltage of the channel
+    /*!
+      @brief Gets the maximum voltage of the channel
+      @param channel Target channel
+      @return Maximum voltage (mV) of the current output range
+     */
     float maximumVoltage(const gp8413::Channel channel) const;
     /*!
       @brief Write the output range
@@ -119,14 +136,24 @@ public:
     {
         return (mv >= 0.0f) && writeVoltage(channel, voltage_to_raw(channel, static_cast<float>(mv)));
     }
-    //! @brief Output the voltage(mV) to channel 0
+    /*!
+      @brief Output the voltage to channel 0
+      @param mv Output voltage(mV)
+      @return True if successful
+      @note Negative values return false. Values exceeding the output range are clamped
+     */
     template <typename T, typename std::enable_if<std::is_floating_point<T>::value, std::nullptr_t>::type = nullptr>
     inline bool writeChannel0Voltage(const T mv)
     {
         return (mv >= 0.0f) &&
                writeVoltage(gp8413::Channel::Zero, voltage_to_raw(gp8413::Channel::Zero, static_cast<float>(mv)));
     }
-    //! @brief Output the voltage(mV) to channel 1
+    /*!
+      @brief Output the voltage to channel 1
+      @param mv Output voltage(mV)
+      @return True if successful
+      @note Negative values return false. Values exceeding the output range are clamped
+     */
     template <typename T, typename std::enable_if<std::is_floating_point<T>::value, std::nullptr_t>::type = nullptr>
     inline bool writeChannel1Voltage(const T mv)
     {
@@ -134,21 +161,24 @@ public:
                writeVoltage(gp8413::Channel::One, voltage_to_raw(gp8413::Channel::One, static_cast<float>(mv)));
     }
     /*!
-      @brief Output the voltage to both channel
+      @brief Output the voltage to both channels
       @param mv0 Output voltage(mV) to channel 0
       @param mv1 Output voltage(mV) to channel 1
       @return True if successful
+      @note Negative values return false. Values exceeding the output range are clamped
     */
     template <typename T, typename std::enable_if<std::is_floating_point<T>::value, std::nullptr_t>::type = nullptr>
     inline bool writeBothVoltage(const T mv0, const T mv1)
     {
-        return writeBothVoltage(voltage_to_raw(gp8413::Channel::Zero, static_cast<float>(mv0)),
+        return (mv0 >= 0.0f) && (mv1 >= 0.0f) &&
+               writeBothVoltage(voltage_to_raw(gp8413::Channel::Zero, static_cast<float>(mv0)),
                                 voltage_to_raw(gp8413::Channel::One, static_cast<float>(mv1)));
     }
     /*!
-      @brief Output the voltage to both channel
-      @param mv Output voltage(mV) to both channel
+      @brief Output the voltage to both channels
+      @param mv Output voltage(mV) to both channels
       @return True if successful
+      @note Negative values return false. Values exceeding the output range are clamped
     */
     template <typename T, typename std::enable_if<std::is_floating_point<T>::value, std::nullptr_t>::type = nullptr>
     inline bool writeBothVoltage(const T mv)
@@ -163,30 +193,38 @@ public:
     /*!
       @brief Output the raw value
       @param channel Channel to output
-      @param raw Output raw value
+      @param raw Output raw value (masked with RESOLUTION)
       @return True if successful
      */
     bool writeVoltage(const gp8413::Channel channel, const uint16_t raw);
-    //! @brief Output the raw value to channel 0
+    /*!
+      @brief Output the raw value to channel 0
+      @param raw Output raw value (masked with RESOLUTION)
+      @return True if successful
+     */
     inline bool writeChannel0Voltage(const uint16_t raw)
     {
         return writeVoltage(gp8413::Channel::Zero, static_cast<uint16_t>(raw & RESOLUTION));
     }
-    //! @brief Output the raw value to channel 1
+    /*!
+      @brief Output the raw value to channel 1
+      @param raw Output raw value (masked with RESOLUTION)
+      @return True if successful
+     */
     inline bool writeChannel1Voltage(const uint16_t raw)
     {
         return writeVoltage(gp8413::Channel::One, static_cast<uint16_t>(raw & RESOLUTION));
     }
     /*!
-      @brief Output the raw value to both channel
-      @param raw0 Output raw value to channel 0
-      @param raw1 Output raw value to channel 1
+      @brief Output the raw value to both channels
+      @param raw0 Output raw value to channel 0 (masked with RESOLUTION)
+      @param raw1 Output raw value to channel 1 (masked with RESOLUTION)
       @return True if successful
     */
     bool writeBothVoltage(const uint16_t raw0, const uint16_t raw1);
     /*!
-      @brief Output the raw value to both channel
-      @param raw Output raw value to both channel
+      @brief Output the raw value to both channels
+      @param raw Output raw value to both channels (masked with RESOLUTION)
       @return True if successful
     */
     inline bool writeBothVoltage(const uint16_t raw)
@@ -196,7 +234,7 @@ public:
     ///@}
 
     ///@note The GP8413 supports storing voltage data in the chip to ensure that the voltage output state remains
-    ///@note in the corresponding state after power-down or start-up.
+    /// in the corresponding state after power-down or start-up.
     ///@name Store output voltage
     ///@{
     /*!
@@ -209,7 +247,7 @@ public:
     ///@}
 
 protected:
-    uint16_t voltage_to_raw(const gp8413::Channel channel, const float mv);
+    uint16_t voltage_to_raw(const gp8413::Channel channel, const float mv) const;
     bool write_voltage(const uint8_t reg, const uint8_t* buf, const uint32_t len);
 
 private:

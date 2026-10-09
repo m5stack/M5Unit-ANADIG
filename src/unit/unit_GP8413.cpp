@@ -32,7 +32,7 @@ constexpr float max_mv_table[] = {
   With 0x5 (5V) and 0x7 (10V), no bit shift is required, and there is no oscillation.
   This is undocumented behavior.
 
-  (It appears to be working exactly as described in the GP8211S datasheet ???)
+  (These values match the range encoding described in the GP8211S datasheet.)
   *******************************************************************************************************
 */
 constexpr uint8_t mode_nibble_table[] = {0x05, 0x07};
@@ -73,22 +73,25 @@ bool UnitGP8413::writeOutputRange(const gp8413::Output range0, const gp8413::Out
 
 bool UnitGP8413::writeVoltage(const gp8413::Channel channel, const uint16_t raw)
 {
-    const uint8_t buf[2]{static_cast<uint8_t>(raw & 0xFF), static_cast<uint8_t>(raw >> 8)};
+    const uint16_t v{static_cast<uint16_t>(raw & RESOLUTION)};
+    const uint8_t buf[2]{static_cast<uint8_t>(v & 0xFF), static_cast<uint8_t>(v >> 8)};
     return write_voltage(channel_reg_table[m5::stl::to_underlying(channel)], buf, 2);
 }
 
 bool UnitGP8413::writeBothVoltage(const uint16_t raw0, const uint16_t raw1)
 {
-    const uint8_t buf[4]{static_cast<uint8_t>(raw0 & 0xFF), static_cast<uint8_t>(raw0 >> 8),
-                         static_cast<uint8_t>(raw1 & 0xFF), static_cast<uint8_t>(raw1 >> 8)};
+    const uint16_t v0{static_cast<uint16_t>(raw0 & RESOLUTION)};
+    const uint16_t v1{static_cast<uint16_t>(raw1 & RESOLUTION)};
+    const uint8_t buf[4]{static_cast<uint8_t>(v0 & 0xFF), static_cast<uint8_t>(v0 >> 8),
+                         static_cast<uint8_t>(v1 & 0xFF), static_cast<uint8_t>(v1 >> 8)};
     return write_voltage(channel_reg_table[0], buf, 4);
 }
 
-uint16_t UnitGP8413::voltage_to_raw(const Channel channel, const float mv)
+uint16_t UnitGP8413::voltage_to_raw(const Channel channel, const float mv) const
 {
-    float maxMv = maximumVoltage(channel);
-    float val   = m5::stl::clamp(mv, 0.0f, maxMv);
-    return static_cast<uint16_t>((val / maxMv) * RESOLUTION);
+    const float max_mv = maximumVoltage(channel);
+    const float val    = m5::stl::clamp(mv, 0.0f, max_mv);
+    return static_cast<uint16_t>((val / max_mv) * RESOLUTION);
 }
 
 bool UnitGP8413::write_voltage(const uint8_t reg, const uint8_t* buf, const uint32_t len)
