@@ -31,6 +31,21 @@ protected:
 namespace {
 constexpr PowerDown pd_table[] = {PowerDown::OHM_1K, PowerDown::OHM_100K, PowerDown::OHM_500K, PowerDown::Normal};
 
+// begin() (using_eeprom_settings = false) takes over the current DAC register, then start from 0 / Normal
+void check_begin_state_and_clear(UnitMCP4725* unit)
+{
+    PowerDown pwd{};
+    uint16_t raw{};
+    EXPECT_TRUE(unit->readDACRegister(pwd, raw));
+    EXPECT_EQ(unit->lastValue(), raw);
+    EXPECT_EQ(unit->powerDown(), pwd);
+
+    EXPECT_TRUE(unit->writePowerDown(PowerDown::Normal));
+    EXPECT_TRUE(unit->writeVoltage((uint16_t)0));
+    EXPECT_EQ(unit->lastValue(), 0U);
+    EXPECT_EQ(unit->powerDown(), PowerDown::Normal);
+}
+
 }  // namespace
 
 TEST_F(TestMCP4725, Settings)
@@ -40,8 +55,7 @@ TEST_F(TestMCP4725, Settings)
     auto ad          = unit->asAdapter<m5::unit::AdapterI2C>(m5::unit::Adapter::Type::I2C);
     bool is_i2cclass = ad && ad->implType() == m5::unit::AdapterI2C::ImplType::I2CClass;
 
-    EXPECT_EQ(unit->lastValue(), 0U);
-    EXPECT_EQ(unit->powerDown(), PowerDown::Normal);
+    check_begin_state_and_clear(unit.get());
 
     // only DAC
     for (auto&& pd : pd_table) {
@@ -104,8 +118,7 @@ TEST_F(TestMCP4725, Output)
 {
     SCOPED_TRACE(ustr);
 
-    EXPECT_EQ(unit->lastValue(), 0U);
-    EXPECT_EQ(unit->powerDown(), PowerDown::Normal);
+    check_begin_state_and_clear(unit.get());
     EXPECT_TRUE(unit->writeVoltageAndEEPROM(0U));
 
     auto supply_voltage     = unit->config().supply_voltage;

@@ -72,7 +72,12 @@ public:
       @brief Settings for begin
      */
     struct config_t {
-        //! Using EEPROM settings on begin?
+        /*!
+          Using EEPROM settings on begin?
+          - true: The EEPROM settings (output value and power down mode) are written to the DAC register
+          - false: The output is not changed. lastValue() / powerDown() take over the current DAC register
+          (the EEPROM settings after power-on, or the last written value after an MCU-only reset)
+         */
         bool using_eeprom_settings{false};
         //! VDD of MCP4725 chip (mV). Used for raw <-> voltage conversion
         float supply_voltage{5000.f};
