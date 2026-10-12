@@ -245,9 +245,9 @@ public:
       Supported buses: Arduino TwoWire (including the LP I2C Wire1, e.g. NessoN1 Hat port),
       m5::I2C_Class (M5.Ex_I2C etc.), M5HAL software I2C, ESP-IDF native I2C drivers,
       and via a hub (PaHub etc.) connected to one of these
-      @return True if successful
+      @return True if successful. False if the chip does not acknowledge the store sequence (e.g. not connected)
       @warning Not supported on the ESP-IDF native I2C drivers when the pins are not routed through the GPIO matrix
-      (LP I2C) or on ESP32-P4 (returns false)
+      (LP I2C) (returns false)
       @warning Other devices on the same bus cannot be accessed during the store (about 10 ms). Blocked until complete
       @warning Note that the output range is not stored
       @note The chip has no read command, so the stored value can only be checked by power-cycling the unit

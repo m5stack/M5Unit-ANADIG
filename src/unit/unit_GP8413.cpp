@@ -83,8 +83,8 @@ void bb_stop(Pin* sda, Pin* scl)
     m5::utility::delayMicroseconds(cycle_total_us);
 }
 
-// The chip does not always drive ACK, so the level is only waited for (not checked)
-void bb_ack(Pin* sda, Pin* scl, const bool level)
+// Returns true if SDA is at the expected level at the ACK slot (waits up to ack_timeout_us)
+bool bb_ack(Pin* sda, Pin* scl, const bool level)
 {
     sda->setMode(PinMode::Input);
     m5::utility::delayMicroseconds(cycle_before_us);
@@ -93,13 +93,15 @@ void bb_ack(Pin* sda, Pin* scl, const bool level)
     for (uint32_t t = 0; sda->read() != level && t < ack_timeout_us; ++t) {
         m5::utility::delayMicroseconds(1);
     }
+    const bool matched = sda->read() == level;
     m5::utility::delayMicroseconds(cycle_before_us);
     scl->writeLow();
     m5::utility::delayMicroseconds(cycle_after_us);
     sda->setMode(PinMode::Output);
+    return matched;
 }
 
-void bb_write(Pin* sda, Pin* scl, const uint8_t data, const bool ack_level, const uint8_t bits = 8,
+bool bb_write(Pin* sda, Pin* scl, const uint8_t data, const bool ack_level, const uint8_t bits = 8,
               const bool with_ack = true)
 {
     for (int_fast8_t i = bits - 1; i >= 0; --i) {
@@ -111,28 +113,39 @@ void bb_write(Pin* sda, Pin* scl, const uint8_t data, const bool ack_level, cons
         m5::utility::delayMicroseconds(cycle_after_us);
     }
     if (with_ack) {
-        bb_ack(sda, scl, ack_level);
-    } else {
-        sda->writeLow();
-        scl->writeHigh();
+        return bb_ack(sda, scl, ack_level);
     }
+    sda->writeLow();
+    scl->writeHigh();
+    return true;
 }
 
-void bb_store_sequence(Pin* sda, Pin* scl, const uint8_t addr)
+// Command frame: "010" (3 bits, no ACK), then the command address and value, each ACKed (low) by the chip
+bool bb_command(Pin* sda, Pin* scl, const uint8_t cmd)
+{
+    bb_start(sda, scl);
+    bb_write(sda, scl, store_head, false, 3, false);
+    bb_stop(sda, scl);
+    bb_start(sda, scl);
+    const bool ack_addr = bb_write(sda, scl, store_cmd_addr, false);
+    const bool ack_cmd  = bb_write(sda, scl, cmd, false);
+    bb_stop(sda, scl);
+    return ack_addr && ack_cmd;
+}
+
+// Returns false if the chip does not ACK the enter/exit commands (e.g. not connected)
+bool bb_store_sequence(Pin* sda, Pin* scl, const uint8_t addr)
 {
     sda->setMode(PinMode::Output);
     scl->setMode(PinMode::Output);
     scl->writeHigh();
     sda->writeHigh();
 
-    bb_start(sda, scl);
-    bb_write(sda, scl, store_head, false, 3, false);
-    bb_stop(sda, scl);
-    bb_start(sda, scl);
-    bb_write(sda, scl, store_cmd_addr, false);
-    bb_write(sda, scl, store_cmd_enter, false);
-    bb_stop(sda, scl);
+    if (!bb_command(sda, scl, store_cmd_enter)) {
+        return false;
+    }
 
+    // The ACK slots of this frame stay high by design, so they are only waited for (not checked)
     bb_start(sda, scl);
     bb_write(sda, scl, static_cast<uint8_t>(addr << 1), true);
     for (uint_fast8_t i = 0; i < store_data_count; ++i) {
@@ -142,13 +155,7 @@ void bb_store_sequence(Pin* sda, Pin* scl, const uint8_t addr)
 
     m5::utility::delay(store_wait_ms);
 
-    bb_start(sda, scl);
-    bb_write(sda, scl, store_head, false, 3, false);
-    bb_stop(sda, scl);
-    bb_start(sda, scl);
-    bb_write(sda, scl, store_cmd_addr, false);
-    bb_write(sda, scl, store_cmd_exit, false);
-    bb_stop(sda, scl);
+    return bb_command(sda, scl, store_cmd_exit);
 }
 }  // namespace
 
@@ -261,11 +268,9 @@ bool UnitGP8413::storeBothVoltage()
             return false;
     }
 
-    auto sda = m5::hal::gpio::getPin(ad->sda());
-    auto scl = m5::hal::gpio::getPin(ad->scl());
-    if (sda && scl) {
-        bb_store_sequence(sda, scl, address());
-    }
+    auto sda          = m5::hal::gpio::getPin(ad->sda());
+    auto scl          = m5::hal::gpio::getPin(ad->scl());
+    const bool stored = sda && scl && bb_store_sequence(sda, scl, address());
 
     bool restored{};
     switch (type) {
@@ -299,10 +304,15 @@ bool UnitGP8413::storeBothVoltage()
         default:
             break;
     }
+    if (!sda || !scl) {
+        M5_LIB_LOGE("Failed to get SDA/SCL pins");
+    } else if (!stored) {
+        M5_LIB_LOGE("The chip did not acknowledge the store sequence");
+    }
     if (!restored) {
         M5_LIB_LOGE("Failed to restore the I2C bus");
     }
-    return sda && scl && restored;
+    return stored && restored;
 }
 
 }  // namespace unit
