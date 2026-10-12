@@ -27,7 +27,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">M5Unit-ANADIG<span id="projectnumber">&#160;0.3.0 git rev:6ce23e4</span>
+   <div id="projectname">M5Unit-ANADIG<span id="projectnumber">&#160;0.4.0 git rev:6844730</span>
    </div>
   </td>
  </tr>
@@ -187,6 +187,9 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>read_measurement</b> 
 <tr class="memitem:ab87d3bd4d992612c9d10ef9abe41924a" id="r_ab87d3bd4d992612c9d10ef9abe41924a"><td class="memItemLeft" align="right" valign="top"><a id="ab87d3bd4d992612c9d10ef9abe41924a" name="ab87d3bd4d992612c9d10ef9abe41924a"></a>
 bool&#160;</td><td class="memItemRight" valign="bottom"><b>is_data_ready</b> ()</td></tr>
 <tr class="separator:ab87d3bd4d992612c9d10ef9abe41924a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a25b0fbb284c71204898d37ec534ffe80" id="r_a25b0fbb284c71204898d37ec534ffe80"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a25b0fbb284c71204898d37ec534ffe80">detect_data_ready_flag</a> (bool &amp;goes_low)</td></tr>
+<tr class="memdesc:a25b0fbb284c71204898d37ec534ffe80"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks whether bit 7 of the configuration register goes to 0 in continuous conversion mode.  <br /></td></tr>
+<tr class="separator:a25b0fbb284c71204898d37ec534ffe80"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af4e9e24b4dc580d835d2df4169d0d133" id="r_af4e9e24b4dc580d835d2df4169d0d133"><td class="memItemLeft" align="right" valign="top"><a id="af4e9e24b4dc580d835d2df4169d0d133" name="af4e9e24b4dc580d835d2df4169d0d133"></a>
 virtual bool&#160;</td><td class="memItemRight" valign="bottom"><b>read_if_ready_in_periodic</b> (uint8_t v[2])</td></tr>
 <tr class="separator:af4e9e24b4dc580d835d2df4169d0d133"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -278,6 +281,41 @@ float&#160;</td><td class="memItemRight" valign="bottom"><b>_factor</b> {1.0f}</
 <p>Begin the unit. </p>
 
 <p>Reimplemented in <a class="el" href="classm5_1_1unit_1_1_unit_a_d_s1100.html#aec3d596ecb6666591430fbe4db2c901c">m5::unit::UnitADS1100</a>, and <a class="el" href="classm5_1_1unit_1_1_unit_a_d_s1110.html#ae67e3da7b94fd4d05c1770a8acebbc4e">m5::unit::UnitADS1110</a>.</p>
+
+</div>
+</div>
+<a id="a25b0fbb284c71204898d37ec534ffe80" name="a25b0fbb284c71204898d37ec534ffe80"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a25b0fbb284c71204898d37ec534ffe80">&#9670;&#160;</a></span>detect_data_ready_flag()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool m5::unit::UnitADS11XX::detect_data_ready_flag </td>
+          <td>(</td>
+          <td class="paramtype">bool &amp;</td>          <td class="paramname"><span class="paramname"><em>goes_low</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Checks whether bit 7 of the configuration register goes to 0 in continuous conversion mode. </p>
+<p>ADS1110 clears ST/DRDY when a new result is written to the output register. ADS1100 always reads ST/BSY as 1 in continuous conversion mode. Both chips have the same I2C address and default configuration, so this tells them apart </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[out]</td><td class="paramname">goes_low</td><td>True if bit 7 went to 0 (ADS1110), false if it stayed 1 (ADS1100) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>True if the configuration register could be read </dd></dl>
+<dl class="section pre"><dt>Precondition</dt><dd>The chip is in continuous conversion mode at the default sampling rate (state after <a class="el" href="#a62dc664f80ba64a234321684ad92e361" title="Begin the unit.">begin()</a>) </dd></dl>
 
 </div>
 </div>

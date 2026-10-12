@@ -27,7 +27,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">M5Unit-ANADIG<span id="projectnumber">&#160;0.3.0 git rev:6ce23e4</span>
+   <div id="projectname">M5Unit-ANADIG<span id="projectnumber">&#160;0.4.0 git rev:6844730</span>
    </div>
   </td>
  </tr>
@@ -110,9 +110,7 @@ $(function(){initNavTree('structm5_1_1unit_1_1_unit_m_c_p4725_1_1config__t.html'
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
-<tr class="memitem:a19037d1dab18b76d3fd5b98416149e60" id="r_a19037d1dab18b76d3fd5b98416149e60"><td class="memItemLeft" align="right" valign="top"><a id="a19037d1dab18b76d3fd5b98416149e60" name="a19037d1dab18b76d3fd5b98416149e60"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>using_eeprom_settings</b> {false}</td></tr>
-<tr class="memdesc:a19037d1dab18b76d3fd5b98416149e60"><td class="mdescLeft">&#160;</td><td class="mdescRight">Using EEPROM settings on begin? <br /></td></tr>
+<tr class="memitem:a19037d1dab18b76d3fd5b98416149e60" id="r_a19037d1dab18b76d3fd5b98416149e60"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a19037d1dab18b76d3fd5b98416149e60">using_eeprom_settings</a> {false}</td></tr>
 <tr class="separator:a19037d1dab18b76d3fd5b98416149e60"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:adee3ff4694ee997b44f24174a2aa4654" id="r_adee3ff4694ee997b44f24174a2aa4654"><td class="memItemLeft" align="right" valign="top"><a id="adee3ff4694ee997b44f24174a2aa4654" name="adee3ff4694ee997b44f24174a2aa4654"></a>
 float&#160;</td><td class="memItemRight" valign="bottom"><b>supply_voltage</b> {5000.f}</td></tr>
@@ -136,6 +134,24 @@ float&#160;</td><td class="memItemRight" valign="bottom"><b>supply_voltage</b> {
       </table>
 </div><div class="memdoc">
 <p>Max reliable output voltage (mV). 0 means no limit (uses supply_voltage) </p><dl class="section note"><dt>Note</dt><dd>UnitDAC (U012) saturates at ~3.3V despite 5V VDD </dd></dl>
+
+</div>
+</div>
+<a id="a19037d1dab18b76d3fd5b98416149e60" name="a19037d1dab18b76d3fd5b98416149e60"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a19037d1dab18b76d3fd5b98416149e60">&#9670;&#160;</a></span>using_eeprom_settings</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool m5::unit::UnitMCP4725::config_t::using_eeprom_settings {false}</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Using EEPROM settings on begin?</p><ul>
+<li>true: The EEPROM settings (output value and power down mode) are written to the DAC register</li>
+<li>false: The output is not changed. <a class="el" href="classm5_1_1unit_1_1_unit_m_c_p4725.html#a934fdbc7d8d0e7e535b658244daf9fa9" title="Gets the last output raw value.">lastValue()</a> / <a class="el" href="classm5_1_1unit_1_1_unit_m_c_p4725.html#a9bfbfab1356b6c99c47e7f99b975e636" title="Gets the inner power down mode.">powerDown()</a> take over the current DAC register (the EEPROM settings after power-on, or the last written value after an MCU-only reset) </li>
+</ul>
 
 </div>
 </div>

@@ -27,7 +27,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">M5Unit-ANADIG<span id="projectnumber">&#160;0.3.0 git rev:6ce23e4</span>
+   <div id="projectname">M5Unit-ANADIG<span id="projectnumber">&#160;0.4.0 git rev:6844730</span>
    </div>
   </td>
  </tr>
@@ -127,11 +127,11 @@ Classes</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:ad4b426a74f151c5cde553d79b3aa7bfe" id="r_ad4b426a74f151c5cde553d79b3aa7bfe"><td class="memItemLeft" align="right" valign="top"><a id="ad4b426a74f151c5cde553d79b3aa7bfe" name="ad4b426a74f151c5cde553d79b3aa7bfe"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>UnitMCP4725</b> (const uint8_t addr=DEFAULT_ADDRESS)</td></tr>
+<tr class="memitem:ad4b426a74f151c5cde553d79b3aa7bfe" id="r_ad4b426a74f151c5cde553d79b3aa7bfe"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad4b426a74f151c5cde553d79b3aa7bfe">UnitMCP4725</a> (const uint8_t addr=DEFAULT_ADDRESS)</td></tr>
+<tr class="memdesc:ad4b426a74f151c5cde553d79b3aa7bfe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor.  <br /></td></tr>
 <tr class="separator:ad4b426a74f151c5cde553d79b3aa7bfe"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9a5dbd4dad9ff23bfd614e3f873e8c6d" id="r_a9a5dbd4dad9ff23bfd614e3f873e8c6d"><td class="memItemLeft" align="right" valign="top"><a id="a9a5dbd4dad9ff23bfd614e3f873e8c6d" name="a9a5dbd4dad9ff23bfd614e3f873e8c6d"></a>
-virtual bool&#160;</td><td class="memItemRight" valign="bottom"><b>begin</b> () override</td></tr>
+<tr class="memitem:a9a5dbd4dad9ff23bfd614e3f873e8c6d" id="r_a9a5dbd4dad9ff23bfd614e3f873e8c6d"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9a5dbd4dad9ff23bfd614e3f873e8c6d">begin</a> () override</td></tr>
+<tr class="memdesc:a9a5dbd4dad9ff23bfd614e3f873e8c6d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize the unit and apply <a class="el" href="structm5_1_1unit_1_1_unit_m_c_p4725_1_1config__t.html" title="Settings for begin.">config_t</a>.  <br /></td></tr>
 <tr class="separator:a9a5dbd4dad9ff23bfd614e3f873e8c6d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad5d244fb55bcb3fe935753d7f4c3abfc" id="r_ad5d244fb55bcb3fe935753d7f4c3abfc"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad5d244fb55bcb3fe935753d7f4c3abfc">generalReset</a> ()</td></tr>
 <tr class="memdesc:ad5d244fb55bcb3fe935753d7f4c3abfc"><td class="mdescLeft">&#160;</td><td class="mdescRight">General reset.  <br /></td></tr>
@@ -174,10 +174,9 @@ uint16_t&#160;</td><td class="memItemRight" valign="bottom"><b>lastValue</b> () 
 <tr class="memitem:a1d1fdaaad753ff3a2cc3fd487cb2950a" id="r_a1d1fdaaad753ff3a2cc3fd487cb2950a"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1d1fdaaad753ff3a2cc3fd487cb2950a">writeVoltage</a> (const uint16_t raw)</td></tr>
 <tr class="memdesc:a1d1fdaaad753ff3a2cc3fd487cb2950a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Output the voltage.  <br /></td></tr>
 <tr class="separator:a1d1fdaaad753ff3a2cc3fd487cb2950a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac765e569754285cf53e280eee002e2e0" id="r_ac765e569754285cf53e280eee002e2e0"><td class="memTemplParams" colspan="2"><a id="ac765e569754285cf53e280eee002e2e0" name="ac765e569754285cf53e280eee002e2e0"></a>
-template&lt;typename T , typename std::enable_if&lt;!std::is_same&lt; uint16_t, T &gt;::value &amp;&amp;std::is_unsigned&lt; T &gt;::value, std::nullptr_t &gt;::type  = nullptr&gt; </td></tr>
-<tr class="memitem:ac765e569754285cf53e280eee002e2e0"><td class="memTemplItemLeft" align="right" valign="top">bool&#160;</td><td class="memTemplItemRight" valign="bottom"><b>writeVoltage</b> (const T raw)</td></tr>
-<tr class="memdesc:ac765e569754285cf53e280eee002e2e0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Output the voltage. <br /></td></tr>
+<tr class="memitem:ac765e569754285cf53e280eee002e2e0" id="r_ac765e569754285cf53e280eee002e2e0"><td class="memTemplParams" colspan="2">template&lt;typename T , typename std::enable_if&lt;!std::is_same&lt; uint16_t, T &gt;::value &amp;&amp;std::is_unsigned&lt; T &gt;::value, std::nullptr_t &gt;::type  = nullptr&gt; </td></tr>
+<tr class="memitem:ac765e569754285cf53e280eee002e2e0"><td class="memTemplItemLeft" align="right" valign="top">bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#ac765e569754285cf53e280eee002e2e0">writeVoltage</a> (const T raw)</td></tr>
+<tr class="memdesc:ac765e569754285cf53e280eee002e2e0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Output the voltage.  <br /></td></tr>
 <tr class="separator:ac765e569754285cf53e280eee002e2e0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">Write to DAC register and EEPROM</div></td></tr>
 <tr><td colspan="2"><div class="groupText"><dl class="section note"><dt>Note</dt><dd>After a reset, the device uploads the contents of the EEPROM to the DAC register </dd></dl>
@@ -189,27 +188,25 @@ template&lt;typename T , typename std::enable_if&lt;!std::is_same&lt; uint16_t, 
 <tr class="memitem:af1f7ed52e01bd458ba48a251e75962f9" id="r_af1f7ed52e01bd458ba48a251e75962f9"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af1f7ed52e01bd458ba48a251e75962f9">writeVoltageAndEEPROM</a> (const uint16_t raw, const bool blocking=true)</td></tr>
 <tr class="memdesc:af1f7ed52e01bd458ba48a251e75962f9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Write to DAC register and EEPROM.  <br /></td></tr>
 <tr class="separator:af1f7ed52e01bd458ba48a251e75962f9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a90935a5c323e8d13b9f764c225b595ab" id="r_a90935a5c323e8d13b9f764c225b595ab"><td class="memTemplParams" colspan="2"><a id="a90935a5c323e8d13b9f764c225b595ab" name="a90935a5c323e8d13b9f764c225b595ab"></a>
-template&lt;typename T , typename std::enable_if&lt;!std::is_same&lt; uint16_t, T &gt;::value &amp;&amp;std::is_unsigned&lt; T &gt;::value, std::nullptr_t &gt;::type  = nullptr&gt; </td></tr>
-<tr class="memitem:a90935a5c323e8d13b9f764c225b595ab"><td class="memTemplItemLeft" align="right" valign="top">bool&#160;</td><td class="memTemplItemRight" valign="bottom"><b>writeVoltageAndEEPROM</b> (const T raw, const bool blocking=true)</td></tr>
-<tr class="memdesc:a90935a5c323e8d13b9f764c225b595ab"><td class="mdescLeft">&#160;</td><td class="mdescRight">Write to DAC register and EEPROM. <br /></td></tr>
+<tr class="memitem:a90935a5c323e8d13b9f764c225b595ab" id="r_a90935a5c323e8d13b9f764c225b595ab"><td class="memTemplParams" colspan="2">template&lt;typename T , typename std::enable_if&lt;!std::is_same&lt; uint16_t, T &gt;::value &amp;&amp;std::is_unsigned&lt; T &gt;::value, std::nullptr_t &gt;::type  = nullptr&gt; </td></tr>
+<tr class="memitem:a90935a5c323e8d13b9f764c225b595ab"><td class="memTemplItemLeft" align="right" valign="top">bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#a90935a5c323e8d13b9f764c225b595ab">writeVoltageAndEEPROM</a> (const T raw, const bool blocking=true)</td></tr>
+<tr class="memdesc:a90935a5c323e8d13b9f764c225b595ab"><td class="mdescLeft">&#160;</td><td class="mdescRight">Write to DAC register and EEPROM.  <br /></td></tr>
 <tr class="separator:a90935a5c323e8d13b9f764c225b595ab"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
-<tr class="memitem:a1c320da324dde4f4ffd74a9bad74e5fd" id="r_a1c320da324dde4f4ffd74a9bad74e5fd"><td class="memItemLeft" align="right" valign="top"><a id="a1c320da324dde4f4ffd74a9bad74e5fd" name="a1c320da324dde4f4ffd74a9bad74e5fd"></a>
-static float&#160;</td><td class="memItemRight" valign="bottom"><b>raw_to_voltage</b> (const uint16_t raw, const float supply_voltage)</td></tr>
-<tr class="memdesc:a1c320da324dde4f4ffd74a9bad74e5fd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Raw value to voltage(mV) <br /></td></tr>
+<tr class="memitem:a1c320da324dde4f4ffd74a9bad74e5fd" id="r_a1c320da324dde4f4ffd74a9bad74e5fd"><td class="memItemLeft" align="right" valign="top">static float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1c320da324dde4f4ffd74a9bad74e5fd">raw_to_voltage</a> (const uint16_t raw, const float supply_voltage)</td></tr>
+<tr class="memdesc:a1c320da324dde4f4ffd74a9bad74e5fd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Raw value to voltage(mV)  <br /></td></tr>
 <tr class="separator:a1c320da324dde4f4ffd74a9bad74e5fd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a69be294cd0d0cd3ae073ee60cf3dd082" id="r_a69be294cd0d0cd3ae073ee60cf3dd082"><td class="memItemLeft" align="right" valign="top"><a id="a69be294cd0d0cd3ae073ee60cf3dd082" name="a69be294cd0d0cd3ae073ee60cf3dd082"></a>
-static uint16_t&#160;</td><td class="memItemRight" valign="bottom"><b>voltage_to_raw</b> (const float mv, const float supply_voltage)</td></tr>
-<tr class="memdesc:a69be294cd0d0cd3ae073ee60cf3dd082"><td class="mdescLeft">&#160;</td><td class="mdescRight">Voltage(mV) to raw value. <br /></td></tr>
+<tr class="memitem:a69be294cd0d0cd3ae073ee60cf3dd082" id="r_a69be294cd0d0cd3ae073ee60cf3dd082"><td class="memItemLeft" align="right" valign="top">static uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a69be294cd0d0cd3ae073ee60cf3dd082">voltage_to_raw</a> (const float mv, const float supply_voltage)</td></tr>
+<tr class="memdesc:a69be294cd0d0cd3ae073ee60cf3dd082"><td class="mdescLeft">&#160;</td><td class="mdescRight">Voltage(mV) to raw value.  <br /></td></tr>
 <tr class="separator:a69be294cd0d0cd3ae073ee60cf3dd082"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-attribs" name="pub-static-attribs"></a>
 Static Public Attributes</h2></td></tr>
 <tr class="memitem:a83f9cee90152c689f9ebbf6de5f3619c" id="r_a83f9cee90152c689f9ebbf6de5f3619c"><td class="memItemLeft" align="right" valign="top"><a id="a83f9cee90152c689f9ebbf6de5f3619c" name="a83f9cee90152c689f9ebbf6de5f3619c"></a>
 static constexpr uint16_t&#160;</td><td class="memItemRight" valign="bottom"><b>RESOLUTION</b> {0x0FFF}</td></tr>
+<tr class="memdesc:a83f9cee90152c689f9ebbf6de5f3619c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Maximum raw output value (12 bits) <br /></td></tr>
 <tr class="separator:a83f9cee90152c689f9ebbf6de5f3619c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-types" name="pro-types"></a>
@@ -228,16 +225,78 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>write_voltage</b> (co
 <tr class="memitem:a4aefa32ac8232738d5f37dfd0d194387" id="r_a4aefa32ac8232738d5f37dfd0d194387"><td class="memItemLeft" align="right" valign="top"><a id="a4aefa32ac8232738d5f37dfd0d194387" name="a4aefa32ac8232738d5f37dfd0d194387"></a>
 bool&#160;</td><td class="memItemRight" valign="bottom"><b>is_eeprom_ready</b> ()</td></tr>
 <tr class="separator:a4aefa32ac8232738d5f37dfd0d194387"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8803605216c09df07ebdcb5db07f6cb4" id="r_a8803605216c09df07ebdcb5db07f6cb4"><td class="memItemLeft" align="right" valign="top"><a id="a8803605216c09df07ebdcb5db07f6cb4" name="a8803605216c09df07ebdcb5db07f6cb4"></a>
-uint32_t&#160;</td><td class="memItemRight" valign="bottom"><b>make_buffer</b> (uint8_t buf[3], const uint16_t raw, const Command cmd)</td></tr>
-<tr class="separator:a8803605216c09df07ebdcb5db07f6cb4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1d0ca0db164d23bbe61ec357f6d090fc" id="r_a1d0ca0db164d23bbe61ec357f6d090fc"><td class="memItemLeft" align="right" valign="top"><a id="a1d0ca0db164d23bbe61ec357f6d090fc" name="a1d0ca0db164d23bbe61ec357f6d090fc"></a>
+uint32_t&#160;</td><td class="memItemRight" valign="bottom"><b>make_buffer</b> (uint8_t buf[3], const uint16_t raw, const Command cmd) const</td></tr>
+<tr class="separator:a1d0ca0db164d23bbe61ec357f6d090fc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abd827cd9e0f75e5bd36433fbce229583" id="r_abd827cd9e0f75e5bd36433fbce229583"><td class="memItemLeft" align="right" valign="top"><a id="abd827cd9e0f75e5bd36433fbce229583" name="abd827cd9e0f75e5bd36433fbce229583"></a>
 bool&#160;</td><td class="memItemRight" valign="bottom"><b>read_status</b> (uint8_t rbuf[5])</td></tr>
 <tr class="separator:abd827cd9e0f75e5bd36433fbce229583"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Digital-to-analog signal conversion unit. </p>
-</div><h2 class="groupheader">Member Function Documentation</h2>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="ad4b426a74f151c5cde553d79b3aa7bfe" name="ad4b426a74f151c5cde553d79b3aa7bfe"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad4b426a74f151c5cde553d79b3aa7bfe">&#9670;&#160;</a></span>UnitMCP4725()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">m5::unit::UnitMCP4725::UnitMCP4725 </td>
+          <td>(</td>
+          <td class="paramtype">const uint8_t</td>          <td class="paramname"><span class="paramname"><em>addr</em></span><span class="paramdefsep"> = </span><span class="paramdefval">DEFAULT_ADDRESS</span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">explicit</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Constructor. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">addr</td><td>I2C address </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="a9a5dbd4dad9ff23bfd614e3f873e8c6d" name="a9a5dbd4dad9ff23bfd614e3f873e8c6d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9a5dbd4dad9ff23bfd614e3f873e8c6d">&#9670;&#160;</a></span>begin()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool m5::unit::UnitMCP4725::begin </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Initialize the unit and apply <a class="el" href="structm5_1_1unit_1_1_unit_m_c_p4725_1_1config__t.html" title="Settings for begin.">config_t</a>. </p>
+<dl class="section return"><dt>Returns</dt><dd>True if successful </dd></dl>
+
+</div>
+</div>
 <a id="ad5d244fb55bcb3fe935753d7f4c3abfc" name="ad5d244fb55bcb3fe935753d7f4c3abfc"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ad5d244fb55bcb3fe935753d7f4c3abfc">&#9670;&#160;</a></span>generalReset()</h2>
 
@@ -259,6 +318,45 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>read_status</b> (uint
 <dl class="section warning"><dt>Warning</dt><dd>This is a reset by General command, the command is also sent to all devices with I2C connections </dd>
 <dd>
 Not supported with m5::I2C_Class. The bus hangs because m5::I2C_Class has no timeout on bus recovery after a general call reset </dd></dl>
+
+</div>
+</div>
+<a id="a1c320da324dde4f4ffd74a9bad74e5fd" name="a1c320da324dde4f4ffd74a9bad74e5fd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1c320da324dde4f4ffd74a9bad74e5fd">&#9670;&#160;</a></span>raw_to_voltage()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static float m5::unit::UnitMCP4725::raw_to_voltage </td>
+          <td>(</td>
+          <td class="paramtype">const uint16_t</td>          <td class="paramname"><span class="paramname"><em>raw</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const float</td>          <td class="paramname"><span class="paramname"><em>supply_voltage</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Raw value to voltage(mV) </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">raw</td><td>Raw value </td></tr>
+    <tr><td class="paramname">supply_voltage</td><td>VDD of the chip (mV) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Voltage (mV) </dd></dl>
 
 </div>
 </div>
@@ -324,6 +422,45 @@ Not supported with m5::I2C_Class. The bus hangs because m5::I2C_Class has no tim
 
 </div>
 </div>
+<a id="a69be294cd0d0cd3ae073ee60cf3dd082" name="a69be294cd0d0cd3ae073ee60cf3dd082"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a69be294cd0d0cd3ae073ee60cf3dd082">&#9670;&#160;</a></span>voltage_to_raw()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static uint16_t m5::unit::UnitMCP4725::voltage_to_raw </td>
+          <td>(</td>
+          <td class="paramtype">const float</td>          <td class="paramname"><span class="paramname"><em>mv</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const float</td>          <td class="paramname"><span class="paramname"><em>supply_voltage</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Voltage(mV) to raw value. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">mv</td><td>Voltage (mV), clamped to 0 - supply_voltage </td></tr>
+    <tr><td class="paramname">supply_voltage</td><td>VDD of the chip (mV) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Raw value (0 - RESOLUTION) </dd></dl>
+
+</div>
+</div>
 <a id="a3c25582ba3e7e12daf05ed0a7d9a10ce" name="a3c25582ba3e7e12daf05ed0a7d9a10ce"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a3c25582ba3e7e12daf05ed0a7d9a10ce">&#9670;&#160;</a></span>writePowerDown()</h2>
 
@@ -352,7 +489,7 @@ Not supported with m5::I2C_Class. The bus hangs because m5::I2C_Class has no tim
 </div>
 </div>
 <a id="acedc95dc92aab56730703e7bda195807" name="acedc95dc92aab56730703e7bda195807"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#acedc95dc92aab56730703e7bda195807">&#9670;&#160;</a></span>writeVoltage() <span class="overload">[1/2]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#acedc95dc92aab56730703e7bda195807">&#9670;&#160;</a></span>writeVoltage() <span class="overload">[1/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -388,8 +525,45 @@ template&lt;typename T , typename std::enable_if&lt; std::is_floating_point&lt; 
 
 </div>
 </div>
+<a id="ac765e569754285cf53e280eee002e2e0" name="ac765e569754285cf53e280eee002e2e0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac765e569754285cf53e280eee002e2e0">&#9670;&#160;</a></span>writeVoltage() <span class="overload">[2/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T , typename std::enable_if&lt;!std::is_same&lt; uint16_t, T &gt;::value &amp;&amp;std::is_unsigned&lt; T &gt;::value, std::nullptr_t &gt;::type  = nullptr&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool m5::unit::UnitMCP4725::writeVoltage </td>
+          <td>(</td>
+          <td class="paramtype">const T</td>          <td class="paramname"><span class="paramname"><em>raw</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Output the voltage. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">raw</td><td>Output raw value (unsigned integer other than uint16_t) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>True if successful </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>Masked with RESOLUTION (12 bits) </dd></dl>
+
+</div>
+</div>
 <a id="a1d1fdaaad753ff3a2cc3fd487cb2950a" name="a1d1fdaaad753ff3a2cc3fd487cb2950a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1d1fdaaad753ff3a2cc3fd487cb2950a">&#9670;&#160;</a></span>writeVoltage() <span class="overload">[2/2]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a1d1fdaaad753ff3a2cc3fd487cb2950a">&#9670;&#160;</a></span>writeVoltage() <span class="overload">[3/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -419,12 +593,12 @@ template&lt;typename T , typename std::enable_if&lt; std::is_floating_point&lt; 
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>True if successful </dd></dl>
-<dl class="section note"><dt>Note</dt><dd>Negative values return false. Values exceeding the supply voltage are clamped </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>Masked with RESOLUTION (12 bits) </dd></dl>
 
 </div>
 </div>
 <a id="ae1f5c94b052b79d794450fb310353bc9" name="ae1f5c94b052b79d794450fb310353bc9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae1f5c94b052b79d794450fb310353bc9">&#9670;&#160;</a></span>writeVoltageAndEEPROM() <span class="overload">[1/2]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ae1f5c94b052b79d794450fb310353bc9">&#9670;&#160;</a></span>writeVoltageAndEEPROM() <span class="overload">[1/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -461,12 +635,54 @@ template&lt;typename T , typename std::enable_if&lt; std::is_floating_point&lt; 
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>True if successful </dd></dl>
-<dl class="section note"><dt>Note</dt><dd>Negative values return false. Values exceeding the supply voltage are clamped </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>Negative values return false. Values exceeding the saturation voltage are clamped </dd></dl>
+
+</div>
+</div>
+<a id="a90935a5c323e8d13b9f764c225b595ab" name="a90935a5c323e8d13b9f764c225b595ab"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a90935a5c323e8d13b9f764c225b595ab">&#9670;&#160;</a></span>writeVoltageAndEEPROM() <span class="overload">[2/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T , typename std::enable_if&lt;!std::is_same&lt; uint16_t, T &gt;::value &amp;&amp;std::is_unsigned&lt; T &gt;::value, std::nullptr_t &gt;::type  = nullptr&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool m5::unit::UnitMCP4725::writeVoltageAndEEPROM </td>
+          <td>(</td>
+          <td class="paramtype">const T</td>          <td class="paramname"><span class="paramname"><em>raw</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const bool</td>          <td class="paramname"><span class="paramname"><em>blocking</em></span><span class="paramdefsep"> = </span><span class="paramdefval">true</span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Write to DAC register and EEPROM. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">raw</td><td>Output raw value (unsigned integer other than uint16_t) </td></tr>
+    <tr><td class="paramname">blocking</td><td>Wait until EEPROM write is complete if true </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>True if successful </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>Masked with RESOLUTION (12 bits) </dd></dl>
 
 </div>
 </div>
 <a id="af1f7ed52e01bd458ba48a251e75962f9" name="af1f7ed52e01bd458ba48a251e75962f9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af1f7ed52e01bd458ba48a251e75962f9">&#9670;&#160;</a></span>writeVoltageAndEEPROM() <span class="overload">[2/2]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#af1f7ed52e01bd458ba48a251e75962f9">&#9670;&#160;</a></span>writeVoltageAndEEPROM() <span class="overload">[3/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -493,6 +709,7 @@ template&lt;typename T , typename std::enable_if&lt; std::is_floating_point&lt; 
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>True if successful </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>Masked with RESOLUTION (12 bits) </dd></dl>
 
 </div>
 </div>
