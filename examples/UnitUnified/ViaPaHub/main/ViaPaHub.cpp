@@ -138,11 +138,11 @@ void setup()
 
     has_display = !lcd.isEPD() && (lcd.width() > 0 && lcd.height() > 0);
     if (has_display) {
-        lcd.setTextSize(std::max(1, lcd.width() / 320));
+        lcd.setTextSize(std::max<int32_t>(1, lcd.width() / 320));
         lcd.setFont(&fonts::Font2);
         plot_top    = lcd.fontHeight() + 4;
         plot_h      = lcd.height() - plot_top;
-        plot_dx     = std::max(1, static_cast<int>(lcd.width() / SWEEP_STEPS));
+        plot_dx     = std::max<int32_t>(1, lcd.width() / SWEEP_STEPS);
         plot_max_mv = dac2.maximumVoltage(m5::unit::gp8413::Channel::Zero);
         for (auto& y : prev_y) {
             y = to_y(0.0f);
