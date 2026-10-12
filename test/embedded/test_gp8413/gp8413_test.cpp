@@ -132,9 +132,9 @@ TEST_F(TestGP8413, Store)
     const bool supported = ad && ad->sda() >= 0 && ad->scl() >= 0 &&
                            (type == AdapterI2C::ImplType::TwoWire || type == AdapterI2C::ImplType::I2CClass ||
                             type == AdapterI2C::ImplType::Bus
-#if defined(ESP_PLATFORM) && __has_include(<driver/i2c_master.h>) && !defined(CONFIG_IDF_TARGET_ESP32P4)
+#if defined(ESP_PLATFORM) && __has_include(<driver/i2c_master.h>)
                             || type == AdapterI2C::ImplType::ESPIDFMasterBus
-#elif defined(ESP_PLATFORM) && !defined(CONFIG_IDF_TARGET_ESP32P4)
+#elif defined(ESP_PLATFORM)
                             || type == AdapterI2C::ImplType::ESPIDFLegacyBus
 #endif
                            );
