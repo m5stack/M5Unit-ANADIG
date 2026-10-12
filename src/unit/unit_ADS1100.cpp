@@ -35,8 +35,19 @@ bool UnitADS1100::begin()
 {
     _vdd    = _cfg.vdd;
     _factor = _cfg.factor;
-    return UnitADS11XX::begin() &&
-           (_cfg.start_periodic ? startPeriodicMeasurement(_cfg.sampling_rate, _cfg.pga) : stopPeriodicMeasurement());
+    if (!UnitADS11XX::begin()) {
+        return false;
+    }
+    bool goes_low{};
+    if (!detect_data_ready_flag(goes_low)) {
+        M5_LIB_LOGE("Failed to read config");
+        return false;
+    }
+    if (goes_low) {
+        M5_LIB_LOGE("ST/BSY goes to 0 in continuous mode. ADS1110 (UnitADC11 / HatADC11) is connected?");
+        return false;
+    }
+    return _cfg.start_periodic ? startPeriodicMeasurement(_cfg.sampling_rate, _cfg.pga) : stopPeriodicMeasurement();
 }
 
 bool UnitADS1100::start_periodic_measurement(const ads1100::Sampling rate, const ads1100::PGA pga)

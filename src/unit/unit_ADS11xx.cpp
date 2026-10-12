@@ -27,6 +27,8 @@ constexpr uint_fast8_t detect_retry_count{3};
 constexpr uint32_t detect_retry_interval_ms{100};
 constexpr uint32_t singleshot_timeout_ms{1000};
 constexpr uint32_t reset_timeout_ms{100};
+// Two conversions at the ADS1110 default rate (15 SPS, 67 ms). ADS1100 never clears bit 7
+constexpr uint32_t drdy_detect_timeout_ms{140};
 }  // namespace
 
 namespace ads11xx {
@@ -256,6 +258,24 @@ bool UnitADS11XX::is_data_ready()
 {
     Config c{};
     return read_config(c.value) && ((c.st()) == 0);
+}
+
+bool UnitADS11XX::detect_data_ready_flag(bool& goes_low)
+{
+    goes_low = false;
+    Config c{};
+    const auto start_at = m5::utility::millis();
+    do {
+        if (!read_config(c.value)) {
+            return false;
+        }
+        if (c.st() == 0) {
+            goes_low = true;
+            return true;
+        }
+        m5::utility::delay(1);
+    } while (!m5::utility::hasElapsed(start_at, drdy_detect_timeout_ms));
+    return true;
 }
 
 bool UnitADS11XX::read_if_ready_in_periodic(uint8_t v[2])

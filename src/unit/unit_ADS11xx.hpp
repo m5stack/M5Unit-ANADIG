@@ -142,6 +142,16 @@ protected:
     bool write_config(const uint8_t v);
     bool read_measurement(uint8_t v[2]);
     bool is_data_ready();
+    /*!
+      @brief Checks whether bit 7 of the configuration register goes to 0 in continuous conversion mode
+      @details ADS1110 clears ST/DRDY when a new result is written to the output register.
+      ADS1100 always reads ST/BSY as 1 in continuous conversion mode.
+      Both chips have the same I2C address and default configuration, so this tells them apart
+      @param[out] goes_low True if bit 7 went to 0 (ADS1110), false if it stayed 1 (ADS1100)
+      @return True if the configuration register could be read
+      @pre The chip is in continuous conversion mode at the default sampling rate (state after begin())
+     */
+    bool detect_data_ready_flag(bool& goes_low);
 
     virtual bool read_if_ready_in_periodic(uint8_t v[2]);
     virtual uint32_t get_interval(const uint8_t /* rate */)
