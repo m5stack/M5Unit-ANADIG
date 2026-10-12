@@ -13,11 +13,15 @@
 
   UnitDAC and UnitDAC2 output a sawtooth wave, and UnitADC11 measures its input.
   Connecting a DAC output to the UnitADC11 input lets you see the output on the ADC side.
+  The screen plots the DAC (yellow), DAC2 (cyan) and ADC (red) values. With UnitDAC2 VOUT0 connected to
+  the UnitADC11 input, the ADC trace overlaps the DAC2 trace.
 
   Each PaHub channel is an independent I2C bus, so units with the same address can also be connected.
   For example, to use a second UnitDAC, declare another instance and add it to a free channel
   (e.g. hub.add(dac_2nd, 3)).
 */
+#include <algorithm>
+
 #include <M5Unified.h>
 #include <M5UnitUnified.h>
 #include <M5UnitUnifiedHUB.h>
@@ -44,6 +48,63 @@ constexpr uint8_t CH_DAC2{2};
 // Sawtooth wave: STEPS steps per period, one step every STEP_INTERVAL_MS
 constexpr uint32_t STEPS{50};
 constexpr uint32_t STEP_INTERVAL_MS{100};
+
+// Plot: DAC / DAC2 / ADC traces sweep from left to right (the ADC trace overlaps DAC2 when looped back)
+constexpr uint16_t trace_colors[3]{TFT_YELLOW, TFT_CYAN, TFT_RED};  // DAC, DAC2, ADC (RGB565)
+constexpr const char* trace_labels[3]{"DAC", "DAC2", "ADC"};
+constexpr int32_t SWEEP_STEPS{160};  // Steps per screen width
+constexpr int32_t CURSOR_GAP{4};     // Blank columns ahead of the sweep
+
+bool has_display{};
+float plot_max_mv{};
+int32_t plot_x{}, plot_top{}, plot_h{}, plot_dx{};
+int32_t prev_y[3]{};
+float adc_mv{};
+
+int32_t to_y(const float mv)
+{
+    const float v = m5::stl::clamp(mv, 0.0f, plot_max_mv);
+    return plot_top + plot_h - 1 - static_cast<int32_t>(v * (plot_h - 1) / plot_max_mv);
+}
+
+void draw_header(const float (&mv)[3])
+{
+    const int32_t w = lcd.width() / 3;
+    lcd.fillRect(0, 0, lcd.width(), plot_top, TFT_BLACK);
+    for (int i = 0; i < 3; ++i) {
+        lcd.setTextColor(trace_colors[i], TFT_BLACK);
+        lcd.drawString(m5::utility::formatString("%s:%4.0f", trace_labels[i], mv[i]).c_str(), w * i + 2, 2);
+    }
+}
+
+void plot(const float (&mv)[3])
+{
+    int32_t y[3]{};
+    for (int i = 0; i < 3; ++i) {
+        y[i] = to_y(mv[i]);
+    }
+
+    lcd.startWrite();
+    draw_header(mv);
+    const int32_t x0 = plot_x;
+    const int32_t x1 = plot_x + plot_dx;
+    if (x1 >= lcd.width()) {
+        // Wrap around: restart from the left edge
+        plot_x = 0;
+        lcd.fillRect(0, plot_top, plot_dx + CURSOR_GAP, plot_h, TFT_BLACK);
+    } else {
+        lcd.fillRect(x0 + 1, plot_top, plot_dx + CURSOR_GAP, plot_h, TFT_BLACK);
+        for (int i = 0; i < 3; ++i) {
+            lcd.drawLine(x0, prev_y[i], x1, y[i], trace_colors[i]);
+        }
+        plot_x = x1;
+    }
+    lcd.endWrite();
+
+    for (int i = 0; i < 3; ++i) {
+        prev_y[i] = y[i];
+    }
+}
 
 }  // namespace
 
@@ -74,7 +135,20 @@ void setup()
 
     M5_LOGI("M5UnitUnified initialized");
     M5_LOGI("%s", Units.debugInfo().c_str());
-    lcd.fillScreen(TFT_DARKGREEN);
+
+    has_display = !lcd.isEPD() && (lcd.width() > 0 && lcd.height() > 0);
+    if (has_display) {
+        lcd.setTextSize(std::max(1, lcd.width() / 320));
+        lcd.setFont(&fonts::Font2);
+        plot_top    = lcd.fontHeight() + 4;
+        plot_h      = lcd.height() - plot_top;
+        plot_dx     = std::max(1, static_cast<int>(lcd.width() / SWEEP_STEPS));
+        plot_max_mv = dac2.maximumVoltage(m5::unit::gp8413::Channel::Zero);
+        for (auto& y : prev_y) {
+            y = to_y(0.0f);
+        }
+        lcd.fillScreen(TFT_BLACK);
+    }
 }
 
 void loop()
@@ -87,7 +161,8 @@ void loop()
 
     // ADC (periodic measurement)
     if (adc.updated()) {
-        M5.Log.printf(">ADC(mV):%.2f\n", adc.differentialVoltage());
+        adc_mv = adc.differentialVoltage();
+        M5.Log.printf(">ADC(mV):%.2f\n", adc_mv);
     }
 
     // DAC / DAC2 (sawtooth wave)
@@ -102,6 +177,11 @@ void loop()
         dac.writeVoltage(dac_mv);
         dac2.writeBothVoltage(dac2_mv);
         M5.Log.printf(">DAC(mV):%.2f\n>DAC2(mV):%.2f\n", dac_mv, dac2_mv);
+
+        if (has_display) {
+            const float mv[3]{dac_mv, dac2_mv, adc_mv};
+            plot(mv);
+        }
     }
 }
 
