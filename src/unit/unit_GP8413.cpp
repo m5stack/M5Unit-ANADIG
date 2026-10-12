@@ -243,6 +243,19 @@ bool UnitGP8413::storeBothVoltage()
             break;
         case AdapterI2C::ImplType::Bus:  // Software I2C on GPIO; nothing to release
             break;
+#if defined(ESP_PLATFORM) && __has_include(<driver/i2c_master.h>)
+        case AdapterI2C::ImplType::ESPIDFMasterBus:
+#elif defined(ESP_PLATFORM)
+        case AdapterI2C::ImplType::ESPIDFLegacyBus:
+#endif
+#if defined(ESP_PLATFORM)
+            // Detach the pins from the controller, keeping the driver installed
+            // (fails on pins not routed through the GPIO matrix, e.g. LP I2C)
+            if (!ad->releasePins()) {
+                return false;
+            }
+            break;
+#endif
         default:
             M5_LIB_LOGE("Store is not supported on this I2C backend:%u", m5::stl::to_underlying(type));
             return false;
@@ -274,6 +287,15 @@ bool UnitGP8413::storeBothVoltage()
             sda->writeHigh();
             restored = true;
             break;
+#if defined(ESP_PLATFORM) && __has_include(<driver/i2c_master.h>)
+        case AdapterI2C::ImplType::ESPIDFMasterBus:
+#elif defined(ESP_PLATFORM)
+        case AdapterI2C::ImplType::ESPIDFLegacyBus:
+#endif
+#if defined(ESP_PLATFORM)
+            restored = ad->restorePins();
+            break;
+#endif
         default:
             break;
     }
