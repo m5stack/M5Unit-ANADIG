@@ -1,8 +1,6 @@
 var classm5_1_1unit_1_1_unit_g_p8413 =
 [
     [ "config_t", "structm5_1_1unit_1_1_unit_g_p8413_1_1config__t.html", "structm5_1_1unit_1_1_unit_g_p8413_1_1config__t" ],
-    [ "UnitGP8413", "classm5_1_1unit_1_1_unit_g_p8413.html#aacb972453add04a99c69f0771ff90ec9", null ],
-    [ "begin", "classm5_1_1unit_1_1_unit_g_p8413.html#a963caee8588050d158639bb103ee59c5", null ],
     [ "config", "classm5_1_1unit_1_1_unit_g_p8413.html#a8e84349b589f949a75e4261af773289d", null ],
     [ "config", "classm5_1_1unit_1_1_unit_g_p8413.html#add506eca738713e4eb73ae5f2cd91feb", null ],
     [ "maximumVoltage", "classm5_1_1unit_1_1_unit_g_p8413.html#aa0334657acbba93a7287bc1772eaf9e7", null ],

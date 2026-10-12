@@ -1,8 +1,6 @@
 var classm5_1_1unit_1_1_unit_m_c_p4725 =
 [
     [ "config_t", "structm5_1_1unit_1_1_unit_m_c_p4725_1_1config__t.html", "structm5_1_1unit_1_1_unit_m_c_p4725_1_1config__t" ],
-    [ "UnitMCP4725", "classm5_1_1unit_1_1_unit_m_c_p4725.html#ad4b426a74f151c5cde553d79b3aa7bfe", null ],
-    [ "begin", "classm5_1_1unit_1_1_unit_m_c_p4725.html#a9a5dbd4dad9ff23bfd614e3f873e8c6d", null ],
     [ "config", "classm5_1_1unit_1_1_unit_m_c_p4725.html#ad9ca16214dadc0eea148739bcf5d6280", null ],
     [ "config", "classm5_1_1unit_1_1_unit_m_c_p4725.html#a698d6d5788f9eba752763c8eabb4b9f0", null ],
     [ "generalReset", "classm5_1_1unit_1_1_unit_m_c_p4725.html#ad5d244fb55bcb3fe935753d7f4c3abfc", null ],
