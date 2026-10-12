@@ -30,8 +30,6 @@ Hat DAC2 is an I2C digital-to-analog signal conversion unit designed for the Sti
 In terms of safety, the device supports output short-circuit protection — when the output pin is shorted to ground, it automatically enters protection mode and stops output. It is suitable for general signal conversion, motor speed control, LED dimming, inverters, power supplies, and industrial analog signal isolation applications.
 
 ## Related Link
-See also examples using conventional methods here.
-
 - [Unit ADC v1.1 & Datasheet](https://docs.m5stack.com/en/unit/Unit-ADC_V1.1)
 - [Unit DAC & Datasheet](https://docs.m5stack.com/en/unit/dac)
 - [Unit DAC2 & Datasheet](https://docs.m5stack.com/en/unit/Unit-DAC2)
@@ -39,7 +37,7 @@ See also examples using conventional methods here.
 - [Hat ADC v1.1 & Datasheet](https://docs.m5stack.com/en/hat/HAT-ADC-V11)
 - [Hat DAC2 & Datasheet](https://docs.m5stack.com/en/hat/Hat-DAC2)
 
-### Required Libraries:
+## Required Libraries
 - [M5UnitUnified](https://github.com/m5stack/M5UnitUnified)
 - [M5Utility](https://github.com/m5stack/M5Utility)
 - [M5HAL](https://github.com/m5stack/M5HAL)
@@ -51,7 +49,7 @@ See also examples using conventional methods here.
 ## Examples
 See also [examples/UnitUnified](examples/UnitUnified)
 
-### For ArduinoIDE settings
+### For Arduino IDE settings
 You must choose a define symbol for the unit you will use.
 (Uncomment the corresponding `#define` in the example, or specify it with compile options.)
 - ADCInput
@@ -60,11 +58,11 @@ You must choose a define symbol for the unit you will use.
 // Choose one define symbol to match the unit you are using
 // *************************************************************
 #if !defined(USING_UNIT_ADC11) && !defined(USING_HAT_ADC11) && !defined(USING_HAT_ADC)
-// For UnitADC11
+// For UnitADC11 (U013-V11)
 // #define USING_UNIT_ADC11
-// For HatADC11
+// For HatADC11 (U069-V11)
 // #define USING_HAT_ADC11
-// For HatADC
+// For HatADC (U069)
 // #define USING_HAT_ADC
 #endif
 ```
@@ -75,16 +73,54 @@ You must choose a define symbol for the unit you will use.
 // Choose one define symbol to match the unit you are using
 // *************************************************************
 #if !defined(USING_UNIT_DAC) && !defined(USING_UNIT_DAC2) && !defined(USING_HAT_DAC2)
-// For UnitDAC
+// For UnitDAC (U012)
 // #define USING_UNIT_DAC
-// For UnitDAC2
+// For UnitDAC2 (U012-B)
 // #define USING_UNIT_DAC2
-// For HatDAC2
+// For HatDAC2 (U068-B)
 // #define USING_HAT_DAC2
 #endif
 ```
 
-### Doxygen document
+### For ESP-IDF settings
+
+> **NOTE:** The ESP-IDF native build (`idf.py`) targets ESP-IDF **5.1 or later** (5.x and 6.x).
+
+> **NOTE:** On NessoN1, the Hat port (ESP32-C6 LP I2C) needs ESP-IDF **5.3 or later**
+> (Arduino: Arduino-ESP32 3.2 or later).
+
+On ESP-IDF native builds (`idf.py`), the unit is selected via Kconfig instead of editing the source `#define`. The examples with a variant expose the choice through `main/Kconfig.projbuild`, which sources one of the Kconfig files in `examples/UnitUnified/common/`:
+
+| Kconfig file | Variants offered | Used by |
+|---|---|---|
+| `Kconfig.variant.adc` | UnitADC11 / HatADC11 / HatADC | ADCInput |
+| `Kconfig.variant.dac` | UnitDAC / UnitDAC2 / HatDAC2 | DACOutput |
+
+`examples/UnitUnified/common/variant.cmake` then maps the chosen `CONFIG_EXAMPLE_USING_*` to the source-level macro shared with the Arduino build, so the example source itself does not need to be edited.
+
+Pick the variant with `menuconfig`:
+
+```sh
+cd examples/UnitUnified/ADCInput                   # or DACOutput
+idf.py set-target esp32s3                          # or esp32 / esp32c6 / esp32p4 / ...
+idf.py menuconfig
+# -> M5Unit-ANADIG ADCInput example (or M5Unit-ANADIG DACOutput example) -> Target unit -> choose ONE
+idf.py build flash monitor
+```
+
+The ViaPaHub example has no variant; run `idf.py set-target <chip>` and `idf.py build flash monitor` directly.
+
+## Support via [PaHub](https://docs.m5stack.com/en/unit/Unit-PaHub%20v2.1)
+
+|Unit|Support|Note|
+|---|---|---|
+|UnitADC11|OK||
+|UnitDAC|OK||
+|UnitDAC2|OK||
+
+See also the [ViaPaHub](examples/UnitUnified/ViaPaHub) example (UnitADC11 / UnitDAC / UnitDAC2 on one PaHub) and [M5Unit-HUB](https://github.com/m5stack/M5Unit-HUB)
+
+## Doxygen document
 [GitHub Pages](https://m5stack.github.io/M5Unit-ANADIG/)
 
 If you want to generate documents on your local machine, execute the following command
@@ -96,7 +132,6 @@ bash docs/doxy.sh
 It will output it under docs/html  
 If you want to output Git commit hashes to html, do it for the git cloned folder.
 
-#### Required
+### Required
 - [Doxygen](https://www.doxygen.nl/)
-- [pcregrep](https://formulae.brew.sh/formula/pcre2)
 - [Git](https://git-scm.com/) (Output commit hash to html)

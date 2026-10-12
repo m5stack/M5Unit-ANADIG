@@ -1,0 +1,20 @@
+# "Target unit" selection for the DACOutput example (ESP-IDF).
+# rsource'd from DACOutput/main/Kconfig.projbuild. The chosen CONFIG_EXAMPLE_USING_* is mapped
+# to the source-level USING_* macro in common/variant.cmake (shared with the Arduino build).
+menu "M5Unit-ANADIG DACOutput example"
+
+choice EXAMPLE_DAC_VARIANT
+    prompt "Target unit"
+    default EXAMPLE_USING_UNIT_DAC
+    help
+        Which DAC unit this example drives.
+
+    config EXAMPLE_USING_UNIT_DAC
+        bool "UnitDAC (U012, I2C / GROVE)"
+    config EXAMPLE_USING_UNIT_DAC2
+        bool "UnitDAC2 (U012-B, I2C / GROVE)"
+    config EXAMPLE_USING_HAT_DAC2
+        bool "HatDAC2 (U068-B, I2C / Hat port)"
+endchoice
+
+endmenu

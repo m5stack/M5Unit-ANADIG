@@ -70,24 +70,27 @@ jobs:
 #          - HatDAC2
 
         board:
+          # Reduced from 19 to 5 boards: one per compile config (chip arch x platform).
+          # The other boards differ only in the variant header, so the library code compiles the same.
           - Core
-          - Core2
+#          - Core2  # ESP32: represented by Core
           - CoreS3
-          - Fire
-          - StampS3
-          - Dial
-          - Atom
-          - AtomS3
-          - AtomS3R
+#          - Fire  # ESP32: represented by Core
+#          - StampS3  # ESP32-S3: represented by CoreS3
+#          - Dial  # ESP32-S3: represented by CoreS3
+#          - Atom  # ESP32: represented by Core
+#          - AtomS3  # ESP32-S3: represented by CoreS3
+#          - AtomS3R  # ESP32-S3: represented by CoreS3
           - NanoC6
-          - StickCPlus
-          - StickCPlus2
-          - StickS3
-          - Paper
-          - CoreInk
-          - Cardputer
+          - NanoH2
+#          - StickCPlus  # ESP32: represented by Core
+#          - StickCPlus2  # ESP32: represented by Core
+#          - StickS3  # ESP32-S3: represented by CoreS3
+#          - Paper  # ESP32: represented by Core
+#          - CoreInk  # ESP32: represented by Core
+#          - Cardputer  # ESP32-S3: represented by CoreS3
           - Tab5
-          - NessoN1
+#          - NessoN1  # ESP32-C6: represented by NanoC6
 
         framework:
           - Arduino
@@ -137,21 +140,22 @@ jobs:
 
         include:
           # Specific examples
-          - example: ADCInput
-            framework: Arduino
-            espressif32: latest
-            unit: HatADC
-            board: StickCPlus
-          - example: ADCInput
-            framework: Arduino
-            espressif32: latest
-            unit: HatADC11
-            board: StickCPlus
-          - example: DACOutput
-            framework: Arduino
-            espressif32: latest
-            unit: HatDAC2
-            board: StickCPlus
+          # HatADC / HatADC11 / HatDAC2 on ESP32: StickCPlus is represented by StickCPlus2
+#         - example: ADCInput
+#           framework: Arduino
+#           espressif32: latest
+#           unit: HatADC
+#           board: StickCPlus
+#         - example: ADCInput
+#           framework: Arduino
+#           espressif32: latest
+#           unit: HatADC11
+#           board: StickCPlus
+#         - example: DACOutput
+#           framework: Arduino
+#           espressif32: latest
+#           unit: HatDAC2
+#           board: StickCPlus
           - example: ADCInput
             framework: Arduino
             espressif32: latest
@@ -167,21 +171,22 @@ jobs:
             espressif32: latest
             unit: HatDAC2
             board: StickCPlus2
-          - example: ADCInput
-            framework: Arduino
-            espressif32: latest
-            unit: HatADC
-            board: CoreInk
-          - example: ADCInput
-            framework: Arduino
-            espressif32: latest
-            unit: HatADC11
-            board: CoreInk
-          - example: DACOutput
-            framework: Arduino
-            espressif32: latest
-            unit: HatDAC2
-            board: CoreInk
+          # HatADC / HatADC11 / HatDAC2 on ESP32: CoreInk is represented by StickCPlus2
+#         - example: ADCInput
+#           framework: Arduino
+#           espressif32: latest
+#           unit: HatADC
+#           board: CoreInk
+#         - example: ADCInput
+#           framework: Arduino
+#           espressif32: latest
+#           unit: HatADC11
+#           board: CoreInk
+#         - example: DACOutput
+#           framework: Arduino
+#           espressif32: latest
+#           unit: HatDAC2
+#           board: CoreInk
           - example: ADCInput
             framework: Arduino
             espressif32: latest
@@ -212,6 +217,31 @@ jobs:
             espressif32: latest
             unit: HatDAC2
             board: NessoN1
+          - example: ViaPaHub
+            framework: Arduino
+            espressif32: latest
+            board: Core
+          - example: ViaPaHub
+            framework: Arduino
+            espressif32: latest
+            board: CoreS3
+          - example: ViaPaHub
+            framework: Arduino
+            espressif32: latest
+            board: NanoC6
+          - example: ViaPaHub
+            framework: Arduino
+            espressif32: latest
+            board: NanoH2
+          - example: ViaPaHub
+            framework: Arduino
+            espressif32: latest
+            board: Tab5
+#          # NessoN1: same compile config as NanoC6 (env kept in platformio.ini for on-board checks)
+#          - example: ViaPaHub
+#            framework: Arduino
+#            espressif32: latest
+#            board: NessoN1
 
     steps:
       - name: Checkout

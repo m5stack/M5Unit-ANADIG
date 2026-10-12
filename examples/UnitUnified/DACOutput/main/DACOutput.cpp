@@ -10,18 +10,18 @@
 #include <M5UnitUnified.h>
 #include <M5UnitUnifiedANADIG.h>
 #include <M5Utility.h>
-#include <M5HAL.hpp>
+#include <wiring/m5_unit_unified_wiring.hpp>  // Board-aware I2C wiring helpers
 #include <cmath>
 
 // *************************************************************
 // Choose one define symbol to match the unit you are using
 // *************************************************************
 #if !defined(USING_UNIT_DAC) && !defined(USING_UNIT_DAC2) && !defined(USING_HAT_DAC2)
-// For UnitDAC
+// For UnitDAC (U012)
 // #define USING_UNIT_DAC
-// For UnitDAC2
+// For UnitDAC2 (U012-B)
 // #define USING_UNIT_DAC2
-// For HatDAC2
+// For HatDAC2 (U068-B)
 // #define USING_HAT_DAC2
 #endif
 // *************************************************************
@@ -47,32 +47,31 @@ constexpr inline float deg2rad(const float deg)
     return ((deg) / 180.0f * M_PI);
 }
 
-float sin_curve(const uint32_t counter, const float maxMv)
+float sin_curve(const uint32_t counter, const float max_mv)
 {
     float rad = deg2rad(counter % 360);
     float v   = sinf(rad);
-    return maxMv * (v + 1.0f) * 0.5f;
+    return max_mv * (v + 1.0f) * 0.5f;
 }
 
-float sawtooth_wave(const uint32_t counter, const float maxMv)
+float sawtooth_wave(const uint32_t counter, const float max_mv)
 {
-    float rad = (counter % 360) / 360.f;
-    float v   = rad - floor(rad);
-    return v * maxMv;
+    const float phase = (counter % 360) / 360.f;  // 0.0 - <1.0
+    return phase * max_mv;
 }
 
-float square_wave(const uint32_t counter, const float maxMv)
+float square_wave(const uint32_t counter, const float max_mv)
 {
     float rad = deg2rad(counter % 360);
     float v   = (sinf(rad) >= 0.0f) ? 1.0f : -1.0f;
-    return maxMv * (v + 1.0f) * 0.5f;
+    return max_mv * (v + 1.0f) * 0.5f;
 }
 
-float triangle_wave(const uint32_t counter, const float maxMv)
+float triangle_wave(const uint32_t counter, const float max_mv)
 {
     float rad = deg2rad(counter % 360);
     float v   = asinf(sinf(rad));
-    return maxMv * (v + M_PI / 2) / M_PI;
+    return max_mv * (v + M_PI / 2) / M_PI;
 }
 
 using function = float (*)(const uint32_t, const float);
@@ -84,7 +83,7 @@ constexpr function func_table[4] = {
     square_wave,
 
 };
-const char* func_name_table[4] = {
+const char* const func_name_table[4] = {
     "SinCurve",
     "SawtoothWave",
     "TriangleWave",
@@ -94,37 +93,12 @@ const char* func_name_table[4] = {
 uint32_t fidx{};
 function func = func_table[fidx];
 
-#if defined(USING_HAT_DAC2)
-struct I2cPins {
-    int sda;
-    int scl;
-};
-
-I2cPins get_hat_i2c_pins(const m5::board_t board)
-{
-    switch (board) {
-        case m5::board_t::board_M5StickC:
-        case m5::board_t::board_M5StickCPlus:
-        case m5::board_t::board_M5StickCPlus2:
-            return {0, 26};
-        case m5::board_t::board_M5StickS3:
-            return {8, 0};
-        case m5::board_t::board_M5StackCoreInk:
-            return {25, 26};
-        case m5::board_t::board_ArduinoNessoN1:
-            return {6, 7};
-        default:
-            return {-1, -1};
-    }
-}
-#endif
-
 constexpr int MARGIN{4};
 constexpr int BAR_H{12};
 constexpr int CH_BLOCK_H{30};  // 16(voltage) + 2(gap) + 12(bar)
 constexpr int FONT_H{16};
 
-void draw_channel(const int y, const int ch, const float v, const float maxV, const uint8_t bar_color)
+void draw_channel(const int y, const int ch, const float v, const float max_v, const uint8_t bar_color)
 {
     int bar_w = sprite.width() - MARGIN * 2;
 
@@ -132,7 +106,7 @@ void draw_channel(const int y, const int ch, const float v, const float maxV, co
     sprite.printf("Ch:%d %.2f mV", ch, v);
 
     int bar_y  = y + FONT_H + 2;
-    int fill_w = (int)((bar_w - 2) * (v / maxV));
+    int fill_w = (int)((bar_w - 2) * (v / max_v));
     sprite.drawRect(MARGIN, bar_y, bar_w, BAR_H, 3);
     if (fill_w > 0) {
         sprite.fillRect(MARGIN + 1, bar_y + 1, fill_w, BAR_H - 2, bar_color);
@@ -154,7 +128,6 @@ void setup()
 
     M5.begin(m5cfg);
     M5.setTouchButtonHeightByRatio(100);
-    const auto board = M5.getBoard();
 
     // The screen shall be in landscape mode if exists
     if (lcd.height() > lcd.width()) {
@@ -165,73 +138,24 @@ void setup()
     has_display = !lcd.isEPD() && (lcd.width() > 0 && lcd.height() > 0);
 
 #if defined(USING_HAT_DAC2)
-    const auto pins = get_hat_i2c_pins(board);
-    M5_LOGI("getHatPin: SDA:%d SCL:%d", pins.sda, pins.scl);
-    if (pins.sda < 0 || pins.scl < 0) {
-        M5_LOGE("Illegal pin number");
-        lcd.fillScreen(TFT_RED);
-        while (true) {
-            m5::utility::delay(10000);
-        }
-    }
-    auto& wire = (board == m5::board_t::board_ArduinoNessoN1) ? Wire1 : Wire;
-    wire.end();
-    wire.begin(pins.sda, pins.scl, 400 * 1000U);
-    if (!Units.add(unit, wire) || !Units.begin()) {
-        M5_LOGE("Failed to begin");
-        lcd.fillScreen(TFT_RED);
-        while (true) {
-            m5::utility::delay(10000);
-        }
-    }
+    // Hat: board-aware Hat I2C (StickC series Wire / NessoN1 Wire1)
+    const bool unit_ready = m5::unit::wiring::addHatI2C(Units, unit) && Units.begin();
 #else
-    // NessoN1: Arduino Wire (I2C_NUM_0) cannot be used for GROVE port.
-    //   Wire is used by M5Unified In_I2C for internal devices (IOExpander etc.).
-    //   Wire1 exists but is reserved for HatPort — cannot be used for GROVE.
-    //   Reconfiguring Wire to GROVE pins breaks In_I2C, causing ESP_ERR_INVALID_STATE in M5.update().
-    //   Solution: Use SoftwareI2C via M5HAL (bit-banging) for the GROVE port.
-    // NanoC6: Wire.begin() on GROVE pins conflicts with m5::I2C_Class registered by Ex_I2C.setPort()
-    //   on the same I2C_NUM_0, causing sporadic NACK errors.
-    //   Solution: Use M5.Ex_I2C (m5::I2C_Class) directly instead of Arduino Wire.
-    bool unit_ready{};
-    if (board == m5::board_t::board_ArduinoNessoN1) {
-        // NessoN1: GROVE is on port_b (GPIO 5/4), not port_a (which maps to Wire pins 8/10)
-        auto pin_num_sda = M5.getPin(m5::pin_name_t::port_b_out);
-        auto pin_num_scl = M5.getPin(m5::pin_name_t::port_b_in);
-        M5_LOGI("getPin(M5HAL): SDA:%d SCL:%d", pin_num_sda, pin_num_scl);
-        m5::hal::bus::I2CBusConfig i2c_cfg;
-        i2c_cfg.pin_sda = m5::hal::gpio::getPin(pin_num_sda);
-        i2c_cfg.pin_scl = m5::hal::gpio::getPin(pin_num_scl);
-        auto i2c_bus    = m5::hal::bus::i2c::getBus(i2c_cfg);
-        M5_LOGI("Bus:%d", i2c_bus.has_value());
-        unit_ready = Units.add(unit, i2c_bus ? i2c_bus.value() : nullptr) && Units.begin();
-    } else if (board == m5::board_t::board_M5NanoC6) {
-        // NanoC6: Use M5.Ex_I2C (m5::I2C_Class, not Arduino Wire)
-        M5_LOGI("Using M5.Ex_I2C");
-        unit_ready = Units.add(unit, M5.Ex_I2C) && Units.begin();
-    } else {
-        auto pin_num_sda = M5.getPin(m5::pin_name_t::port_a_sda);
-        auto pin_num_scl = M5.getPin(m5::pin_name_t::port_a_scl);
-        M5_LOGI("getPin: SDA:%d SCL:%d", pin_num_sda, pin_num_scl);
-        Wire.end();
-        Wire.begin(pin_num_sda, pin_num_scl, 400 * 1000U);
-        unit_ready = Units.add(unit, Wire) && Units.begin();
-    }
+    // Board-aware I2C: NessoN1 -> SoftwareI2C(port_b), NanoC6/NanoH2 -> Ex_I2C, others -> Wire
+    const bool unit_ready = m5::unit::wiring::addI2C(Units, unit) && Units.begin();
+#endif
     if (!unit_ready) {
         M5_LOGE("Failed to begin");
-        lcd.fillScreen(TFT_RED);
-        while (true) {
-            m5::utility::delay(10000);
-        }
+        M5_LOGW("%s", Units.debugInfo().c_str());
+        m5::unit::wiring::failStop();
     }
-#endif
 
 #if !defined(USING_UNIT_DAC)
     unit.writeOutputRange(Output::Range5V, Output::Range5V);
     unit.writeBothVoltage(0U, 0U);
 #endif
 
-    M5_LOGI("M5UnitUnified has been begun");
+    M5_LOGI("M5UnitUnified initialized");
     M5_LOGI("%s", Units.debugInfo().c_str());
 
     if (has_display) {
@@ -328,7 +252,40 @@ void loop()
         max_0 = unit.maximumVoltage(Channel::Zero);
         max_1 = unit.maximumVoltage(Channel::One);
 
-        M5.Log.printf("---- Range V0:%uV V1:%uV\n", (int)(max_0 / 1000), (int)(max_1 / 1000));
+        M5.Log.printf("---- Range V0:%dV V1:%dV\n", (int)(max_0 / 1000), (int)(max_1 / 1000));
     }
 #endif
 }
+
+#if !defined(ARDUINO)
+#include <freertos/FreeRTOS.h>
+#include <freertos/task.h>
+#include <esp_timer.h>
+
+#if CONFIG_FREERTOS_UNICORE
+// Single-core SoCs: run loop() back-to-back, but every ~2 s yield a 5 ms slice so the IDLE task
+// runs and feeds the task watchdog (default 5 s).
+static inline void feedIdleTaskPeriodically(void)
+{
+    constexpr uint32_t FEED_INTERVAL_MS{2000};
+    constexpr TickType_t FEED_SLEEP_TICKS{pdMS_TO_TICKS(5)};
+    static uint32_t s_last_feed_ms{};
+    const uint32_t now_ms{static_cast<uint32_t>(esp_timer_get_time() / 1000)};
+    if (now_ms - s_last_feed_ms >= FEED_INTERVAL_MS) {
+        s_last_feed_ms = now_ms;
+        vTaskDelay(FEED_SLEEP_TICKS);
+    }
+}
+#endif
+
+extern "C" void app_main(void)
+{
+    setup();
+    for (;;) {
+#if CONFIG_FREERTOS_UNICORE
+        feedIdleTaskPeriodically();
+#endif
+        loop();
+    }
+}
+#endif

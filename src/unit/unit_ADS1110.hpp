@@ -26,7 +26,7 @@ enum class Sampling : uint8_t {
     Rate240,  //!< 240 SPS
     Rate60,   //!< 60 SPS
     Rate30,   //!< 30 SPS
-    Rate15,   //!< 15 SPS as default
+    Rate15,   //!< 15 SPS (chip power-on default)
 };
 
 using PGA  = m5::unit::ads11xx::PGA;
@@ -156,6 +156,9 @@ public:
       @details Reset using I2C general call
       @return True if successful
       @warning This is a reset by General command, the command is also sent to all devices with I2C connections
+      @warning Not supported with m5::I2C_Class. The bus hangs because m5::I2C_Class has no timeout on bus
+     recovery after a general call reset
+      @note Stops the periodic measurement after the reset
     */
     virtual bool generalReset() override;
 

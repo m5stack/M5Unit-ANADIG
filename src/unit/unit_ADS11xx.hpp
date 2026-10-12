@@ -12,6 +12,7 @@
 #include <M5UnitComponent.hpp>
 #include <m5_utility/stl/extension.hpp>
 #include <m5_utility/container/circular_buffer.hpp>
+#include <array>
 #include <limits>  // NaN
 
 namespace m5 {
@@ -56,6 +57,7 @@ struct Data {
         return differentialValue() / (-min_code_table[rate & 0x03] / vdd * (1U << m5::stl::to_underlying(pga))) /
                factor;
     }
+    //! @brief Minimum output code for each data rate (index: rate)
     static const int32_t min_code_table[4];
 };
 
@@ -140,6 +142,16 @@ protected:
     bool write_config(const uint8_t v);
     bool read_measurement(uint8_t v[2]);
     bool is_data_ready();
+    /*!
+      @brief Checks whether bit 7 of the configuration register goes to 0 in continuous conversion mode
+      @details ADS1110 clears ST/DRDY when a new result is written to the output register.
+      ADS1100 always reads ST/BSY as 1 in continuous conversion mode.
+      Both chips have the same I2C address and default configuration, so this tells them apart
+      @param[out] goes_low True if bit 7 went to 0 (ADS1110), false if it stayed 1 (ADS1100)
+      @return True if the configuration register could be read
+      @pre The chip is in continuous conversion mode at the default sampling rate (state after begin())
+     */
+    bool detect_data_ready_flag(bool& goes_low);
 
     virtual bool read_if_ready_in_periodic(uint8_t v[2]);
     virtual uint32_t get_interval(const uint8_t /* rate */)
@@ -188,11 +200,11 @@ protected:
         {
             value = (value & ~0x03) | m5::stl::to_underlying(pga);
         }
-        inline void continuous(bool enable)
+        inline void continuous(const bool enable)
         {
             value = (value & ~(1U << 4)) | ((enable ? 0 : 1) << 4);
         }
-        inline void single(bool enable)
+        inline void single(const bool enable)
         {
             continuous(!enable);
         }

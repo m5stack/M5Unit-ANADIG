@@ -14,6 +14,7 @@
 #include <googletest/test_helper.hpp>
 #include <m5_unit_component/adapter_i2c.hpp>
 #include <unit/unit_ADS1100.hpp>
+#include <wiring/m5_unit_unified_wiring.hpp>
 #include <cmath>
 
 using namespace m5::unit::googletest;
@@ -22,44 +23,13 @@ using namespace m5::unit::ads1100;
 
 constexpr uint32_t STORED_SIZE{8};
 
-#if defined(USING_HAT_ADC) || defined(USING_HAT_ADC11)
-namespace hat {
-struct I2cPins {
-    int sda, scl;
-};
-
-I2cPins get_hat_pins(const m5::board_t board)
-{
-    switch (board) {
-        case m5::board_t::board_M5StickC:
-        case m5::board_t::board_M5StickCPlus:
-        case m5::board_t::board_M5StickCPlus2:
-            return {0, 26};
-        case m5::board_t::board_M5StickS3:
-            return {8, 0};
-        case m5::board_t::board_M5StackCoreInk:
-            return {25, 26};
-        case m5::board_t::board_ArduinoNessoN1:
-            return {6, 7};
-        default:
-            return {-1, -1};
-    }
-}
-}  // namespace hat
-#endif
-
 class TestADS1100 : public I2CComponentTestBase<UnitADS1100> {
 protected:
-#if defined(USING_HAT_ADC) || defined(USING_HAT_ADC11)
+#if defined(USING_HAT_ADC)
     virtual bool begin() override
     {
-        auto board      = M5.getBoard();
-        const auto pins = hat::get_hat_pins(board);
-        // NessoN1: Wire is used by M5Unified In_I2C; use Wire1 for Hat port
-        auto& wire = (board == m5::board_t::board_ArduinoNessoN1) ? Wire1 : Wire;
-        wire.end();
-        wire.begin(pins.sda, pins.scl, unit->component_config().clock);
-        return Units.add(*unit, wire) && Units.begin();
+        // Board-aware Hat I2C (StickC series Wire / NessoN1 Wire1)
+        return m5::unit::wiring::addHatI2C(Units, *unit) && Units.begin();
     }
 #endif
     virtual UnitADS1100* get_instance() override
@@ -167,7 +137,7 @@ TEST_F(TestADS1100, Singleshot)
 
     for (auto&& r : rate_table) {
         for (auto&& p : pga_table) {
-            auto s = m5::utility::formatString("Rate:%u PGA:%u", r, p);
+            auto s = m5::utility::formatString("Rate:%u PGA:%u", (unsigned)r, (unsigned)p);
             SCOPED_TRACE(s);
 
             uint32_t cnt{8};
@@ -190,7 +160,7 @@ TEST_F(TestADS1100, Periodic)
 
     for (auto&& r : rate_table) {
         for (auto&& p : pga_table) {
-            auto s = m5::utility::formatString("Rate:%u PGA:%u", r, p);
+            auto s = m5::utility::formatString("Rate:%u PGA:%u", (unsigned)r, (unsigned)p);
             SCOPED_TRACE(s);
 
             EXPECT_TRUE(unit->startPeriodicMeasurement(r, p));
@@ -223,7 +193,7 @@ TEST_F(TestADS1100, Periodic)
             EXPECT_FALSE(unit->full());
 
             unit->flush();
-            EXPECT_EQ(unit->available(), 0);
+            EXPECT_EQ(unit->available(), 0U);
             EXPECT_TRUE(unit->empty());
             EXPECT_FALSE(unit->full());
 

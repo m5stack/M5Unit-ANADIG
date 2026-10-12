@@ -19,7 +19,7 @@ constexpr uint32_t interval_table[] = {
     1000 / 128 + 1,
     1000 / 32 + 1,
     1000 / 16 + 1,
-    1000 / 8,
+    1000 / 8 + 1,
 };
 
 }  // namespace
@@ -35,8 +35,19 @@ bool UnitADS1100::begin()
 {
     _vdd    = _cfg.vdd;
     _factor = _cfg.factor;
-    return UnitADS11XX::begin() &&
-           (_cfg.start_periodic ? startPeriodicMeasurement(_cfg.sampling_rate, _cfg.pga) : stopPeriodicMeasurement());
+    if (!UnitADS11XX::begin()) {
+        return false;
+    }
+    bool goes_low{};
+    if (!detect_data_ready_flag(goes_low)) {
+        M5_LIB_LOGE("Failed to read config");
+        return false;
+    }
+    if (goes_low) {
+        M5_LIB_LOGE("ST/BSY goes to 0 in continuous mode. ADS1110 (UnitADC11 / HatADC11) is connected?");
+        return false;
+    }
+    return _cfg.start_periodic ? startPeriodicMeasurement(_cfg.sampling_rate, _cfg.pga) : stopPeriodicMeasurement();
 }
 
 bool UnitADS1100::start_periodic_measurement(const ads1100::Sampling rate, const ads1100::PGA pga)
@@ -95,8 +106,8 @@ uint32_t UnitADS1100::get_interval(const uint8_t rate)
 
 bool UnitADS1100::read_if_ready_in_periodic(uint8_t v[2])
 {
-    // ADS1100 don't have data ready status for periodic
-    return /*is_data_ready() && */ read_measurement(v);
+    // ADS1100 doesn't have data ready status for periodic
+    return read_measurement(v);
 }
 
 }  // namespace unit

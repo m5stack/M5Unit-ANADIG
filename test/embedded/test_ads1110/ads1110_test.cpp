@@ -14,6 +14,7 @@
 #include <googletest/test_helper.hpp>
 #include <m5_unit_component/adapter_i2c.hpp>
 #include <unit/unit_ADS1110.hpp>
+#include <wiring/m5_unit_unified_wiring.hpp>
 #include <cmath>
 
 using namespace m5::unit::googletest;
@@ -24,6 +25,13 @@ constexpr uint32_t STORED_SIZE{8};
 
 class TestADS1110 : public I2CComponentTestBase<UnitADS1110> {
 protected:
+#if defined(USING_HAT_ADC11)
+    virtual bool begin() override
+    {
+        // Board-aware Hat I2C (StickC series Wire / NessoN1 Wire1)
+        return m5::unit::wiring::addHatI2C(Units, *unit) && Units.begin();
+    }
+#endif
     virtual UnitADS1110* get_instance() override
     {
         auto ptr         = new m5::unit::UnitADS1110();
@@ -129,7 +137,7 @@ TEST_F(TestADS1110, Singleshot)
 
     for (auto&& r : rate_table) {
         for (auto&& p : pga_table) {
-            auto s = m5::utility::formatString("Rate:%u PGA:%u", r, p);
+            auto s = m5::utility::formatString("Rate:%u PGA:%u", (unsigned)r, (unsigned)p);
             SCOPED_TRACE(s);
 
             uint32_t cnt{8};
@@ -152,7 +160,7 @@ TEST_F(TestADS1110, Periodic)
 
     for (auto&& r : rate_table) {
         for (auto&& p : pga_table) {
-            auto s = m5::utility::formatString("Rate:%u PGA:%u", r, p);
+            auto s = m5::utility::formatString("Rate:%u PGA:%u", (unsigned)r, (unsigned)p);
             SCOPED_TRACE(s);
 
             EXPECT_TRUE(unit->startPeriodicMeasurement(r, p));
@@ -185,7 +193,7 @@ TEST_F(TestADS1110, Periodic)
             EXPECT_FALSE(unit->full());
 
             unit->flush();
-            EXPECT_EQ(unit->available(), 0);
+            EXPECT_EQ(unit->available(), 0U);
             EXPECT_TRUE(unit->empty());
             EXPECT_FALSE(unit->full());
 
