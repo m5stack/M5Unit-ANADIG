@@ -131,7 +131,14 @@ TEST_F(TestGP8413, Store)
     const auto type      = ad ? ad->implType() : AdapterI2C::ImplType::Unknown;
     const bool supported = ad && ad->sda() >= 0 && ad->scl() >= 0 &&
                            (type == AdapterI2C::ImplType::TwoWire || type == AdapterI2C::ImplType::I2CClass ||
-                            type == AdapterI2C::ImplType::Bus);
+                            type == AdapterI2C::ImplType::Bus
+#if defined(ESP_PLATFORM) && __has_include(<driver/i2c_master.h>) && !defined(CONFIG_IDF_TARGET_ESP32P4)
+                            || type == AdapterI2C::ImplType::ESPIDFMasterBus
+#elif defined(ESP_PLATFORM) && !defined(CONFIG_IDF_TARGET_ESP32P4)
+                            || type == AdapterI2C::ImplType::ESPIDFLegacyBus
+#endif
+                           );
+    M5_LOGI("Store on impl:%u SDA:%d SCL:%d", (unsigned)type, ad ? ad->sda() : -1, ad ? ad->scl() : -1);
 
     // Store 0V so that the unit outputs 0V at the next power-on
     EXPECT_TRUE(unit->writeBothVoltage(0.0f));
