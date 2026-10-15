@@ -14,6 +14,7 @@
 #include <googletest/test_helper.hpp>
 #include <m5_unit_component/adapter_i2c.hpp>
 #include <unit/unit_MCP4725.hpp>
+#include <wiring/m5_unit_unified_wiring.hpp>
 
 using namespace m5::unit::googletest;
 using namespace m5::unit;
@@ -21,6 +22,13 @@ using namespace m5::unit::mcp4725;
 
 class TestMCP4725 : public I2CComponentTestBase<UnitMCP4725> {
 protected:
+#if defined(USING_HAT_DAC)
+    virtual bool begin() override
+    {
+        // Board-aware Hat I2C (StickC series Wire / NessoN1 Wire1)
+        return m5::unit::wiring::addHatI2C(Units, *unit) && Units.begin();
+    }
+#endif
     virtual UnitMCP4725* get_instance() override
     {
         auto ptr = new m5::unit::UnitMCP4725();
