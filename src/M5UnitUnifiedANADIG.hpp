@@ -41,6 +41,8 @@ using UnitDAC2 = m5::unit::UnitGP8413;
 using HatADC = m5::unit::UnitADS1100;
 //! @brief Alias for ADS1110 based HAT
 using HatADC11 = m5::unit::UnitADS1110;
+//! @brief Alias for MCP4725 based HAT
+using HatDAC = m5::unit::UnitMCP4725;
 //! @brief Alias for GP8413 based HAT
 using HatDAC2 = m5::unit::UnitGP8413;
 
