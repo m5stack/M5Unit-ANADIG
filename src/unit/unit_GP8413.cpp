@@ -259,6 +259,7 @@ bool UnitGP8413::storeBothVoltage()
             // Detach the pins from the controller, keeping the driver installed
             // (fails on pins not routed through the GPIO matrix, e.g. LP I2C)
             if (!ad->releasePins()) {
+                M5_LIB_LOGE("Store is not supported on this I2C bus (SDA/SCL are not routed through the GPIO matrix)");
                 return false;
             }
             break;
