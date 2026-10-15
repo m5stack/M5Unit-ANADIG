@@ -87,6 +87,9 @@ jobs:
           - label: DACOutput (UnitDAC2)
             example_path: examples/UnitUnified/DACOutput
             config: CONFIG_EXAMPLE_USING_UNIT_DAC2=y
+          - label: DACOutput (HatDAC)
+            example_path: examples/UnitUnified/DACOutput
+            config: CONFIG_EXAMPLE_USING_HAT_DAC=y
           - label: DACOutput (HatDAC2)
             example_path: examples/UnitUnified/DACOutput
             config: CONFIG_EXAMPLE_USING_HAT_DAC2=y

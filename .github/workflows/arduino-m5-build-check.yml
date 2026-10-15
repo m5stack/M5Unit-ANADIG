@@ -67,6 +67,7 @@ jobs:
 #          - UnitDAC2
 #          - HatADC
 #          - HatADC11
+#          - HatDAC
 #          - HatDAC2
 
         board:
@@ -128,7 +129,7 @@ jobs:
 
         include:
           # Specific sketches
-          # HatADC / HatADC11 / HatDAC2 on ESP32: StickCPlus is represented by StickCPlus2
+          # HatADC / HatADC11 / HatDAC / HatDAC2 on ESP32: StickCPlus is represented by StickCPlus2
 #         - sketch: ADCInput
 #           platform-url: https://m5stack.oss-cn-shenzhen.aliyuncs.com/resource/arduino/package_m5stack_index.json
 #           platform-version: 3.3.9
@@ -150,6 +151,13 @@ jobs:
 #           archi: esp32
 #           board: m5stack_stickc_plus
 #           build-properties: "-DUSING_HAT_DAC2"
+#         - sketch: DACOutput
+#           platform-url: https://m5stack.oss-cn-shenzhen.aliyuncs.com/resource/arduino/package_m5stack_index.json
+#           platform-version: 3.3.9
+#           platform: m5stack
+#           archi: esp32
+#           board: m5stack_stickc_plus
+#           build-properties: "-DUSING_HAT_DAC"
           - sketch: ADCInput
             platform-url: https://m5stack.oss-cn-shenzhen.aliyuncs.com/resource/arduino/package_m5stack_index.json
             platform-version: 3.3.9
@@ -171,6 +179,13 @@ jobs:
             archi: esp32
             board: m5stack_stickc_plus2
             build-properties: "-DUSING_HAT_DAC2"
+          - sketch: DACOutput
+            platform-url: https://m5stack.oss-cn-shenzhen.aliyuncs.com/resource/arduino/package_m5stack_index.json
+            platform-version: 3.3.9
+            platform: m5stack
+            archi: esp32
+            board: m5stack_stickc_plus2
+            build-properties: "-DUSING_HAT_DAC"
           - sketch: ADCInput
             platform-url: https://m5stack.oss-cn-shenzhen.aliyuncs.com/resource/arduino/package_m5stack_index.json
             platform-version: 3.3.9
@@ -192,7 +207,14 @@ jobs:
             archi: esp32
             board: arduino_nesso_n1
             build-properties: "-DUSING_HAT_DAC2"
-          # HatADC / HatADC11 / HatDAC2 on ESP32: CoreInk is represented by StickCPlus2
+          - sketch: DACOutput
+            platform-url: https://m5stack.oss-cn-shenzhen.aliyuncs.com/resource/arduino/package_m5stack_index.json
+            platform-version: 3.3.9
+            platform: m5stack
+            archi: esp32
+            board: arduino_nesso_n1
+            build-properties: "-DUSING_HAT_DAC"
+          # HatADC / HatADC11 / HatDAC / HatDAC2 on ESP32: CoreInk is represented by StickCPlus2
 #         - sketch: ADCInput
 #           platform-url: https://m5stack.oss-cn-shenzhen.aliyuncs.com/resource/arduino/package_m5stack_index.json
 #           platform-version: 3.3.9
@@ -214,6 +236,13 @@ jobs:
 #           archi: esp32
 #           board: m5stack_coreink
 #           build-properties: "-DUSING_HAT_DAC2"
+#         - sketch: DACOutput
+#           platform-url: https://m5stack.oss-cn-shenzhen.aliyuncs.com/resource/arduino/package_m5stack_index.json
+#           platform-version: 3.3.9
+#           platform: m5stack
+#           archi: esp32
+#           board: m5stack_coreink
+#           build-properties: "-DUSING_HAT_DAC"
           - sketch: ADCInput
             platform-url: https://m5stack.oss-cn-shenzhen.aliyuncs.com/resource/arduino/package_m5stack_index.json
             platform-version: 3.3.9
@@ -235,6 +264,13 @@ jobs:
             archi: esp32
             board: m5stack_sticks3
             build-properties: "-DUSING_HAT_DAC2"
+          - sketch: DACOutput
+            platform-url: https://m5stack.oss-cn-shenzhen.aliyuncs.com/resource/arduino/package_m5stack_index.json
+            platform-version: 3.3.9
+            platform: m5stack
+            archi: esp32
+            board: m5stack_sticks3
+            build-properties: "-DUSING_HAT_DAC"
           - sketch: ViaPaHub
             platform-url: https://m5stack.oss-cn-shenzhen.aliyuncs.com/resource/arduino/package_m5stack_index.json
             platform-version: 3.3.9

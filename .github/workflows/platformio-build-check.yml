@@ -67,6 +67,7 @@ jobs:
           - UnitDAC2
 #          - HatADC
 #          - HatADC11
+#          - HatDAC
 #          - HatDAC2
 
         board:
@@ -140,7 +141,7 @@ jobs:
 
         include:
           # Specific examples
-          # HatADC / HatADC11 / HatDAC2 on ESP32: StickCPlus is represented by StickCPlus2
+          # HatADC / HatADC11 / HatDAC / HatDAC2 on ESP32: StickCPlus is represented by StickCPlus2
 #         - example: ADCInput
 #           framework: Arduino
 #           espressif32: latest
@@ -156,6 +157,11 @@ jobs:
 #           espressif32: latest
 #           unit: HatDAC2
 #           board: StickCPlus
+#         - example: DACOutput
+#           framework: Arduino
+#           espressif32: latest
+#           unit: HatDAC
+#           board: StickCPlus
           - example: ADCInput
             framework: Arduino
             espressif32: latest
@@ -171,7 +177,12 @@ jobs:
             espressif32: latest
             unit: HatDAC2
             board: StickCPlus2
-          # HatADC / HatADC11 / HatDAC2 on ESP32: CoreInk is represented by StickCPlus2
+          - example: DACOutput
+            framework: Arduino
+            espressif32: latest
+            unit: HatDAC
+            board: StickCPlus2
+          # HatADC / HatADC11 / HatDAC / HatDAC2 on ESP32: CoreInk is represented by StickCPlus2
 #         - example: ADCInput
 #           framework: Arduino
 #           espressif32: latest
@@ -187,6 +198,11 @@ jobs:
 #           espressif32: latest
 #           unit: HatDAC2
 #           board: CoreInk
+#         - example: DACOutput
+#           framework: Arduino
+#           espressif32: latest
+#           unit: HatDAC
+#           board: CoreInk
           - example: ADCInput
             framework: Arduino
             espressif32: latest
@@ -202,6 +218,11 @@ jobs:
             espressif32: latest
             unit: HatDAC2
             board: StickS3
+          - example: DACOutput
+            framework: Arduino
+            espressif32: latest
+            unit: HatDAC
+            board: StickS3
           - example: ADCInput
             framework: Arduino
             espressif32: latest
@@ -216,6 +237,11 @@ jobs:
             framework: Arduino
             espressif32: latest
             unit: HatDAC2
+            board: NessoN1
+          - example: DACOutput
+            framework: Arduino
+            espressif32: latest
+            unit: HatDAC
             board: NessoN1
           - example: ViaPaHub
             framework: Arduino

@@ -66,6 +66,7 @@ jobs:
 #          - UnitDAC2
 #          - HatADC
 #          - HatADC11
+#          - HatDAC
 #          - HatDAC2
 
         board:
@@ -123,7 +124,7 @@ jobs:
 
         include:
           # Specific sketches
-          # HatADC / HatADC11 / HatDAC2 on ESP32: StickCPlus is represented by StickCPlus2
+          # HatADC / HatADC11 / HatDAC / HatDAC2 on ESP32: StickCPlus is represented by StickCPlus2
 #         - sketch: ADCInput
 #           platform-url: https://espressif.github.io/arduino-esp32/package_esp32_index.json
 #           platform-version: 3.3.12
@@ -145,6 +146,13 @@ jobs:
 #           archi: esp32
 #           board: m5stack_stickc_plus
 #           build-properties: "-DUSING_HAT_DAC2"
+#         - sketch: DACOutput
+#           platform-url: https://espressif.github.io/arduino-esp32/package_esp32_index.json
+#           platform-version: 3.3.12
+#           platform: esp32
+#           archi: esp32
+#           board: m5stack_stickc_plus
+#           build-properties: "-DUSING_HAT_DAC"
           - sketch: ADCInput
             platform-url: https://espressif.github.io/arduino-esp32/package_esp32_index.json
             platform-version: 3.3.12
@@ -166,6 +174,13 @@ jobs:
             archi: esp32
             board: m5stack_stickc_plus2
             build-properties: "-DUSING_HAT_DAC2"
+          - sketch: DACOutput
+            platform-url: https://espressif.github.io/arduino-esp32/package_esp32_index.json
+            platform-version: 3.3.12
+            platform: esp32
+            archi: esp32
+            board: m5stack_stickc_plus2
+            build-properties: "-DUSING_HAT_DAC"
           - sketch: ViaPaHub
             platform-url: https://espressif.github.io/arduino-esp32/package_esp32_index.json
             platform-version: 3.3.12
