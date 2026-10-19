@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: MIT
  */
 /*
-  Example using M5UnitUnified for UnitDAC/UnitDAC2/HatDAC2
+  Example using M5UnitUnified for UnitDAC/UnitDAC2/HatDAC/HatDAC2
 */
 #include <M5Unified.h>
 #include <M5UnitUnified.h>
@@ -16,11 +16,13 @@
 // *************************************************************
 // Choose one define symbol to match the unit you are using
 // *************************************************************
-#if !defined(USING_UNIT_DAC) && !defined(USING_UNIT_DAC2) && !defined(USING_HAT_DAC2)
+#if !defined(USING_UNIT_DAC) && !defined(USING_UNIT_DAC2) && !defined(USING_HAT_DAC) && !defined(USING_HAT_DAC2)
 // For UnitDAC (U012)
 // #define USING_UNIT_DAC
 // For UnitDAC2 (U012-B)
 // #define USING_UNIT_DAC2
+// For HatDAC (U068)
+// #define USING_HAT_DAC
 // For HatDAC2 (U068-B)
 // #define USING_HAT_DAC2
 #endif
@@ -33,6 +35,8 @@ m5::unit::UnitUnified Units;
 m5::unit::UnitDAC unit;
 #elif defined(USING_UNIT_DAC2)
 m5::unit::UnitDAC2 unit;
+#elif defined(USING_HAT_DAC)
+m5::unit::HatDAC unit;
 #elif defined(USING_HAT_DAC2)
 m5::unit::HatDAC2 unit;
 #else
@@ -120,7 +124,7 @@ using namespace m5::unit::gp8413;
 void setup()
 {
     auto m5cfg = M5.config();
-#if defined(USING_HAT_DAC2)
+#if defined(USING_HAT_DAC) || defined(USING_HAT_DAC2)
     m5cfg.pmic_button  = false;  // Disable BtnPWR
     m5cfg.internal_imu = false;  // Disable internal IMU
     m5cfg.internal_rtc = false;  // Disable internal RTC
@@ -137,8 +141,10 @@ void setup()
     // ePaper panels are not suitable for continuous redraw
     has_display = !lcd.isEPD() && (lcd.width() > 0 && lcd.height() > 0);
 
-#if defined(USING_HAT_DAC2)
+#if defined(USING_HAT_DAC) || defined(USING_HAT_DAC2)
     // Hat: board-aware Hat I2C (StickC series Wire / NessoN1 Wire1)
+    // StickS3 + HatDAC: do not attach HatDAC at power-on; it pulls GPIO0 (Hat SCL) low and StickS3 starts in
+    // download mode. Attach it after boot and restart with esp_restart() (see README)
     const bool unit_ready = m5::unit::wiring::addHatI2C(Units, unit) && Units.begin();
 #else
     // Board-aware I2C: NessoN1 -> SoftwareI2C(port_b), NanoC6/NanoH2 -> Ex_I2C, others -> Wire
@@ -150,7 +156,7 @@ void setup()
         m5::unit::wiring::failStop();
     }
 
-#if !defined(USING_UNIT_DAC)
+#if !defined(USING_UNIT_DAC) && !defined(USING_HAT_DAC)
     unit.writeOutputRange(Output::Range5V, Output::Range5V);
     unit.writeBothVoltage(0U, 0U);
 #endif
@@ -178,7 +184,7 @@ void setup()
 void loop()
 {
     static float pv0{}, pv1{};
-#if defined(USING_UNIT_DAC)
+#if defined(USING_UNIT_DAC) || defined(USING_HAT_DAC)
     static float max_0{unit.config().saturation_voltage};
 #else
     static float max_0{unit.maximumVoltage(Channel::Zero)};
@@ -188,7 +194,7 @@ void loop()
     M5.update();
     Units.update();
 
-#if defined(USING_UNIT_DAC)
+#if defined(USING_UNIT_DAC) || defined(USING_HAT_DAC)
     auto v0 = func(counter, max_0);
     auto v1 = 0.0f;
     unit.writeVoltage(v0);
@@ -205,7 +211,7 @@ void loop()
         pv0 = v0;
         pv1 = v1;
 
-#if defined(USING_UNIT_DAC)
+#if defined(USING_UNIT_DAC) || defined(USING_HAT_DAC)
         constexpr int num_ch = 1;
 #else
         constexpr int num_ch = 2;
@@ -219,7 +225,7 @@ void loop()
 
         int ch_y = y + FONT_H + 2;
         draw_channel(ch_y, 0, v0, max_0, 2);
-#if !defined(USING_UNIT_DAC)
+#if !defined(USING_UNIT_DAC) && !defined(USING_HAT_DAC)
         draw_channel(ch_y + CH_BLOCK_H + 4, 1, v1, max_1, 1);
 #endif
 
@@ -240,7 +246,7 @@ void loop()
         M5.Log.printf("==== Output:%s\n", func_name_table[fidx]);
     }
 
-#if !defined(USING_UNIT_DAC)
+#if !defined(USING_UNIT_DAC) && !defined(USING_HAT_DAC)
     // Change output range(DAC2)
     if (M5.BtnA.wasHold()) {
         static uint32_t range_mode{};

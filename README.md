@@ -25,6 +25,12 @@ Using a standard I2C communication interface, the module enables accurate and st
 Hat ADC v1.1 is a high-precision analog-to-digital conversion module specifically designed for the StickC series. It integrates the ADS1110 16-bit Δ-Σ ADC chip, featuring fully differential inputs, self-calibration, and adjustable gain. The chip itself supports a differential input range of -5V ~ +5V. Through optimized peripheral circuit design, the module extends this capability to a DC voltage measurement range of 0 ~ 12V.
 It also includes a built-in 2.048V reference voltage, enabling stable and accurate signal acquisition without the need for an external reference source. The module communicates via a standard I2C interface and is suitable for applications such as industrial sensor signal processing, battery voltage monitoring, and various analog signal acquisition scenarios.
 
+### SKU:U068
+Hat DAC is a DA conversion module compatible with StickC, internally integrated with the DAC conversion chip MCP4725. It has a single output channel with 12-bit resolution, and the output voltage range is 0-3.3V. The setting can be saved to the EEPROM so that it is kept after power-off. The I2C address is 0x60.
+
+> **NOTE:** On StickS3, do not attach Hat DAC at power-on. Its I2C pull-ups are tied to the Hat 5V (EXT_5V), which is off until M5Unified starts, so the Hat SCL (GPIO0, a strapping pin) is pulled low and StickS3 starts in download mode (black screen). This can also happen with the reset button. If it is stuck on a black screen, remove Hat DAC and press the reset button.
+> Power on (or reset) StickS3 without Hat DAC, attach Hat DAC after StickS3 has started, then restart it with `esp_restart()` (a software reset keeps EXT_5V on, so it boots normally with Hat DAC attached).
+
 ### SKU:U068-B
 Hat DAC2 is an I2C digital-to-analog signal conversion unit designed for the StickC series controllers. Using the GP8413 solution, this chip can linearly convert a 15-bit digital quantity into two independent 0–5V / 0–10V analog voltages with an output voltage error of 0.2% and linearity of 0.01%. For scalability, the circuit design allows selection via three hardware address pins (A2/A1/A0).
 In terms of safety, the device supports output short-circuit protection — when the output pin is shorted to ground, it automatically enters protection mode and stops output. It is suitable for general signal conversion, motor speed control, LED dimming, inverters, power supplies, and industrial analog signal isolation applications.
@@ -35,6 +41,7 @@ In terms of safety, the device supports output short-circuit protection — when
 - [Unit DAC2 & Datasheet](https://docs.m5stack.com/en/unit/Unit-DAC2)
 - [Hat ADC & Datasheet](https://docs.m5stack.com/en/hat/hat-adc)
 - [Hat ADC v1.1 & Datasheet](https://docs.m5stack.com/en/hat/HAT-ADC-V11)
+- [Hat DAC & Datasheet](https://docs.m5stack.com/en/hat/hat_dac)
 - [Hat DAC2 & Datasheet](https://docs.m5stack.com/en/hat/Hat-DAC2)
 
 ## Required Libraries
@@ -72,11 +79,13 @@ You must choose a define symbol for the unit you will use.
 // *************************************************************
 // Choose one define symbol to match the unit you are using
 // *************************************************************
-#if !defined(USING_UNIT_DAC) && !defined(USING_UNIT_DAC2) && !defined(USING_HAT_DAC2)
+#if !defined(USING_UNIT_DAC) && !defined(USING_UNIT_DAC2) && !defined(USING_HAT_DAC) && !defined(USING_HAT_DAC2)
 // For UnitDAC (U012)
 // #define USING_UNIT_DAC
 // For UnitDAC2 (U012-B)
 // #define USING_UNIT_DAC2
+// For HatDAC (U068)
+// #define USING_HAT_DAC
 // For HatDAC2 (U068-B)
 // #define USING_HAT_DAC2
 #endif
@@ -94,7 +103,7 @@ On ESP-IDF native builds (`idf.py`), the unit is selected via Kconfig instead of
 | Kconfig file | Variants offered | Used by |
 |---|---|---|
 | `Kconfig.variant.adc` | UnitADC11 / HatADC11 / HatADC | ADCInput |
-| `Kconfig.variant.dac` | UnitDAC / UnitDAC2 / HatDAC2 | DACOutput |
+| `Kconfig.variant.dac` | UnitDAC / UnitDAC2 / HatDAC / HatDAC2 | DACOutput |
 
 `examples/UnitUnified/common/variant.cmake` then maps the chosen `CONFIG_EXAMPLE_USING_*` to the source-level macro shared with the Arduino build, so the example source itself does not need to be edited.
 

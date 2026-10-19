@@ -13,6 +13,8 @@ choice EXAMPLE_DAC_VARIANT
         bool "UnitDAC (U012, I2C / GROVE)"
     config EXAMPLE_USING_UNIT_DAC2
         bool "UnitDAC2 (U012-B, I2C / GROVE)"
+    config EXAMPLE_USING_HAT_DAC
+        bool "HatDAC (U068, I2C / Hat port)"
     config EXAMPLE_USING_HAT_DAC2
         bool "HatDAC2 (U068-B, I2C / Hat port)"
 endchoice
